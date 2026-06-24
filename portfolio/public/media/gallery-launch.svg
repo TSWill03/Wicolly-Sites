@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="launch-accent" x1="160" y1="140" x2="940" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5EEAD4" />
+      <stop offset=".52" stop-color="#8DB0FF" />
+      <stop offset="1" stop-color="#FFBE78" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="46" fill="#08121F" />
+  <rect x="94" y="94" width="1012" height="712" rx="36" fill="url(#launch-accent)" fill-opacity=".08" stroke="rgba(255,255,255,.14)" />
+  <rect x="146" y="148" width="908" height="604" rx="40" fill="#0B1726" fill-opacity=".78" />
+  <circle cx="920" cy="224" r="78" fill="#5EEAD4" fill-opacity=".12" />
+  <text x="206" y="268" fill="#5EEAD4" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="5">LANCAMENTO</text>
+  <text x="206" y="362" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="74" font-weight="700">Produto pronto</text>
+  <text x="206" y="434" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="74" font-weight="700">para apresentar</text>
+  <rect x="206" y="496" width="232" height="18" rx="9" fill="#5EEAD4" fill-opacity=".24" />
+  <rect x="206" y="534" width="308" height="18" rx="9" fill="#8DB0FF" fill-opacity=".22" />
+  <rect x="206" y="572" width="272" height="18" rx="9" fill="#FFBE78" fill-opacity=".22" />
+</svg>

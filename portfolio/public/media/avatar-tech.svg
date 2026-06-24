@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1400" fill="none">
+  <defs>
+    <linearGradient id="avatar-bg" x1="176" y1="96" x2="1024" y2="1304" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#173053" />
+      <stop offset=".52" stop-color="#0C1E33" />
+      <stop offset="1" stop-color="#07111D" />
+    </linearGradient>
+    <linearGradient id="avatar-accent" x1="212" y1="194" x2="866" y2="1184" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5EEAD4" />
+      <stop offset=".58" stop-color="#8DB0FF" />
+      <stop offset="1" stop-color="#FFBE78" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1400" rx="56" fill="url(#avatar-bg)" />
+  <circle cx="946" cy="252" r="164" fill="#5EEAD4" fill-opacity=".1" />
+  <circle cx="256" cy="1148" r="204" fill="#8DB0FF" fill-opacity=".08" />
+  <rect x="138" y="118" width="924" height="1164" rx="42" fill="url(#avatar-accent)" fill-opacity=".08" stroke="rgba(255,255,255,.14)" />
+  <circle cx="600" cy="504" r="214" stroke="#5EEAD4" stroke-opacity=".6" stroke-width="2.5" />
+  <circle cx="600" cy="504" r="296" stroke="#8DB0FF" stroke-opacity=".28" stroke-width="2.5" stroke-dasharray="10 16" />
+  <circle cx="600" cy="504" r="112" fill="url(#avatar-accent)" fill-opacity=".16" stroke="#F4F8FF" stroke-opacity=".24" stroke-width="2" />
+  <rect x="354" y="724" width="492" height="266" rx="28" fill="#0B1828" fill-opacity=".8" stroke="rgba(255,255,255,.12)" />
+  <text x="404" y="804" fill="#5EEAD4" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">PORTIFOLIO MODULAR</text>
+  <text x="404" y="868" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="54" font-weight="700">Seu Nome Studio</text>
+  <text x="404" y="918" fill="#98ADCA" font-family="Arial, sans-serif" font-size="24">Projetos, certificados, servicos e contato</text>
+  <rect x="404" y="954" width="208" height="18" rx="9" fill="#5EEAD4" fill-opacity=".26" />
+  <rect x="404" y="988" width="318" height="18" rx="9" fill="#8DB0FF" fill-opacity=".22" />
+</svg>

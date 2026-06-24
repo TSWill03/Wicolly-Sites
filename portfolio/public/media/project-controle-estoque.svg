@@ -1,0 +1,37 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="64" fill="#07111D"/>
+  <rect x="44" y="44" width="1112" height="812" rx="52" fill="url(#bg)"/>
+  <circle cx="1050" cy="180" r="170" fill="#5EEAD4" fill-opacity="0.15"/>
+  <circle cx="214" cy="760" r="214" fill="#FFBE78" fill-opacity="0.12"/>
+  <rect x="94" y="96" width="1012" height="708" rx="34" fill="#0D1F33" stroke="#2A4C6D" stroke-width="2"/>
+  <rect x="140" y="146" width="922" height="76" rx="24" fill="#122A42"/>
+  <rect x="176" y="176" width="184" height="18" rx="9" fill="#EAF3FF"/>
+  <rect x="826" y="172" width="188" height="26" rx="13" fill="#183A58"/>
+  <rect x="140" y="262" width="274" height="188" rx="26" fill="#132A43"/>
+  <rect x="444" y="262" width="274" height="188" rx="26" fill="#132A43"/>
+  <rect x="748" y="262" width="314" height="188" rx="26" fill="#132A43"/>
+  <rect x="174" y="300" width="112" height="14" rx="7" fill="#7D93B5"/>
+  <rect x="174" y="334" width="144" height="52" rx="18" fill="#5EEAD4" fill-opacity="0.2"/>
+  <rect x="478" y="300" width="122" height="14" rx="7" fill="#7D93B5"/>
+  <rect x="478" y="334" width="164" height="52" rx="18" fill="#8DB0FF" fill-opacity="0.2"/>
+  <rect x="782" y="300" width="118" height="14" rx="7" fill="#7D93B5"/>
+  <rect x="782" y="334" width="238" height="16" rx="8" fill="#FFBE78"/>
+  <rect x="782" y="366" width="196" height="14" rx="7" fill="#5F789D"/>
+  <rect x="140" y="486" width="922" height="270" rx="30" fill="#101C2E"/>
+  <rect x="178" y="530" width="192" height="182" rx="22" fill="#152B43"/>
+  <rect x="402" y="530" width="192" height="182" rx="22" fill="#152B43"/>
+  <rect x="626" y="530" width="192" height="182" rx="22" fill="#152B43"/>
+  <rect x="850" y="530" width="174" height="182" rx="22" fill="#152B43"/>
+  <path d="M214 618H334" stroke="#5EEAD4" stroke-width="18" stroke-linecap="round"/>
+  <path d="M438 664H558" stroke="#8DB0FF" stroke-width="18" stroke-linecap="round"/>
+  <path d="M662 606H782" stroke="#FFBE78" stroke-width="18" stroke-linecap="round"/>
+  <path d="M886 648H988" stroke="#5EEAD4" stroke-width="18" stroke-linecap="round"/>
+  <text x="146" y="804" fill="#F1F7FF" font-family="Arial, sans-serif" font-size="66" font-weight="700">Controle de Estoque</text>
+  <text x="148" y="848" fill="#92A8C5" font-family="Arial, sans-serif" font-size="30">Desktop + API para operacoes, auditoria, relatorios e fluxo corporativo.</text>
+  <defs>
+    <linearGradient id="bg" x1="90" y1="92" x2="1060" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1624"/>
+      <stop offset="1" stop-color="#13304B"/>
+    </linearGradient>
+  </defs>
+</svg>

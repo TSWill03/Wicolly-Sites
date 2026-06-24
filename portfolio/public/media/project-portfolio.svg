@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="project-portfolio-bg" x1="146" y1="80" x2="1096" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102744" />
+      <stop offset="1" stop-color="#07111D" />
+    </linearGradient>
+    <linearGradient id="project-portfolio-accent" x1="200" y1="154" x2="856" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5EEAD4" />
+      <stop offset=".56" stop-color="#8DB0FF" />
+      <stop offset="1" stop-color="#FFBE78" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="46" fill="url(#project-portfolio-bg)" />
+  <rect x="78" y="82" width="1044" height="736" rx="34" fill="url(#project-portfolio-accent)" fill-opacity=".08" stroke="rgba(255,255,255,.14)" />
+  <rect x="144" y="158" width="914" height="102" rx="24" fill="#0B1726" fill-opacity=".78" />
+  <rect x="144" y="298" width="430" height="418" rx="32" fill="#0B1726" fill-opacity=".78" />
+  <rect x="606" y="298" width="452" height="182" rx="32" fill="#0B1726" fill-opacity=".78" />
+  <rect x="606" y="514" width="212" height="202" rx="32" fill="#0B1726" fill-opacity=".78" />
+  <rect x="846" y="514" width="212" height="202" rx="32" fill="#0B1726" fill-opacity=".78" />
+  <text x="182" y="218" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="48" font-weight="700">Portifolio Productized</text>
+  <text x="182" y="362" fill="#5EEAD4" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="5">PORTIFOLIO + PRODUTO</text>
+  <text x="182" y="426" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="66" font-weight="700">Narrativa,</text>
+  <text x="182" y="490" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="66" font-weight="700">credibilidade</text>
+  <text x="182" y="554" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="66" font-weight="700">e venda</text>
+  <rect x="182" y="612" width="228" height="18" rx="9" fill="#5EEAD4" fill-opacity=".26" />
+  <rect x="182" y="650" width="320" height="18" rx="9" fill="#8DB0FF" fill-opacity=".22" />
+</svg>

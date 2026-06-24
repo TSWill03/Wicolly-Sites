@@ -1,0 +1,36 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="64" fill="#08131F"/>
+  <rect x="42" y="42" width="1116" height="816" rx="50" fill="url(#bg)"/>
+  <circle cx="970" cy="180" r="184" fill="#FFBE78" fill-opacity="0.18"/>
+  <circle cx="208" cy="714" r="180" fill="#5EEAD4" fill-opacity="0.14"/>
+  <rect x="94" y="94" width="1012" height="712" rx="36" fill="#0D2135" stroke="#29496A" stroke-width="2"/>
+  <rect x="146" y="146" width="438" height="290" rx="30" fill="#122A43"/>
+  <text x="194" y="278" fill="#F8BC78" font-family="Arial, sans-serif" font-size="120" font-weight="700">$</text>
+  <rect x="302" y="212" width="214" height="24" rx="12" fill="#EAF3FF"/>
+  <rect x="302" y="258" width="166" height="16" rx="8" fill="#7D93B5"/>
+  <rect x="302" y="292" width="140" height="16" rx="8" fill="#5F789D"/>
+  <rect x="624" y="146" width="430" height="290" rx="30" fill="#122A43"/>
+  <path d="M686 352L754 282L822 314L898 222L992 264" stroke="#5EEAD4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="686" cy="352" r="14" fill="#5EEAD4"/>
+  <circle cx="754" cy="282" r="14" fill="#5EEAD4"/>
+  <circle cx="822" cy="314" r="14" fill="#5EEAD4"/>
+  <circle cx="898" cy="222" r="14" fill="#5EEAD4"/>
+  <circle cx="992" cy="264" r="14" fill="#5EEAD4"/>
+  <rect x="146" y="474" width="908" height="284" rx="30" fill="#101D2F"/>
+  <rect x="194" y="534" width="172" height="158" rx="22" fill="#152B43"/>
+  <rect x="402" y="534" width="172" height="158" rx="22" fill="#152B43"/>
+  <rect x="610" y="534" width="172" height="158" rx="22" fill="#152B43"/>
+  <rect x="818" y="534" width="188" height="158" rx="22" fill="#152B43"/>
+  <rect x="230" y="566" width="98" height="18" rx="9" fill="#F8BC78"/>
+  <rect x="438" y="566" width="98" height="18" rx="9" fill="#5EEAD4"/>
+  <rect x="646" y="566" width="98" height="18" rx="9" fill="#8DB0FF"/>
+  <rect x="854" y="566" width="116" height="18" rx="9" fill="#EAF3FF"/>
+  <text x="148" y="806" fill="#F3F8FF" font-family="Arial, sans-serif" font-size="68" font-weight="700">Quanto Custa?</text>
+  <text x="150" y="850" fill="#93A8C1" font-family="Arial, sans-serif" font-size="30">Simulador multiplataforma para medir o impacto financeiro de habitos recorrentes.</text>
+  <defs>
+    <linearGradient id="bg" x1="84" y1="88" x2="1048" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1726"/>
+      <stop offset="1" stop-color="#13304B"/>
+    </linearGradient>
+  </defs>
+</svg>

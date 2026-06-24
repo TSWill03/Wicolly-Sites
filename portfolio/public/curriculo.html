@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Curriculo de Wicolly Alcantara com foco em desenvolvimento de software, apps multiplataforma e automacao."
+    />
+    <title>Curriculo | Wicolly Alcantara</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: "Manrope", system-ui, sans-serif;
+        --bg: #07111d;
+        --bg-alt: #0b1627;
+        --surface: rgba(10, 24, 40, 0.84);
+        --surface-strong: #0f2136;
+        --text: #edf4ff;
+        --muted: #9cb0cc;
+        --line: rgba(136, 162, 198, 0.18);
+        --primary: #5eead4;
+        --secondary: #ffbe78;
+        --accent: #8db0ff;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top right, rgba(94, 234, 212, 0.16), transparent 26%),
+          radial-gradient(circle at left bottom, rgba(141, 176, 255, 0.18), transparent 34%),
+          linear-gradient(180deg, var(--bg) 0%, #040913 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 2rem 0 4rem;
+      }
+
+      .topbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .crumb {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.95rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        font-weight: 700;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        border-color: rgba(94, 234, 212, 0.4);
+        background: rgba(94, 234, 212, 0.08);
+      }
+
+      .button--primary {
+        background: linear-gradient(135deg, rgba(94, 234, 212, 0.22), rgba(141, 176, 255, 0.18));
+        border-color: rgba(94, 234, 212, 0.35);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(270px, 320px) minmax(0, 1fr);
+        gap: 1.5rem;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+      }
+
+      .sidebar {
+        padding: 1.8rem;
+        position: sticky;
+        top: 1rem;
+        align-self: start;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(141, 176, 255, 0.12);
+        border: 1px solid rgba(141, 176, 255, 0.24);
+        color: var(--accent);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      strong {
+        color: var(--text);
+      }
+
+      h1 {
+        margin: 1.2rem 0 0.75rem;
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        line-height: 0.96;
+      }
+
+      .headline {
+        margin: 0;
+        font-size: 1.05rem;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .summary {
+        margin: 1rem 0 0;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .sidebar-block + .sidebar-block {
+        margin-top: 1.4rem;
+        padding-top: 1.4rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .sidebar-title {
+        margin: 0 0 0.8rem;
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--secondary);
+      }
+
+      .contact-list,
+      .skill-list,
+      .timeline-points,
+      .project-points {
+        display: grid;
+        gap: 0.75rem;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .contact-list a,
+      .sidebar-note a {
+        color: var(--text);
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+      }
+
+      .chip {
+        padding: 0.55rem 0.8rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        font-size: 0.92rem;
+      }
+
+      .content {
+        padding: 1.8rem;
+      }
+
+      .hero-card {
+        padding: 1.8rem;
+        border-radius: 24px;
+        background:
+          linear-gradient(135deg, rgba(94, 234, 212, 0.12), rgba(141, 176, 255, 0.08)),
+          rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(94, 234, 212, 0.18);
+      }
+
+      .hero-card p {
+        margin: 0.9rem 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .main-section + .main-section {
+        margin-top: 1.5rem;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin: 0 0 1rem;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+
+      .section-title span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .timeline,
+      .project-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .timeline-item,
+      .project-card {
+        padding: 1.2rem;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .timeline-item h3,
+      .project-card h3 {
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .timeline-meta,
+      .project-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem 1rem;
+        margin: 0.55rem 0 0.85rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .timeline-item p,
+      .project-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.85rem;
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .footer-note {
+        margin-top: 1.4rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100%, calc(100% - 1rem));
+          padding-top: 1rem;
+        }
+
+        .sidebar,
+        .content {
+          padding: 1.2rem;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          color: #111827;
+        }
+
+        .page {
+          width: 100%;
+          padding: 0;
+        }
+
+        .topbar {
+          display: none;
+        }
+
+        .panel,
+        .hero-card,
+        .timeline-item,
+        .project-card {
+          background: #fff;
+          border: 1px solid #d7dee8;
+          box-shadow: none;
+          backdrop-filter: none;
+        }
+
+        .badge,
+        .headline,
+        .project-link {
+          color: #0f766e;
+        }
+
+        .summary,
+        .muted,
+        .timeline-item p,
+        .project-card p,
+        .footer-note,
+        .section-title span {
+          color: #4b5563;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a class="crumb" href="./">Voltar para o portfolio</a>
+        <div class="actions">
+          <a class="button" href="./">Abrir portfolio</a>
+          <a class="button button--primary" href="./curriculo.pdf" target="_blank" rel="noreferrer">
+            Abrir PDF
+          </a>
+        </div>
+      </div>
+
+      <div class="layout">
+        <aside class="panel sidebar">
+          <span class="badge">Curriculo profissional</span>
+          <h1>Wicolly Alcantara</h1>
+          <p class="headline">Estudante de Ciencia da Computacao | Desenvolvedor de software</p>
+          <p class="summary">
+            Estudante do 5o periodo com experiencia em automacao, desenvolvimento de apps
+            multiplataforma e organizacao de produtos digitais. Busco oportunidade de estagio
+            para contribuir com software real, aprender rapido e evoluir em equipe.
+          </p>
+
+          <div class="sidebar-block">
+            <h2 class="sidebar-title">Contato</h2>
+            <ul class="contact-list">
+              <li><a href="tel:+5534997675400">+55 34 99767-5400</a></li>
+              <li><a href="mailto:wicolly@gmail.com">wicolly@gmail.com</a></li>
+              <li>
+                <a href="https://www.linkedin.com/in/wicolly-alcantara-3454102a7/" target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a href="https://wicolly.com.br/portfolio/" target="_blank" rel="noreferrer">
+                  Portfolio
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/TSWill03" target="_blank" rel="noreferrer">GitHub</a>
+              </li>
+              <li class="muted">Goiatuba, Goias, Brasil</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block">
+            <h2 class="sidebar-title">Stack e competencias</h2>
+            <div class="chips">
+              <span class="chip">Flutter</span>
+              <span class="chip">React</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">Electron</span>
+              <span class="chip">Fastify</span>
+              <span class="chip">Prisma</span>
+              <span class="chip">PostgreSQL</span>
+              <span class="chip">Python</span>
+              <span class="chip">Java</span>
+              <span class="chip">Automacao</span>
+            </div>
+          </div>
+
+          <div class="sidebar-block">
+            <h2 class="sidebar-title">Perfil</h2>
+            <p class="muted">
+              Interesse em desenvolvimento de software, automacao de processos, apps
+              offline-first, experiencia multiplataforma e produtos digitais com foco em
+              clareza, organizacao e manutencao.
+            </p>
+          </div>
+        </aside>
+
+        <section class="panel content">
+          <div class="hero-card">
+            <span class="badge">Resumo profissional</span>
+            <p>
+              Tenho base pratica em desenvolvimento web, desktop e mobile, com projetos
+              autorais em Flutter, React e Electron. Minha experiencia em automacao me deu
+              repertorio para mapear processos, reduzir tarefas manuais e transformar
+              necessidades operacionais em solucoes mais organizadas, seguras e escalaveis.
+            </p>
+            <p>
+              Hoje concentro meus estudos em arquitetura de software, interfaces de qualidade
+              e produtos digitais que consigam comunicar valor tecnico e comercial ao mesmo
+              tempo.
+            </p>
+          </div>
+
+          <section class="main-section">
+            <div class="section-title">
+              <h2>Experiencia</h2>
+              <span>Vivencia profissional com automacao e melhoria de processos</span>
+            </div>
+
+            <div class="timeline">
+              <article class="timeline-item">
+                <h3>Aletheia | Especialista em automacao</h3>
+                <div class="timeline-meta">
+                  <span>marco de 2021 - julho de 2024</span>
+                  <span>Goiatuba, Goias, Brasil</span>
+                </div>
+                <p>
+                  Atuei no desenho, implementacao e otimizacao de solucoes de automacao para
+                  elevar eficiencia operacional e reduzir custos. Trabalhei com integracao de
+                  sistemas, identificacao de gargalos manuais e entrega de fluxos mais seguros
+                  e escalaveis, sempre em alinhamento com objetivos de negocio.
+                </p>
+                <ul class="timeline-points">
+                  <li class="muted">Mapeamento de processos e identificacao de oportunidades de automacao</li>
+                  <li class="muted">Desenvolvimento e integracao de solucoes sob medida</li>
+                  <li class="muted">Colaboracao com equipes multidisciplinares e melhoria continua</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="main-section">
+            <div class="section-title">
+              <h2>Projetos em destaque</h2>
+              <span>Projetos que reforcam seu portfolio tecnico</span>
+            </div>
+
+            <div class="project-grid">
+              <article class="project-card">
+                <h3>Controle de Estoque Corporativo</h3>
+                <div class="project-meta">
+                  <span>Electron + React + TypeScript</span>
+                  <span>Fastify + Prisma + PostgreSQL</span>
+                </div>
+                <p>
+                  Sistema desktop para operacao de estoque em rede local, com API centralizada,
+                  auditoria, relatorios e fluxos de entrada, saida e transferencia.
+                </p>
+              </article>
+
+              <article class="project-card">
+                <h3>CampusFlow</h3>
+                <div class="project-meta">
+                  <span>Flutter</span>
+                  <span>Riverpod + Drift</span>
+                </div>
+                <p>
+                  Gerenciador academico offline-first para estudantes, com disciplinas, horas
+                  obrigatorias, backup local e arquitetura preparada para sincronizacao futura.
+                </p>
+              </article>
+
+              <article class="project-card">
+                <h3>Quanto Custa?</h3>
+                <div class="project-meta">
+                  <span>Flutter</span>
+                  <span>shared_preferences</span>
+                </div>
+                <p>
+                  App que simula o impacto financeiro de habitos recorrentes, comparando cenario
+                  atual, reducao parcial e acumulado ao longo do tempo.
+                </p>
+              </article>
+
+              <article class="project-card">
+                <h3>Portfolio comercial personalizavel</h3>
+                <div class="project-meta">
+                  <span>React + TypeScript + Vite</span>
+                  <span>GitHub Pages</span>
+                </div>
+                <p>
+                  Site responsivo criado para apresentar projetos, servicos e evolucao
+                  profissional, com estrutura reaproveitavel para entregas a outros clientes.
+                </p>
+                <a
+                  class="project-link"
+                  href="https://wicolly.com.br/portfolio/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Ver projeto online
+                </a>
+              </article>
+            </div>
+          </section>
+
+          <section class="main-section">
+            <div class="section-title">
+              <h2>Formacao academica</h2>
+              <span>Base atual em computacao e desenvolvimento</span>
+            </div>
+
+            <div class="timeline">
+              <article class="timeline-item">
+                <h3>Instituto Federal Goiano - Campus Morrinhos</h3>
+                <div class="timeline-meta">
+                  <span>Bacharelado em Ciencia da Computacao</span>
+                  <span>marco de 2023 - dezembro de 2027</span>
+                </div>
+                <p>
+                  Graduacao em andamento, com foco em fundamentos de computacao, programacao,
+                  estrutura de dados, resolucao de problemas e evolucao pratica em software.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="main-section">
+            <div class="section-title">
+              <h2>Diferenciais para estagio</h2>
+              <span>O que voce ja leva para uma equipe</span>
+            </div>
+
+            <div class="project-grid">
+              <article class="project-card">
+                <h3>Visao de produto</h3>
+                <p>
+                  Nao penso so em codigo. Gosto de estruturar fluxo, clareza de uso, manutencao
+                  futura e valor percebido pelo usuario final.
+                </p>
+              </article>
+              <article class="project-card">
+                <h3>Aprendizado rapido</h3>
+                <p>
+                  Tenho facilidade para estudar novas stacks, adaptar arquitetura e transformar
+                  referencia tecnica em entrega pratica.
+                </p>
+              </article>
+              <article class="project-card">
+                <h3>Base multiplataforma</h3>
+                <p>
+                  Ja venho construindo projetos para web, desktop e mobile, o que ajuda na
+                  leitura de cenarios diferentes dentro do mesmo produto.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <p class="footer-note">
+            Esta versao web foi organizada para apresentacao profissional. Se preferir enviar o
+            arquivo em PDF, use o botao "Abrir PDF" no topo da pagina.
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

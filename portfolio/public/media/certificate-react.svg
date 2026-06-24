@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" rx="42" fill="#08121F" />
+  <rect x="84" y="84" width="1032" height="632" rx="34" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="136" y="136" width="928" height="528" rx="28" fill="rgba(94,234,212,.08)" />
+  <circle cx="262" cy="274" r="94" fill="rgba(94,234,212,.16)" stroke="#5EEAD4" stroke-width="2.5" />
+  <text x="390" y="246" fill="#5EEAD4" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="4">CURSO</text>
+  <text x="390" y="324" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="54" font-weight="700">React escalavel</text>
+  <text x="390" y="384" fill="#98ADCA" font-family="Arial, sans-serif" font-size="26">Componentizacao, fluxo de dados e interfaces de produto</text>
+  <rect x="390" y="442" width="224" height="16" rx="8" fill="#5EEAD4" fill-opacity=".24" />
+  <rect x="390" y="478" width="306" height="16" rx="8" fill="#8DB0FF" fill-opacity=".22" />
+</svg>

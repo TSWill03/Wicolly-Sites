@@ -1,0 +1,29 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" rx="64" fill="#08131F"/>
+  <rect x="42" y="42" width="1116" height="816" rx="50" fill="url(#bg)"/>
+  <circle cx="976" cy="180" r="170" fill="#8DB0FF" fill-opacity="0.16"/>
+  <circle cx="206" cy="730" r="196" fill="#5EEAD4" fill-opacity="0.12"/>
+  <rect x="94" y="94" width="1012" height="712" rx="36" fill="#0D2034" stroke="#29486A" stroke-width="2"/>
+  <rect x="152" y="154" width="340" height="556" rx="28" fill="#152B43"/>
+  <path d="M212 224H422" stroke="#EAF3FF" stroke-width="18" stroke-linecap="round"/>
+  <path d="M212 276H388" stroke="#7D93B5" stroke-width="14" stroke-linecap="round"/>
+  <path d="M212 324H406" stroke="#5F789D" stroke-width="14" stroke-linecap="round"/>
+  <path d="M212 372H356" stroke="#5F789D" stroke-width="14" stroke-linecap="round"/>
+  <rect x="548" y="154" width="500" height="556" rx="28" fill="#122A43"/>
+  <rect x="594" y="212" width="408" height="26" rx="13" fill="#EAF3FF"/>
+  <rect x="594" y="268" width="284" height="16" rx="8" fill="#7D93B5"/>
+  <rect x="594" y="306" width="356" height="16" rx="8" fill="#7D93B5"/>
+  <rect x="594" y="344" width="320" height="16" rx="8" fill="#5F789D"/>
+  <rect x="594" y="404" width="364" height="218" rx="24" fill="#0E1E30"/>
+  <path d="M654 476H898" stroke="#5EEAD4" stroke-width="14" stroke-linecap="round"/>
+  <path d="M654 522H914" stroke="#8DB0FF" stroke-width="14" stroke-linecap="round"/>
+  <path d="M654 568H862" stroke="#F8BC78" stroke-width="14" stroke-linecap="round"/>
+  <text x="148" y="806" fill="#F3F8FF" font-family="Arial, sans-serif" font-size="66" font-weight="700">TXT Webnovel Reader</text>
+  <text x="150" y="850" fill="#93A8C1" font-family="Arial, sans-serif" font-size="30">Leitor continuo para TXT, EPUB e PDF com foco inicial em desktop.</text>
+  <defs>
+    <linearGradient id="bg" x1="84" y1="88" x2="1048" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1726"/>
+      <stop offset="1" stop-color="#112B45"/>
+    </linearGradient>
+  </defs>
+</svg>

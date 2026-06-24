@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="studio-bg" x1="118" y1="78" x2="1110" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#122847" />
+      <stop offset="1" stop-color="#07111D" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="46" fill="url(#studio-bg)" />
+  <rect x="96" y="96" width="1008" height="708" rx="34" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="164" y="168" width="408" height="564" rx="34" fill="#0B1726" fill-opacity=".82" />
+  <rect x="608" y="168" width="428" height="248" rx="34" fill="#0B1726" fill-opacity=".82" />
+  <rect x="608" y="452" width="428" height="280" rx="34" fill="#0B1726" fill-opacity=".82" />
+  <circle cx="368" cy="408" r="128" fill="#5EEAD4" fill-opacity=".12" stroke="#5EEAD4" stroke-width="2" />
+  <circle cx="368" cy="408" r="66" fill="#8DB0FF" fill-opacity=".18" />
+  <rect x="682" y="242" width="278" height="18" rx="9" fill="#5EEAD4" fill-opacity=".26" />
+  <rect x="682" y="278" width="224" height="18" rx="9" fill="#8DB0FF" fill-opacity=".22" />
+  <rect x="682" y="314" width="260" height="18" rx="9" fill="#FFBE78" fill-opacity=".22" />
+  <text x="180" y="222" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="34" font-weight="700">Estudio visual do produto</text>
+</svg>

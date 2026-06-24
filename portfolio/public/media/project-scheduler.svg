@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <rect width="1200" height="900" rx="46" fill="#07111D" />
+  <rect x="92" y="92" width="1016" height="716" rx="36" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="152" y="152" width="896" height="112" rx="24" fill="#0B1726" fill-opacity=".8" />
+  <rect x="152" y="308" width="560" height="432" rx="34" fill="#0B1726" fill-opacity=".8" />
+  <rect x="748" y="308" width="300" height="198" rx="30" fill="#0B1726" fill-opacity=".8" />
+  <rect x="748" y="542" width="300" height="198" rx="30" fill="#0B1726" fill-opacity=".8" />
+  <g stroke="#8DB0FF" stroke-opacity=".28" stroke-width="2">
+    <line x1="194" y1="396" x2="670" y2="396" />
+    <line x1="194" y1="492" x2="670" y2="492" />
+    <line x1="194" y1="588" x2="670" y2="588" />
+    <line x1="330" y1="332" x2="330" y2="716" />
+    <line x1="466" y1="332" x2="466" y2="716" />
+    <line x1="602" y1="332" x2="602" y2="716" />
+  </g>
+  <circle cx="262" cy="364" r="28" fill="#5EEAD4" fill-opacity=".24" stroke="#5EEAD4" stroke-width="3" />
+  <circle cx="398" cy="460" r="28" fill="#8DB0FF" fill-opacity=".22" stroke="#8DB0FF" stroke-width="3" />
+  <circle cx="534" cy="556" r="28" fill="#FFBE78" fill-opacity=".22" stroke="#FFBE78" stroke-width="3" />
+  <text x="186" y="220" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="40" font-weight="700">Agenda Inteligente para Atendimento</text>
+</svg>

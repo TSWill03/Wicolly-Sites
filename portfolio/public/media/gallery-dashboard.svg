@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <rect width="1200" height="900" rx="46" fill="#08121F" />
+  <rect x="82" y="82" width="1036" height="736" rx="36" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="146" y="146" width="908" height="90" rx="22" fill="#0B1726" fill-opacity=".8" />
+  <rect x="146" y="280" width="254" height="180" rx="28" fill="#0B1726" fill-opacity=".8" />
+  <rect x="432" y="280" width="254" height="180" rx="28" fill="#0B1726" fill-opacity=".8" />
+  <rect x="718" y="280" width="336" height="180" rx="28" fill="#0B1726" fill-opacity=".8" />
+  <rect x="146" y="496" width="908" height="246" rx="32" fill="#0B1726" fill-opacity=".8" />
+  <polyline points="214,668 322,606 430,626 562,554 700,580 812,518 950,540" stroke="#5EEAD4" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="182" y="204" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="38" font-weight="700">Visao de dashboard</text>
+</svg>

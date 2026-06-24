@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" rx="42" fill="#08121F" />
+  <rect x="84" y="84" width="1032" height="632" rx="34" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="138" y="136" width="924" height="528" rx="28" fill="rgba(255,190,120,.08)" />
+  <circle cx="264" cy="400" r="142" stroke="#FFBE78" stroke-width="12" />
+  <path d="M264 298v204M180 356h168M210 538l54-66 54 66" stroke="#5EEAD4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+  <text x="466" y="286" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="52" font-weight="700">Acessibilidade</text>
+  <text x="466" y="350" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="52" font-weight="700">e interfaces inclusivas</text>
+  <text x="466" y="420" fill="#98ADCA" font-family="Arial, sans-serif" font-size="26">Contraste, semantica e navegacao por teclado</text>
+</svg>

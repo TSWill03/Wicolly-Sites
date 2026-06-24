@@ -1,123 +1,88 @@
 # Wicolly Sites
 
-Repositório central dos sites públicos do ecossistema Wicolly.
+Repositorio central dos sites publicos do ecossistema Wicolly, publicado como um unico projeto no Cloudflare Pages.
 
-## Sites
+## URLs
 
-| Diretório   | Domínio                           | Descrição                             |
-| ----------- | --------------------------------- | ------------------------------------- |
-| `main/`     | `https://wicolly.com.br`          | Site principal e central de navegação |
-| `hefesto/`  | `https://hefesto.wicolly.com.br`  | Página pública do servidor Hefesto    |
-| `poseidon/` | `https://poseidon.wicolly.com.br` | Página pública do servidor Poseidon   |
-
-O portfólio profissional é mantido em outro repositório:
-
-* Repositório: `https://github.com/TSWill03/Portifolio`
-* Domínio: `https://portfolio.wicolly.com.br`
+| Caminho | Conteudo |
+| --- | --- |
+| `https://wicolly.com.br/` | Site principal |
+| `https://wicolly.com.br/portfolio/` | Portfolio React, TypeScript e Vite |
+| `https://wicolly.com.br/hefesto/` | Pagina publica do servidor Hefesto |
+| `https://wicolly.com.br/poseidon/` | Pagina publica do servidor Poseidon |
 
 ## Estrutura
 
 ```text
 Wicolly-Sites/
-├── .github/
-│   └── workflows/
 ├── main/
 │   └── index.html
+├── portfolio/
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── public/
+│   └── src/
 ├── hefesto/
 │   └── index.html
 ├── poseidon/
 │   └── index.html
-├── .gitignore
-├── DEPLOY_CLOUDFLARE.md
-└── README.md
+├── public/
+│   └── _redirects
+├── scripts/
+│   ├── build-site.mjs
+│   └── validate-site.mjs
+├── package.json
+├── README.md
+└── DEPLOY_CLOUDFLARE.md
 ```
 
-## Visualização local
+O portfolio foi importado de `https://github.com/TSWill03/Portifolio` e agora e publicado em `/portfolio/` dentro deste repositorio.
 
-Cada site é uma página HTML estática e pode ser aberto diretamente no navegador.
-
-Também é possível iniciar um servidor HTTP local.
-
-### Site principal
+## Build Local
 
 ```powershell
-python -m http.server 8000 --directory main
+npm run validate
+npm run build
 ```
 
-Acesse:
+A saida final fica em `dist/`:
 
 ```text
-http://localhost:8000
+dist/
+├── index.html
+├── _redirects
+├── portfolio/
+├── hefesto/
+└── poseidon/
 ```
 
-### Hefesto
+Para testar localmente:
 
 ```powershell
-python -m http.server 8001 --directory hefesto
+python -m http.server 8080 --directory dist
 ```
 
-Acesse:
+## Deploy
+
+Existe somente um projeto Cloudflare Pages:
 
 ```text
-http://localhost:8001
+wicolly-site
 ```
 
-### Poseidon
-
-```powershell
-python -m http.server 8002 --directory poseidon
-```
-
-Acesse:
+Configuracao:
 
 ```text
-http://localhost:8002
+Repositorio: TSWill03/Wicolly-Sites
+Branch: main
+Build command: npm run build
+Build output directory: dist
+Root directory: vazio
+Dominio: wicolly.com.br
 ```
 
-## Publicação
+O workflow `.github/workflows/deploy-cloudflare-pages.yml` valida, gera `dist/` e publica apenas esse diretorio no projeto `wicolly-site`.
 
-Os sites são publicados no Cloudflare Pages por integração com o GitHub.
+## Seguranca
 
-Cada pasta corresponde a um projeto separado do Cloudflare Pages:
-
-* `main/` → projeto `wicolly-main`
-* `hefesto/` → projeto `wicolly-hefesto`
-* `poseidon/` → projeto `wicolly-poseidon`
-
-As configurações detalhadas estão no arquivo [`DEPLOY_CLOUDFLARE.md`](./DEPLOY_CLOUDFLARE.md).
-
-## Atualização
-
-Depois de alterar qualquer página:
-
-```powershell
-git status
-git add .
-git commit -m "chore: atualizar sites"
-git push
-```
-
-O Cloudflare Pages detectará o novo commit e iniciará os deploys configurados.
-
-## Segurança
-
-Nunca envie para este repositório:
-
-* tokens de API;
-* chaves SSH;
-* senhas;
-* arquivos `.env`;
-* credenciais da Cloudflare;
-* credenciais do GitHub;
-* IPs privados desnecessários;
-* arquivos de configuração pessoais;
-* backups contendo informações sensíveis.
-
-## Repositórios relacionados
-
-* Portfólio: `https://github.com/TSWill03/Portifolio`
-* Perfil GitHub: `https://github.com/TSWill03`
-
-## Autor
-
-Wícolly Pedro Alcântara
+Nao commite tokens, chaves privadas, `.env`, `node_modules`, `dist`, backups DNS ou resultados de deploy local.

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" rx="42" fill="#08121F" />
+  <rect x="84" y="84" width="1032" height="632" rx="34" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="136" y="136" width="928" height="528" rx="28" fill="rgba(141,176,255,.08)" />
+  <rect x="190" y="196" width="240" height="408" rx="28" fill="#0B1726" fill-opacity=".8" />
+  <rect x="498" y="214" width="452" height="24" rx="12" fill="#8DB0FF" fill-opacity=".26" />
+  <rect x="498" y="262" width="322" height="24" rx="12" fill="#5EEAD4" fill-opacity=".22" />
+  <rect x="498" y="342" width="404" height="18" rx="9" fill="#8DB0FF" fill-opacity=".18" />
+  <rect x="498" y="378" width="364" height="18" rx="9" fill="#8DB0FF" fill-opacity=".18" />
+  <rect x="498" y="414" width="386" height="18" rx="9" fill="#8DB0FF" fill-opacity=".18" />
+  <text x="498" y="190" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="54" font-weight="700">UX e arquitetura</text>
+  <text x="498" y="326" fill="#98ADCA" font-family="Arial, sans-serif" font-size="26">Hierarquia visual, navegacao e clareza de conteudo</text>
+</svg>

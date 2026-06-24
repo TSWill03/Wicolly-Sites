@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <rect width="1200" height="800" rx="42" fill="#08121F" />
+  <rect x="84" y="84" width="1032" height="632" rx="34" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)" />
+  <rect x="140" y="136" width="920" height="528" rx="28" fill="rgba(141,176,255,.08)" />
+  <path d="M318 488h176c54 0 98-42 98-94s-44-94-98-94c-7 0-14 1-21 2-18-55-69-94-129-94-76 0-138 62-138 138 0 5 0 10 1 15-43 14-74 55-74 104 0 60 48 109 107 109h78Z" fill="#8DB0FF" fill-opacity=".24" stroke="#8DB0FF" stroke-width="3" />
+  <rect x="514" y="250" width="402" height="28" rx="14" fill="#EDF4FF" fill-opacity=".84" />
+  <rect x="514" y="306" width="262" height="28" rx="14" fill="#5EEAD4" fill-opacity=".32" />
+  <rect x="514" y="414" width="322" height="18" rx="9" fill="#8DB0FF" fill-opacity=".2" />
+  <rect x="514" y="450" width="276" height="18" rx="9" fill="#8DB0FF" fill-opacity=".2" />
+  <text x="514" y="392" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="52" font-weight="700">Cloud e deploy</text>
+</svg>

@@ -1,0 +1,727 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.hero__content,
+.hero__visual,
+.about-card,
+.service-card,
+.credential-card,
+.contact-panel,
+.video-card,
+.gallery-card,
+.project-card__content {
+  display: grid;
+}
+
+.hero__content {
+  gap: 1.15rem;
+}
+
+.hero__identity {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.hero__nameplate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.hero__name {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.hero__role {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.hero__title {
+  max-width: 12ch;
+  font-size: clamp(3rem, 7vw, 5.8rem);
+}
+
+.hero__description,
+.hero__subtitle {
+  max-width: 42rem;
+  color: var(--color-muted);
+  font-size: 1.06rem;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.hero__visual {
+  gap: 1rem;
+}
+
+.hero__art,
+.hero__feature,
+.about-card,
+.highlight-card,
+.credential-card,
+.gallery-card,
+.video-card,
+.service-card,
+.services-banner,
+.services-panel,
+.process-card,
+.contact-panel,
+.contact-card,
+.roadmap-card,
+.project-card {
+  padding: 1.35rem;
+}
+
+.hero__art {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.hero__art img {
+  width: 100%;
+  min-height: 100%;
+  aspect-ratio: 4 / 4.8;
+  border-radius: calc(var(--radius-xl) - 10px);
+  object-fit: cover;
+  background: linear-gradient(180deg, rgba(141, 176, 255, 0.2), rgba(94, 234, 212, 0.12));
+}
+
+.hero__art::after {
+  content: '';
+  position: absolute;
+  inset: auto 8% 1rem auto;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 190, 120, 0.28), transparent 72%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.hero__feature {
+  gap: 1rem;
+  align-content: flex-start;
+}
+
+.hero__feature h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+}
+
+.hero__feature p {
+  color: var(--color-muted);
+}
+
+.hero__feature-list,
+.services-panel__list,
+.service-card__features,
+.project-card__highlight-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--color-muted);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.hero__feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.hero__feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.hero__feature-dot {
+  display: inline-flex;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 0.35rem rgba(94, 234, 212, 0.12);
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}
+
+.about-grid,
+.services-details,
+.gallery-layout,
+.contact-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.gallery-layout--single {
+  grid-template-columns: 1fr;
+}
+
+.about-card {
+  gap: 1.6rem;
+}
+
+.about-card__copy {
+  display: grid;
+  gap: 1rem;
+  color: var(--color-muted);
+}
+
+.technology-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.technology-group {
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.technology-group h4,
+.project-card__copy h3,
+.gallery-card__body h3,
+.video-card__body h3,
+.service-card__copy h3,
+.services-banner h3,
+.process-card h3,
+.highlight-card h3,
+.roadmap-card__header h3,
+.credential-card__copy h3,
+.contact-card__body strong {
+  margin: 0;
+}
+
+.technology-group h4 {
+  margin-bottom: 0.75rem;
+  font-size: 0.96rem;
+}
+
+.technology-group ul {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--color-muted);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.highlight-grid,
+.services-grid,
+.contact-methods {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.highlight-card {
+  gap: 1rem;
+}
+
+.highlight-card__icon,
+.service-card__icon,
+.contact-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 1.1rem;
+  background: rgba(94, 234, 212, 0.12);
+  color: var(--color-primary);
+}
+
+.highlight-card__glyph,
+.service-card__icon-glyph,
+.contact-card__glyph {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.highlight-card p,
+.service-card__copy p,
+.video-card__body p,
+.gallery-card__body p,
+.contact-card__body p,
+.roadmap-card__content p,
+.credential-card__copy p,
+.services-banner p {
+  color: var(--color-muted);
+}
+
+.projects-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-muted);
+  padding: 0.72rem 1rem;
+  font-weight: 700;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.filter-chip.is-active {
+  border-color: rgba(94, 234, 212, 0.35);
+  background: rgba(94, 234, 212, 0.12);
+  color: var(--color-text);
+}
+
+.filter-chip:hover {
+  border-color: rgba(94, 234, 212, 0.22);
+  color: var(--color-text);
+}
+
+.projects-toolbar__count {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.projects-toolbar__count strong {
+  color: var(--color-text);
+}
+
+.project-list,
+.roadmap-list,
+.credentials-grid,
+.process-list,
+.video-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 1.35rem;
+  overflow: hidden;
+}
+
+.project-card__cover {
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 10px);
+  min-height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.project-card__cover img {
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.project-card:hover .project-card__cover img {
+  transform: scale(1.03);
+}
+
+.project-card__content {
+  gap: 1rem;
+}
+
+.project-card__meta,
+.credential-card__meta,
+.roadmap-card__header,
+.credential-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.project-card__meta,
+.credential-card__meta {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.project-card__copy {
+  gap: 0.7rem;
+}
+
+.project-card__copy p,
+.project-card__details-copy {
+  color: var(--color-muted);
+}
+
+.project-card__actions,
+.contact-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.project-card__details {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  animation: project-details-in 0.25s ease;
+}
+
+.project-card__gallery,
+.gallery-grid,
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.project-card__gallery img,
+.gallery-card img,
+.credential-card__image {
+  border-radius: calc(var(--radius-lg) - 8px);
+}
+
+.project-card__gallery img {
+  aspect-ratio: 1.25 / 1;
+  object-fit: cover;
+}
+
+.video-embed {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 8px);
+  padding-top: 56.25%;
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.roadmap-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.roadmap-card__phase,
+.process-card__step {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-primary);
+}
+
+.roadmap-card__phase {
+  min-width: 6rem;
+}
+
+.roadmap-card__content {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.credential-card {
+  gap: 1rem;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.credential-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(94, 234, 212, 0.26);
+}
+
+.credential-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.credential-card__body {
+  display: grid;
+  gap: 1rem;
+}
+
+.gallery-grid {
+  align-content: start;
+}
+
+.gallery-card {
+  gap: 1rem;
+}
+
+.gallery-card--featured {
+  grid-column: span 2;
+}
+
+.gallery-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.03);
+}
+
+.gallery-card__body,
+.video-card__body,
+.contact-card__body,
+.service-card__copy {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.video-card {
+  gap: 1rem;
+}
+
+.services-banner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.services-banner h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.02;
+}
+
+.service-card {
+  gap: 1rem;
+}
+
+.services-panel {
+  gap: 1rem;
+}
+
+.services-panel h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+}
+
+.services-side-column {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.customization-panel {
+  gap: 1.4rem;
+}
+
+.customization-panel__header {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.customization-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.customization-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.15rem;
+  border-radius: var(--radius-lg);
+}
+
+.customization-card__copy {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.customization-card__copy p {
+  color: var(--color-muted);
+}
+
+.customization-card__list {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--color-muted);
+}
+
+.process-list {
+  align-content: start;
+}
+
+.process-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.contact-panel {
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.contact-panel__availability,
+.contact-panel__message {
+  color: var(--color-muted);
+}
+
+.contact-methods {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0;
+}
+
+.contact-card {
+  display: flex;
+  gap: 1rem;
+  min-height: 100%;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(94, 234, 212, 0.32);
+}
+
+.contact-card__body span {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+@keyframes project-details-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1080px) {
+  .hero,
+  .about-grid,
+  .gallery-layout,
+  .services-details,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__title {
+    max-width: 14ch;
+  }
+
+  .highlight-grid,
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .customization-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .hero__stats,
+  .highlight-grid,
+  .services-grid,
+  .contact-methods,
+  .technology-groups,
+  .gallery-grid,
+  .project-card__gallery,
+  .credentials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-card--featured {
+    grid-column: auto;
+  }
+
+  .project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmap-card,
+  .process-card,
+  .services-banner {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__actions,
+  .project-card__actions,
+  .contact-panel__actions {
+    flex-direction: column;
+  }
+
+  .hero__title {
+    max-width: 100%;
+  }
+
+  .services-banner h3 {
+    font-size: 1.7rem;
+  }
+
+  .project-card,
+  .roadmap-card,
+  .process-card,
+  .contact-card {
+    padding: 1rem;
+  }
+}
