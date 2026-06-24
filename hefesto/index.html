@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Página pública do servidor Hefesto.">
+  <meta name="theme-color" content="#7c3aed">
+  <title>Hefesto — Infraestrutura Wicolly</title>
+  <style>
+    :root {
+      --bg: #070914;
+      --surface: rgba(18, 23, 48, .72);
+      --surface-strong: #11172d;
+      --text: #f7f8ff;
+      --muted: #a9b0ca;
+      --primary: #7c3aed;
+      --secondary: #f59e0b;
+      --glow: rgba(124, 58, 237, .28);
+      --border: rgba(255, 255, 255, .10);
+      --success: #42d392;
+      --shadow: 0 24px 80px rgba(0, 0, 0, .38);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, var(--glow), transparent 34rem),
+        radial-gradient(circle at 85% 12%, rgba(114, 73, 255, .16), transparent 30rem),
+        linear-gradient(145deg, #050711 0%, #080b19 52%, #050713 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    a { color: inherit; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 88px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 12px 35px var(--glow);
+      font-size: 1.25rem;
+    }
+
+    nav { display: flex; align-items: center; gap: 20px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 650;
+      font-size: .95rem;
+    }
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      min-height: calc(100vh - 88px);
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 64px;
+      padding: 68px 0 88px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.045);
+      color: #dce1f7;
+      font-weight: 700;
+      font-size: .86rem;
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 18px rgba(66, 211, 146, .75);
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(3.6rem, 9vw, 7.4rem);
+      line-height: .92;
+      letter-spacing: -.075em;
+    }
+    h1 span {
+      display: block;
+      color: transparent;
+      background: linear-gradient(100deg, var(--primary), var(--secondary));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 14px 38px var(--glow);
+    }
+    .button-secondary { background: rgba(255,255,255,.05); }
+
+    .server-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 440px;
+      isolation: isolate;
+    }
+
+    .orb {
+      position: absolute;
+      width: min(420px, 86vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 32%, rgba(255,255,255,.28), transparent 7%),
+        radial-gradient(circle at 45% 42%, var(--secondary), var(--primary) 48%, #11172d 75%);
+      box-shadow:
+        inset -35px -40px 80px rgba(0,0,0,.38),
+        0 0 100px var(--glow);
+      z-index: -1;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .orb::after {
+      content: "";
+      position: absolute;
+      inset: -22px;
+      border-radius: inherit;
+      border: 1px solid rgba(255,255,255,.16);
+      border-top-color: var(--secondary);
+      transform: rotate(-18deg);
+    }
+
+    .server-card {
+      width: min(360px, 88vw);
+      padding: 26px;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 24px;
+      background: linear-gradient(145deg, rgba(17,23,45,.92), rgba(12,16,33,.76));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .server-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .server-name { font-weight: 850; font-size: 1.15rem; }
+    .server-role { color: var(--muted); font-size: .88rem; }
+    .big-icon { font-size: 2.2rem; }
+    .metric {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 13px 0;
+      border-top: 1px solid var(--border);
+    }
+    .metric span:first-child { color: var(--muted); }
+    .metric strong { font-size: .92rem; }
+    .hostname {
+      overflow-wrap: anywhere;
+      color: #dce2ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    section { padding: 90px 0; }
+    .section-heading {
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+    .section-heading p { color: var(--muted); }
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .service-card {
+      display: flex;
+      gap: 18px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 14px 50px rgba(0,0,0,.18);
+      backdrop-filter: blur(14px);
+    }
+    .service-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 46px;
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 70%, #fff 0%), var(--secondary));
+      font-size: 1.3rem;
+    }
+    .service-card h3 { margin: 0 0 5px; font-size: 1.05rem; }
+    .service-card p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    .notice {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(110deg, color-mix(in srgb, var(--primary) 20%, transparent), transparent 48%),
+        var(--surface-strong);
+      box-shadow: var(--shadow);
+    }
+    .notice p { margin: 4px 0 0; color: var(--muted); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 32px 0 44px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+
+    @media (max-width: 850px) {
+      nav a:not(.button) { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 44px; }
+      .server-visual { min-height: 380px; }
+      .services { grid-template-columns: 1fr; }
+      .notice { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 28px, 1120px); }
+      header { min-height: 74px; }
+      h1 { font-size: clamp(3.1rem, 19vw, 5rem); }
+      .hero { min-height: auto; padding-bottom: 64px; }
+      .service-card, .notice { padding: 20px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <a class="brand" href="#inicio" aria-label="Voltar ao início">
+      <span class="brand-mark" aria-hidden="true">⚒</span>
+      <span>Wicolly Infra</span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
+      <a class="button button-secondary" href="https://wicolly.com.br">Site principal</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" id="inicio">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Infraestrutura operacional</div>
+        <h1><span>Hefesto</span></h1>
+        <p class="lead">O núcleo de hospedagem web da infraestrutura Wicolly: criado para aplicações, serviços privados, automações e novos projetos.</p>
+        <div class="actions">
+          <a class="button button-primary" href="#servicos">Conhecer serviços</a>
+          <a class="button button-secondary" href="#sobre">Detalhes da infraestrutura</a>
+        </div>
+      </div>
+
+      <div class="server-visual" aria-label="Representação visual do servidor Hefesto">
+        <div class="orb"></div>
+        <div class="server-card">
+          <div class="server-card-top">
+            <div>
+              <div class="server-name">Hefesto</div>
+              <div class="server-role">Aplicações, sites e serviços</div>
+            </div>
+            <div class="big-icon" aria-hidden="true">⚒</div>
+          </div>
+          <div class="metric">
+            <span>Status</span>
+            <strong style="color: var(--success)">● Online</strong>
+          </div>
+          <div class="metric">
+            <span>Plataforma</span>
+            <strong>Oracle Cloud ARM</strong>
+          </div>
+          <div class="metric">
+            <span>Rede</span>
+            <strong>Cloudflare Tunnel</strong>
+          </div>
+          <div class="metric">
+            <span>Hostname</span>
+            <strong class="hostname">hefesto.wicolly.com.br</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="servicos">
+      <div class="section-heading">
+        <h2>Serviços hospedados</h2>
+        <p>Uma visão pública e resumida das funções deste servidor. Serviços administrativos permanecem protegidos e fora da Internet pública.</p>
+      </div>
+      <div class="services">
+        <article class="service-card">
+          <div class="service-icon" aria-hidden="true">🌐</div>
+          <div>
+            <h3>Sites e aplicações</h3>
+            <p>Hospedagem de páginas, painéis web, APIs e projetos pessoais.</p>
+          </div>
+        </article>
+<article class="service-card">
+          <div class="service-icon" aria-hidden="true">🔐</div>
+          <div>
+            <h3>Serviços privados</h3>
+            <p>Aplicações administrativas acessíveis somente por redes e políticas autorizadas.</p>
+          </div>
+        </article>
+<article class="service-card">
+          <div class="service-icon" aria-hidden="true">📊</div>
+          <div>
+            <h3>Monitoramento</h3>
+            <p>Base preparada para observabilidade, disponibilidade e diagnóstico da infraestrutura.</p>
+          </div>
+        </article>
+<article class="service-card">
+          <div class="service-icon" aria-hidden="true">🧩</div>
+          <div>
+            <h3>Novos projetos</h3>
+            <p>Ambiente dedicado a testes, protótipos e futuras aplicações do ecossistema Wicolly.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="sobre">
+      <div class="notice">
+        <div>
+          <h2>Infraestrutura privada, acesso seguro.</h2>
+          <p>As conexões públicas passam pelo Cloudflare Tunnel, sem necessidade de expor diretamente portas administrativas do servidor.</p>
+        </div>
+        <a class="button button-primary" href="https://wicolly.com.br">wicolly.com.br</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <span>© <span id="year"></span> Wicolly Pedro Alcântara.</span>
+    <span>Hefesto · <span id="clock">carregando horário…</span></span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent =
+        new Intl.DateTimeFormat("pt-BR", {
+          dateStyle: "medium",
+          timeStyle: "medium",
+          timeZone: "America/Sao_Paulo"
+        }).format(now);
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

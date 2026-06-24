@@ -1,0 +1,76 @@
+# Dependências
+
+node_modules/
+
+# Builds
+
+dist/
+build/
+out/
+
+# Variáveis de ambiente e segredos
+
+.env
+.env.*
+!.env.example
+.dev.vars
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Cloudflare e ferramentas de deploy
+
+.wrangler/
+.cloudflare/
+DNS_BACKUP.json
+DEPLOY_RESULT.md
+
+# Logs
+
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos temporários
+
+tmp/
+temp/
+.cache/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# Pacotes e arquivos de origem temporários
+
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Editores
+
+.vscode/
+.idea/
+*.code-workspace
+
+# Sistema operacional
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ferramentas locais e agentes
+
+.codex/
+.claude/
+
+# Cobertura e testes
+
+coverage/
+.nyc_output/
