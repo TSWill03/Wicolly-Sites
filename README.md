@@ -8,6 +8,7 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 | --- | --- |
 | `https://wicolly.com.br/` | Site principal estático |
 | `https://wicolly.com.br/portfolio/` | Portfólio React, TypeScript e Vite |
+| `https://wicolly.com.br/impressoes-3d/` | Página da BlackLight Impressões 3D |
 | `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
 | `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
 
@@ -15,7 +16,7 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 
 - Node.js 20.19 ou superior;
 - React 19, TypeScript e Vite no portfólio;
-- HTML e CSS sem framework nas páginas principal, Hefesto e Poseidon;
+- HTML e CSS sem framework nas páginas principal, BlackLight Impressões 3D, Hefesto e Poseidon;
 - ESLint para análise estática;
 - scripts Node.js para montagem do site e validação de rotas;
 - GitHub Actions e Cloudflare Pages para integração e entrega contínuas.
@@ -31,6 +32,8 @@ Wicolly-Sites/
 │   ├── vite.config.ts
 │   ├── public/
 │   └── src/
+├── impressoes-3d/
+│   └── index.html
 ├── hefesto/
 │   └── index.html
 ├── poseidon/
@@ -94,7 +97,7 @@ npm run build
 python -m http.server 8080 --directory dist
 ```
 
-Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/hefesto/` e `/poseidon/`.
+Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/impressoes-3d/`, `/hefesto/` e `/poseidon/`.
 
 A saída final fica em `dist/`:
 
@@ -103,9 +106,21 @@ dist/
 ├── index.html
 ├── _redirects
 ├── portfolio/
+├── impressoes-3d/
 ├── hefesto/
 └── poseidon/
 ```
+
+## Página de impressões 3D
+
+A rota `/impressoes-3d/` apresenta a marca BlackLight Impressões 3D e organiza os serviços em quatro frentes:
+
+- produtos personalizados, como luminárias e chaveiros;
+- peças funcionais, suportes, caixas e organizadores;
+- aplicações técnicas para cabos, drones agrícolas e manutenção;
+- protótipos, ajustes de escala e testes de encaixe.
+
+O contato é feito por WhatsApp ou e-mail, sem formulário e sem armazenamento de dados no site.
 
 ## Variáveis de ambiente
 
@@ -139,6 +154,8 @@ O workflow `.github/workflows/deploy-cloudflare-pages.yml` executa a verificaç�
 A seção de credenciais não publica exemplos ou comprovantes fictícios. Certificados reais devem ser adicionados somente quando instituição, data e URL ou arquivo puderem ser confirmados.
 
 O currículo em PDF deve ser regenerado sempre que a versão HTML ou os dados profissionais forem atualizados.
+
+Fotos reais de produtos da BlackLight podem ser adicionadas futuramente em uma galeria, desde que os arquivos sejam otimizados e versionados no repositório.
 
 ## Segurança
 
