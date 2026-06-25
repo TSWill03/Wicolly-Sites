@@ -31,6 +31,7 @@ export function Footer({
                 {item.label}
               </a>
             ))}
+            <a href="/impressoes-3d/">Impressões 3D</a>
           </nav>
 
           <div className="footer-card__social">
