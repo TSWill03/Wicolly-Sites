@@ -48,6 +48,7 @@ jobs:
           test -f dist/portfolio/curriculo.pdf
           test -f dist/hefesto/index.html
           test -f dist/poseidon/index.html
+          test -f dist/impressoes-3d/index.html
 
   deploy:
     name: Deploy wicolly-site
