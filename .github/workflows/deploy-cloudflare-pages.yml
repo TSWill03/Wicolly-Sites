@@ -54,6 +54,11 @@ jobs:
     needs: quality
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    environment: production
+
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
     steps:
       - name: Checkout
@@ -69,10 +74,35 @@ jobs:
       - name: Build unified site
         run: npm run build
 
+      - name: Validate Cloudflare credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            echo "::error::Repository secret CLOUDFLARE_API_TOKEN is missing or empty."
+            exit 1
+          fi
+
+          if [ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
+            echo "::error::Repository secret CLOUDFLARE_ACCOUNT_ID is missing or empty."
+            exit 1
+          fi
+
+          echo "Cloudflare credentials are available to the workflow."
+          npx --yes wrangler@4 whoami
+
+      - name: Verify Cloudflare Pages project
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Checking whether the Cloudflare account can access Pages projects..."
+          npx --yes wrangler@4 pages project list
+
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          wranglerVersion: "4"
-          command: pages deploy dist --project-name=wicolly-site --branch=main
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@4 pages deploy dist \
+            --project-name=wicolly-site \
+            --branch=main
