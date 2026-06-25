@@ -74,7 +74,7 @@ jobs:
       - name: Build unified site
         run: npm run build
 
-      - name: Validate Cloudflare credentials
+      - name: Validate Cloudflare secrets
         shell: bash
         run: |
           set -euo pipefail
@@ -89,20 +89,47 @@ jobs:
             exit 1
           fi
 
-          echo "Cloudflare credentials are available to the workflow."
-          npx --yes wrangler@4 whoami
+          echo "Cloudflare secrets are available to the workflow."
 
       - name: Verify Cloudflare Pages project
         shell: bash
         run: |
           set -euo pipefail
-          echo "Checking whether the Cloudflare account can access Pages projects..."
-          npx --yes wrangler@4 pages project list
+
+          status=$(curl --silent --show-error \
+            --output cloudflare-project-response.json \
+            --write-out "%{http_code}" \
+            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            --header "Content-Type: application/json" \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/wicolly-site")
+
+          if [ "$status" != "200" ]; then
+            echo "::error::Cloudflare could not access the Pages project 'wicolly-site' in the configured account. HTTP status: $status"
+            cat cloudflare-project-response.json
+            exit 1
+          fi
+
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs'
+
+          const response = JSON.parse(fs.readFileSync('cloudflare-project-response.json', 'utf8'))
+          if (!response.success || response.result?.name !== 'wicolly-site') {
+            console.error('::error::The Cloudflare token or account ID cannot access the Pages project wicolly-site.')
+            console.error(JSON.stringify(response.errors ?? response.messages ?? [], null, 2))
+            process.exit(1)
+          }
+
+          console.log(`Cloudflare Pages project confirmed: ${response.result.name}`)
+          NODE
+
+          rm -f cloudflare-project-response.json
 
       - name: Deploy to Cloudflare Pages
         shell: bash
         run: |
           set -euo pipefail
+          CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID}" \
+          CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN}" \
           npx --yes wrangler@4 pages deploy dist \
             --project-name=wicolly-site \
             --branch=main
