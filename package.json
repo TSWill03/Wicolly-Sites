@@ -1,8 +1,14 @@
 {
   "private": true,
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "validate": "node scripts/validate-site.mjs",
-    "test": "npm run validate"
+    "lint": "npm --prefix portfolio run lint",
+    "check:links": "node scripts/check-links.mjs",
+    "check:links:external": "node scripts/check-links.mjs --external",
+    "test": "npm run validate && npm run build && npm run lint && npm run check:links"
   }
 }

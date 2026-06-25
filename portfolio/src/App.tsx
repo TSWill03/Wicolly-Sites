@@ -64,9 +64,16 @@ function upsertCanonical(href: string) {
   element.href = href
 }
 
-function resolveUrl(value: string) {
+function resolveSeoUrl(value: string) {
   try {
-    return new URL(value, data.seo.siteUrl).toString()
+    if (/^(?:[a-z][a-z\d+.-]*:)?\/\//i.test(value)) {
+      return new URL(value).toString()
+    }
+
+    const baseUrl = data.seo.siteUrl.endsWith('/') ? data.seo.siteUrl : `${data.seo.siteUrl}/`
+    const relativeValue = value.replace(/^\.?\//, '')
+
+    return new URL(relativeValue, baseUrl).toString()
   } catch {
     return value
   }
@@ -99,8 +106,8 @@ function App() {
   const activeSection = useActiveSection(data.sectionOrder)
 
   useEffect(() => {
-    const siteUrl = resolveUrl(data.seo.siteUrl)
-    const ogImage = resolveUrl(data.seo.ogImage)
+    const siteUrl = resolveSeoUrl(data.seo.siteUrl)
+    const ogImage = resolveSeoUrl(data.seo.ogImage)
 
     document.title = data.seo.title
     document.documentElement.lang = 'pt-BR'
