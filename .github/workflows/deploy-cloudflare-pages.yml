@@ -1,7 +1,10 @@
-name: Deploy Cloudflare Pages
+name: Validate and deploy Cloudflare Pages
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
   workflow_dispatch:
@@ -15,8 +18,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: Build and deploy wicolly-site
+  quality:
+    name: Validate, build, lint and check links
     runs-on: ubuntu-latest
 
     steps:
@@ -26,15 +29,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 22
           cache: npm
           cache-dependency-path: portfolio/package-lock.json
 
-      - name: Validate source
-        run: npm run validate
-
-      - name: Build unified site
-        run: npm run build
+      - name: Run complete verification
+        run: npm test
 
       - name: Check build output
         shell: bash
@@ -44,8 +44,30 @@ jobs:
           test -f dist/_redirects
           test -f dist/portfolio/index.html
           test -d dist/portfolio/assets
+          test -f dist/portfolio/curriculo.html
+          test -f dist/portfolio/curriculo.pdf
           test -f dist/hefesto/index.html
           test -f dist/poseidon/index.html
+
+  deploy:
+    name: Deploy wicolly-site
+    needs: quality
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: portfolio/package-lock.json
+
+      - name: Build unified site
+        run: npm run build
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
