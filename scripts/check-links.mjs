@@ -89,7 +89,7 @@ function validateHtmlFile(filePath, routeMap) {
   const sourceRoute = routeForHtml(filePath)
 
   for (const { tag, name, value, parsed } of extractAttributes(html)) {
-    if (!value || value.startsWith('#') === false && ignoredProtocols.test(value)) continue
+    if (!value || (!value.startsWith('#') && ignoredProtocols.test(value))) continue
 
     if (/^javascript:/i.test(value)) {
       failures.push(`${relative(filePath)} contains unsafe ${name}="${value}"`)
@@ -145,8 +145,14 @@ function validateCssFile(filePath) {
     const value = match[2]
     if (!value || value.startsWith('#') || ignoredProtocols.test(value) || externalProtocol.test(value)) continue
 
-    const target = path.resolve(path.dirname(filePath), decodeURIComponent(value.split(/[?#]/)[0]))
-    if (!fs.existsSync(target)) failures.push(`${relative(filePath)} points to missing CSS resource: ${value}`)
+    const cleanValue = decodeURIComponent(value.split(/[?#]/)[0])
+    const target = cleanValue.startsWith('/')
+      ? resolveInternalFile(cleanValue)
+      : path.resolve(path.dirname(filePath), cleanValue)
+
+    if (!target || !fs.existsSync(target)) {
+      failures.push(`${relative(filePath)} points to missing CSS resource: ${value}`)
+    }
   }
 }
 
