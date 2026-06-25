@@ -56,6 +56,7 @@ async function main() {
   await assertExists(resolveInsideRoot('main', 'index.html'), 'main/index.html')
   await assertExists(resolveInsideRoot('hefesto', 'index.html'), 'hefesto/index.html')
   await assertExists(resolveInsideRoot('poseidon', 'index.html'), 'poseidon/index.html')
+  await assertExists(resolveInsideRoot('impressoes-3d', 'index.html'), 'impressoes-3d/index.html')
   await assertExists(resolveInsideRoot('portfolio', 'package.json'), 'portfolio/package.json')
   await assertExists(resolveInsideRoot('public', '_redirects'), 'public/_redirects')
 
@@ -69,6 +70,7 @@ async function main() {
   await fs.copyFile(resolveInsideRoot('main', 'index.html'), path.join(distDir, 'index.html'))
   await copyDirectory(resolveInsideRoot('hefesto'), path.join(distDir, 'hefesto'))
   await copyDirectory(resolveInsideRoot('poseidon'), path.join(distDir, 'poseidon'))
+  await copyDirectory(resolveInsideRoot('impressoes-3d'), path.join(distDir, 'impressoes-3d'))
 
   const lockfiles = ['package-lock.json', 'npm-shrinkwrap.json']
   const hasLockfile = lockfiles.some((file) => existsSync(path.join(portfolioDir, file)))
