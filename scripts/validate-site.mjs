@@ -9,6 +9,7 @@ const requiredSourceFiles = [
   'main/index.html',
   'hefesto/index.html',
   'poseidon/index.html',
+  'impressoes-3d/index.html',
   'portfolio/package.json',
 ]
 
@@ -16,6 +17,7 @@ const sourceHtmlFiles = [
   'main/index.html',
   'hefesto/index.html',
   'poseidon/index.html',
+  'impressoes-3d/index.html',
   'portfolio/index.html',
 ]
 
@@ -23,6 +25,7 @@ const distFiles = [
   'dist/index.html',
   'dist/hefesto/index.html',
   'dist/poseidon/index.html',
+  'dist/impressoes-3d/index.html',
   'dist/portfolio/index.html',
   'dist/_redirects',
 ]
@@ -180,14 +183,14 @@ function validateContentScans() {
 
 function validateSourceLinks() {
   const mainHtml = read('main/index.html')
-  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/']) {
+  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/impressoes-3d/']) {
     assert(mainHtml.includes(`href="${sitePath}"`), `main/index.html must link to ${sitePath}`)
   }
 
-  for (const relativePath of ['hefesto/index.html', 'poseidon/index.html']) {
+  for (const relativePath of ['hefesto/index.html', 'poseidon/index.html', 'impressoes-3d/index.html']) {
     const html = read(relativePath)
     assert(
-      /href=["'](?:\/|https:\/\/wicolly\.com\.br\/?)["']/.test(html),
+      /href=["'](?:\/|https:\/\/wicolly\.com\.br\/?)['"]/.test(html),
       `${relativePath} must link back to / or https://wicolly.com.br/`,
     )
   }
