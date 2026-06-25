@@ -6,6 +6,14 @@ interface SocialLinksProps {
   label: string
 }
 
+const legacySocialUrls: Record<string, string> = {
+  'https://www.instagram.com/wicollyo': 'https://www.instagram.com/wicolly',
+}
+
+function resolveSocialUrl(value: string) {
+  return legacySocialUrls[value] ?? value
+}
+
 export function SocialLinks({ items, label }: SocialLinksProps) {
   return (
     <div aria-label={label} className="social-links" role="list">
@@ -13,9 +21,9 @@ export function SocialLinks({ items, label }: SocialLinksProps) {
         <a
           aria-label={item.label}
           className="social-link"
-          href={item.href}
+          href={resolveSocialUrl(item.href)}
           key={item.label}
-          rel="noreferrer"
+          rel="noopener noreferrer"
           role="listitem"
           target="_blank"
         >
