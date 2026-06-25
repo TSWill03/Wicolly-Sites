@@ -91,20 +91,34 @@ jobs:
 
           echo "Cloudflare secrets are available to the workflow."
 
-      - name: Verify Cloudflare Pages project
+      - name: Ensure Cloudflare Pages project exists
         shell: bash
         run: |
           set -euo pipefail
 
-          status=$(curl --silent --show-error \
-            --output cloudflare-project-response.json \
-            --write-out "%{http_code}" \
-            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            --header "Content-Type: application/json" \
-            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/wicolly-site")
+          check_project() {
+            curl --silent --show-error \
+              --output cloudflare-project-response.json \
+              --write-out "%{http_code}" \
+              --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+              --header "Content-Type: application/json" \
+              "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/wicolly-site"
+          }
+
+          status=$(check_project)
+
+          if [ "$status" = "404" ]; then
+            echo "Cloudflare Pages project 'wicolly-site' does not exist. Creating it..."
+            cat cloudflare-project-response.json
+
+            npx --yes wrangler@4 pages project create wicolly-site \
+              --production-branch=main
+
+            status=$(check_project)
+          fi
 
           if [ "$status" != "200" ]; then
-            echo "::error::Cloudflare could not access the Pages project 'wicolly-site' in the configured account. HTTP status: $status"
+            echo "::error::Cloudflare could not access or create the Pages project 'wicolly-site'. HTTP status: $status"
             cat cloudflare-project-response.json
             exit 1
           fi
@@ -114,12 +128,13 @@ jobs:
 
           const response = JSON.parse(fs.readFileSync('cloudflare-project-response.json', 'utf8'))
           if (!response.success || response.result?.name !== 'wicolly-site') {
-            console.error('::error::The Cloudflare token or account ID cannot access the Pages project wicolly-site.')
+            console.error('::error::The Cloudflare Pages project wicolly-site was not confirmed after validation.')
             console.error(JSON.stringify(response.errors ?? response.messages ?? [], null, 2))
             process.exit(1)
           }
 
           console.log(`Cloudflare Pages project confirmed: ${response.result.name}`)
+          console.log(`Production branch: ${response.result.production_branch ?? 'main'}`)
           NODE
 
           rm -f cloudflare-project-response.json
@@ -128,8 +143,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID}" \
-          CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN}" \
           npx --yes wrangler@4 pages deploy dist \
             --project-name=wicolly-site \
             --branch=main
