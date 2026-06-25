@@ -10,6 +10,10 @@ interface ContactSectionProps {
   data: ContactData
 }
 
+function isWebUrl(value: string) {
+  return /^https?:\/\//i.test(value)
+}
+
 export function ContactSection({ data }: ContactSectionProps) {
   return (
     <Section id="contact">
@@ -36,20 +40,29 @@ export function ContactSection({ data }: ContactSectionProps) {
         </Reveal>
 
         <div className="contact-methods">
-          {data.methods.map((method, index) => (
-            <Reveal delay={index * 90} key={method.title}>
-              <a className="glass-card contact-card" href={method.href} rel="noreferrer" target="_blank">
-                <div className="contact-card__icon">
-                  <Icon className="contact-card__glyph" name={method.icon} />
-                </div>
-                <div className="contact-card__body">
-                  <span>{method.title}</span>
-                  <strong>{method.value}</strong>
-                  <p>{method.description}</p>
-                </div>
-              </a>
-            </Reveal>
-          ))}
+          {data.methods.map((method, index) => {
+            const opensNewTab = isWebUrl(method.href)
+
+            return (
+              <Reveal delay={index * 90} key={method.title}>
+                <a
+                  className="glass-card contact-card"
+                  href={method.href}
+                  rel={opensNewTab ? 'noopener noreferrer' : undefined}
+                  target={opensNewTab ? '_blank' : undefined}
+                >
+                  <div className="contact-card__icon">
+                    <Icon className="contact-card__glyph" name={method.icon} />
+                  </div>
+                  <div className="contact-card__body">
+                    <span>{method.title}</span>
+                    <strong>{method.value}</strong>
+                    <p>{method.description}</p>
+                  </div>
+                </a>
+              </Reveal>
+            )
+          })}
         </div>
       </div>
     </Section>
