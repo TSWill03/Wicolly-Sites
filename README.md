@@ -1,15 +1,24 @@
 # Wicolly Sites
 
-Repositorio central dos sites publicos do ecossistema Wicolly, publicado como um unico projeto no Cloudflare Pages.
+Repositório central dos sites públicos do ecossistema Wicolly, publicado como um único projeto no Cloudflare Pages.
 
 ## URLs
 
-| Caminho | Conteudo |
+| Caminho | Conteúdo |
 | --- | --- |
-| `https://wicolly.com.br/` | Site principal |
-| `https://wicolly.com.br/portfolio/` | Portfolio React, TypeScript e Vite |
-| `https://wicolly.com.br/hefesto/` | Pagina publica do servidor Hefesto |
-| `https://wicolly.com.br/poseidon/` | Pagina publica do servidor Poseidon |
+| `https://wicolly.com.br/` | Site principal estático |
+| `https://wicolly.com.br/portfolio/` | Portfólio React, TypeScript e Vite |
+| `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
+| `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
+
+## Tecnologias
+
+- Node.js 20.19 ou superior;
+- React 19, TypeScript e Vite no portfólio;
+- HTML e CSS sem framework nas páginas principal, Hefesto e Poseidon;
+- ESLint para análise estática;
+- scripts Node.js para montagem do site e validação de rotas;
+- GitHub Actions e Cloudflare Pages para integração e entrega contínuas.
 
 ## Estrutura
 
@@ -30,22 +39,64 @@ Wicolly-Sites/
 │   └── _redirects
 ├── scripts/
 │   ├── build-site.mjs
+│   ├── check-links.mjs
 │   └── validate-site.mjs
 ├── package.json
 ├── README.md
 └── DEPLOY_CLOUDFLARE.md
 ```
 
-O portfolio foi importado de `https://github.com/TSWill03/Portifolio` e agora e publicado em `/portfolio/` dentro deste repositorio.
+## Instalação e desenvolvimento
 
-## Build Local
+O projeto raiz não possui dependências próprias. O script de build instala de forma reproduzível as dependências do portfólio usando o seu `package-lock.json`.
 
-```powershell
-npm run validate
-npm run build
+Para trabalhar somente no portfólio:
+
+```bash
+cd portfolio
+npm ci
+npm run dev
 ```
 
-A saida final fica em `dist/`:
+O servidor Vite informa a URL local no terminal. Durante o desenvolvimento, o portfólio usa `/`; no build de produção, os recursos usam a base `/portfolio/`.
+
+## Build e validação
+
+A partir da raiz do repositório:
+
+```bash
+npm run validate
+npm run build
+npm run lint
+npm run check:links
+```
+
+A verificação completa de um clone limpo é:
+
+```bash
+npm test
+```
+
+Esse comando valida os arquivos-fonte, instala as dependências bloqueadas, compila TypeScript, gera o build Vite, executa o ESLint e percorre os HTML/CSS gerados para localizar rotas, fragmentos e recursos internos inválidos.
+
+Para também consultar as URLs externas encontradas no build:
+
+```bash
+npm run check:links:external
+```
+
+A checagem externa depende da rede. Respostas definitivas `404` e `410` são tratadas como erro; bloqueios, rate limit e falhas transitórias são registrados como avisos.
+
+## Visualização local do build unificado
+
+```bash
+npm run build
+python -m http.server 8080 --directory dist
+```
+
+Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/hefesto/` e `/poseidon/`.
+
+A saída final fica em `dist/`:
 
 ```text
 dist/
@@ -56,33 +107,39 @@ dist/
 └── poseidon/
 ```
 
-Para testar localmente:
+## Variáveis de ambiente
 
-```powershell
-python -m http.server 8080 --directory dist
-```
+Nenhuma variável de ambiente é necessária para instalar, desenvolver, testar ou gerar o site localmente.
+
+O workflow de publicação usa somente estes segredos configurados no GitHub:
+
+- `CLOUDFLARE_API_TOKEN`;
+- `CLOUDFLARE_ACCOUNT_ID`.
+
+Eles não devem ser armazenados no repositório.
 
 ## Deploy
 
-Existe somente um projeto Cloudflare Pages:
+Existe um único projeto Cloudflare Pages:
 
 ```text
-wicolly-site
-```
-
-Configuracao:
-
-```text
-Repositorio: TSWill03/Wicolly-Sites
+Nome: wicolly-site
+Repositório: TSWill03/Wicolly-Sites
 Branch: main
 Build command: npm run build
 Build output directory: dist
 Root directory: vazio
-Dominio: wicolly.com.br
+Domínio: wicolly.com.br
 ```
 
-O workflow `.github/workflows/deploy-cloudflare-pages.yml` valida, gera `dist/` e publica apenas esse diretorio no projeto `wicolly-site`.
+O workflow `.github/workflows/deploy-cloudflare-pages.yml` executa a verificação completa em pull requests e pushes. O deploy ocorre somente após os testes passarem e nunca durante um pull request.
 
-## Seguranca
+## Pendências de conteúdo
 
-Nao commite tokens, chaves privadas, `.env`, `node_modules`, `dist`, backups DNS ou resultados de deploy local.
+A seção de credenciais não publica exemplos ou comprovantes fictícios. Certificados reais devem ser adicionados somente quando instituição, data e URL ou arquivo puderem ser confirmados.
+
+O currículo em PDF deve ser regenerado sempre que a versão HTML ou os dados profissionais forem atualizados.
+
+## Segurança
+
+Não envie tokens, chaves privadas, `.env`, `node_modules`, `dist`, backups DNS ou resultados de deploy local. Links que abrem uma nova aba devem usar `noopener` ou `noreferrer`.
