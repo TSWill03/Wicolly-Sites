@@ -12,6 +12,7 @@ const requiredSourceFiles = [
   'blacklight3d/index.html',
   'impressoes-3d/index.html',
   'madrinha/index.html',
+  'veredra/index.html',
   'portfolio/package.json',
 ]
 
@@ -22,6 +23,7 @@ const sourceHtmlFiles = [
   'blacklight3d/index.html',
   'impressoes-3d/index.html',
   'madrinha/index.html',
+  'veredra/index.html',
   'portfolio/index.html',
 ]
 
@@ -33,6 +35,7 @@ const distFiles = [
   'dist/blacklight3d/styles.css',
   'dist/impressoes-3d/index.html',
   'dist/madrinha/index.html',
+  'dist/veredra/index.html',
   'dist/portfolio/index.html',
   'dist/_redirects',
   'dist/_routes.json',
@@ -191,7 +194,7 @@ function validateContentScans() {
 
 function validateSourceLinks() {
   const mainHtml = read('main/index.html')
-  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/blacklight3d/', '/madrinha/']) {
+  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/blacklight3d/', '/madrinha/', '/veredra/']) {
     assert(mainHtml.includes(`href="${sitePath}"`), `main/index.html must link to ${sitePath}`)
   }
 
