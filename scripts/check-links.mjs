@@ -52,6 +52,26 @@ function resolveInternalFile(urlPath) {
   return null
 }
 
+function routePatternMatches(pattern, pathname) {
+  const route = pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+  const normalizedPattern = pattern.endsWith('/') && pattern !== '/' ? pattern.slice(0, -1) : pattern
+
+  if (normalizedPattern.endsWith('/*')) {
+    const prefix = normalizedPattern.slice(0, -2)
+    return route === prefix || route.startsWith(`${prefix}/`)
+  }
+
+  return route === normalizedPattern
+}
+
+function loadFunctionRoutePatterns() {
+  const routesFile = path.join(distDir, '_routes.json')
+  if (!fs.existsSync(routesFile)) return []
+
+  const routes = JSON.parse(fs.readFileSync(routesFile, 'utf8'))
+  return Array.isArray(routes.include) ? routes.include : []
+}
+
 function extractAttributes(html) {
   const attributes = []
   const tagPattern = /<([a-z][\w:-]*)([^>]*?)>/gi
@@ -84,7 +104,7 @@ function idsFromHtml(html) {
   return ids
 }
 
-function validateHtmlFile(filePath, routeMap) {
+function validateHtmlFile(filePath, routeMap, functionRoutePatterns) {
   const html = fs.readFileSync(filePath, 'utf8')
   const sourceRoute = routeForHtml(filePath)
 
@@ -118,6 +138,11 @@ function validateHtmlFile(filePath, routeMap) {
 
     const targetFile = resolveInternalFile(resolved.pathname)
     if (!targetFile) {
+      if (functionRoutePatterns.some((pattern) => routePatternMatches(pattern, resolved.pathname))) {
+        routeMap.add(resolved.pathname.endsWith('/') ? resolved.pathname : `${resolved.pathname}/`)
+        continue
+      }
+
       failures.push(`${relative(filePath)} points to missing internal resource: ${value}`)
       continue
     }
@@ -187,10 +212,16 @@ if (!fs.existsSync(distDir)) {
 const files = walk(distDir)
 const htmlFiles = files.filter((file) => file.endsWith('.html'))
 const cssFiles = files.filter((file) => file.endsWith('.css'))
+const functionRoutePatterns = loadFunctionRoutePatterns()
 const knownRoutes = new Set(htmlFiles.map(routeForHtml))
 const linkedRoutes = new Set(['/'])
 
-for (const file of htmlFiles) validateHtmlFile(file, linkedRoutes)
+for (const pattern of functionRoutePatterns) {
+  if (pattern.endsWith('/*')) knownRoutes.add(`${pattern.slice(0, -2)}/`)
+  else knownRoutes.add(pattern.endsWith('/') ? pattern : `${pattern}/`)
+}
+
+for (const file of htmlFiles) validateHtmlFile(file, linkedRoutes, functionRoutePatterns)
 for (const file of cssFiles) validateCssFile(file)
 
 for (const route of knownRoutes) {
