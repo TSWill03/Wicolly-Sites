@@ -38,3 +38,17 @@ Service: http://localhost
 ```
 
 O Nginx do Hefesto deve então responder esse hostname e proxyar `/blacklight3d/` para `http://127.0.0.1:8085/blacklight3d/`.
+
+Importante: `wp-origin.wicolly.com.br` é apenas hostname técnico do tunnel. No Nginx, repasse para o container:
+
+```nginx
+proxy_set_header Host wicolly.com.br;
+proxy_set_header X-Forwarded-Proto https;
+proxy_set_header X-Forwarded-Host wicolly.com.br;
+```
+
+A URL de uso do painel continua sendo:
+
+```text
+https://wicolly.com.br/blacklight3d/wp-admin/
+```

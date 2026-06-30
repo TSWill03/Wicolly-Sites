@@ -104,6 +104,8 @@ Pontos principais:
 - Headers `Host`, `X-Real-IP`, `X-Forwarded-For`, `X-Forwarded-Proto` e `X-Forwarded-Host` sao preservados.
 - A porta `8085` deve continuar acessivel apenas por localhost.
 
+Quando o origin tecnico for `wp-origin.wicolly.com.br`, mantenha `Host` e `X-Forwarded-Host` como `wicolly.com.br`. O hostname `wp-origin` e apenas a entrada do Cloudflare Tunnel e nao deve aparecer em redirects, cookies ou links canonicos do WordPress.
+
 Depois de aplicar:
 
 ```bash
