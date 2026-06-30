@@ -28,6 +28,7 @@ const distFiles = [
   'dist/impressoes-3d/index.html',
   'dist/portfolio/index.html',
   'dist/_redirects',
+  'dist/_routes.json',
 ]
 
 const excludedDirs = new Set([
@@ -186,6 +187,14 @@ function validateSourceLinks() {
   for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/impressoes-3d/']) {
     assert(mainHtml.includes(`href="${sitePath}"`), `main/index.html must link to ${sitePath}`)
   }
+
+  assert(existsFile('public/_routes.json'), 'public/_routes.json must exist for Pages Functions routing')
+
+  const routes = JSON.parse(read('public/_routes.json'))
+  assert(
+    Array.isArray(routes.include) && routes.include.includes('/blacklight3d/*'),
+    'public/_routes.json must include /blacklight3d/*',
+  )
 
   for (const relativePath of ['hefesto/index.html', 'poseidon/index.html', 'impressoes-3d/index.html']) {
     const html = read(relativePath)

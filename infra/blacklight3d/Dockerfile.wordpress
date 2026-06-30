@@ -1,0 +1,6 @@
+FROM wordpress:php8.3-apache
+
+COPY apache/blacklight3d-subpath.conf /etc/apache2/conf-available/blacklight3d-subpath.conf
+
+RUN a2enmod rewrite headers \
+    && a2enconf blacklight3d-subpath

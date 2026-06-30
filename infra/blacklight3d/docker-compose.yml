@@ -1,0 +1,79 @@
+services:
+  db:
+    image: mariadb:11.4
+    container_name: blacklight3d-mariadb
+    command:
+      - --transaction-isolation=READ-COMMITTED
+      - --binlog-format=ROW
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE:?configure MARIADB_DATABASE in .env}
+      MARIADB_USER: ${MARIADB_USER:?configure MARIADB_USER in .env}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?configure MARIADB_PASSWORD in .env}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?configure MARIADB_ROOT_PASSWORD in .env}
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -u\"$${MARIADB_USER}\" -p\"$${MARIADB_PASSWORD}\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+    volumes:
+      - blacklight3d_db:/var/lib/mysql
+    networks:
+      - blacklight3d_internal
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile.wordpress
+    container_name: blacklight3d-wordpress
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${MARIADB_DATABASE:?configure MARIADB_DATABASE in .env}
+      WORDPRESS_DB_USER: ${MARIADB_USER:?configure MARIADB_USER in .env}
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD:?configure MARIADB_PASSWORD in .env}
+      WORDPRESS_TABLE_PREFIX: ${WORDPRESS_TABLE_PREFIX:-wp_}
+      WORDPRESS_DEBUG: ${WORDPRESS_DEBUG:-0}
+      WP_ENVIRONMENT_TYPE: ${WP_ENVIRONMENT_TYPE:-production}
+      WP_HOME: ${WP_HOME:-https://wicolly.com.br/blacklight3d}
+      WP_SITEURL: ${WP_SITEURL:-https://wicolly.com.br/blacklight3d}
+      FORCE_SSL_ADMIN: ${FORCE_SSL_ADMIN:-true}
+      BLACKLIGHT_WHATSAPP_NUMBER: ${BLACKLIGHT_WHATSAPP_NUMBER:-5564993252339}
+      WORDPRESS_CONFIG_EXTRA: |
+        if (isset($$_SERVER['HTTP_X_FORWARDED_PROTO']) && stripos($$_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+            $$_SERVER['HTTPS'] = 'on';
+        }
+
+        if (isset($$_SERVER['HTTP_X_FORWARDED_HOST']) && $$_SERVER['HTTP_X_FORWARDED_HOST'] !== '') {
+            $$_SERVER['HTTP_HOST'] = $$_SERVER['HTTP_X_FORWARDED_HOST'];
+        }
+
+        define('WP_HOME', getenv('WP_HOME') ?: 'https://wicolly.com.br/blacklight3d');
+        define('WP_SITEURL', getenv('WP_SITEURL') ?: 'https://wicolly.com.br/blacklight3d');
+        define('FORCE_SSL_ADMIN', filter_var(getenv('FORCE_SSL_ADMIN') ?: 'true', FILTER_VALIDATE_BOOLEAN));
+        define('WP_ENVIRONMENT_TYPE', getenv('WP_ENVIRONMENT_TYPE') ?: 'production');
+        define('DISALLOW_FILE_EDIT', true);
+        define('COOKIEPATH', '/blacklight3d/');
+        define('SITECOOKIEPATH', '/blacklight3d/');
+        define('ADMIN_COOKIE_PATH', '/blacklight3d/wp-admin');
+    ports:
+      - "127.0.0.1:${WORDPRESS_PORT:-8085}:80"
+    restart: unless-stopped
+    volumes:
+      - blacklight3d_wordpress:/var/www/html
+      - ./wordpress/mu-plugins:/var/www/html/wp-content/mu-plugins:ro
+    networks:
+      - blacklight3d_internal
+
+networks:
+  blacklight3d_internal:
+    name: blacklight3d_internal
+
+volumes:
+  blacklight3d_db:
+  blacklight3d_wordpress:

@@ -79,6 +79,11 @@ async function main() {
 
   await copyDirectory(portfolioDistDir, path.join(distDir, 'portfolio'))
   await fs.copyFile(resolveInsideRoot('public', '_redirects'), path.join(distDir, '_redirects'))
+
+  const routesFile = resolveInsideRoot('public', '_routes.json')
+  if (existsSync(routesFile)) {
+    await fs.copyFile(routesFile, path.join(distDir, '_routes.json'))
+  }
 }
 
 main().catch((error) => {

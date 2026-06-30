@@ -9,6 +9,7 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 | `https://wicolly.com.br/` | Site principal estático |
 | `https://wicolly.com.br/portfolio/` | Portfólio React, TypeScript e Vite |
 | `https://wicolly.com.br/impressoes-3d/` | Página da BlackLight Impressões 3D |
+| `https://wicolly.com.br/blacklight3d/` | Catálogo WordPress/WooCommerce da BlackLight 3D |
 | `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
 | `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
 
@@ -17,6 +18,7 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 - Node.js 20.19 ou superior;
 - React 19, TypeScript e Vite no portfólio;
 - HTML e CSS sem framework nas páginas principal, BlackLight Impressões 3D, Hefesto e Poseidon;
+- Cloudflare Pages Function para encaminhar `/blacklight3d/*` para o WordPress isolado;
 - ESLint para análise estática;
 - scripts Node.js para montagem do site e validação de rotas;
 - GitHub Actions e Cloudflare Pages para integração e entrega contínuas.
@@ -105,11 +107,30 @@ A saída final fica em `dist/`:
 dist/
 ├── index.html
 ├── _redirects
+├── _routes.json
 ├── portfolio/
 ├── impressoes-3d/
 ├── hefesto/
 └── poseidon/
 ```
+
+## Catálogo BlackLight 3D
+
+A rota `/blacklight3d/` não é uma página estática do Cloudflare Pages. Ela passa pela Pages Function em `functions/blacklight3d/[[path]].js`, que encaminha método, path, query string, headers principais e body para o origin WordPress.
+
+Origin padrão:
+
+```text
+https://wp-origin.wicolly.com.br
+```
+
+Para trocar o origin sem alterar código, configure a variável do projeto Cloudflare Pages:
+
+```text
+BLACKLIGHT3D_ORIGIN=https://wp-origin.wicolly.com.br
+```
+
+A infraestrutura Docker/Nginx do WordPress fica versionada em `infra/blacklight3d/`.
 
 ## Página de impressões 3D
 

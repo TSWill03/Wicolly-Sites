@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+
+backups/
+backup/
+db-data/
+wordpress-data/
+uploads-local/
+*.sql
+*.sql.gz
+*.dump
+*.tar.gz
