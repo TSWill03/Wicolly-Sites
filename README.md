@@ -12,12 +12,13 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 | `https://wicolly.com.br/blacklight3d/` | Catálogo WordPress/WooCommerce da BlackLight 3D |
 | `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
 | `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
+| `https://wicolly.com.br/madrinha/` | Homenagem para Márcia |
 
 ## Tecnologias
 
 - Node.js 20.19 ou superior;
 - React 19, TypeScript e Vite no portfólio;
-- HTML e CSS sem framework nas páginas principal, BlackLight Impressões 3D, Hefesto e Poseidon;
+- HTML e CSS sem framework nas páginas principal, BlackLight Impressões 3D, Hefesto, Poseidon e Madrinha;
 - Cloudflare Pages Function para encaminhar `/blacklight3d/*` para o WordPress isolado;
 - ESLint para análise estática;
 - scripts Node.js para montagem do site e validação de rotas;
@@ -39,6 +40,8 @@ Wicolly-Sites/
 ├── hefesto/
 │   └── index.html
 ├── poseidon/
+│   └── index.html
+├── madrinha/
 │   └── index.html
 ├── public/
 │   └── _redirects
@@ -99,7 +102,7 @@ npm run build
 python -m http.server 8080 --directory dist
 ```
 
-Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/impressoes-3d/`, `/hefesto/` e `/poseidon/`.
+Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/impressoes-3d/`, `/hefesto/`, `/poseidon/` e `/madrinha/`.
 
 A saída final fica em `dist/`:
 
@@ -111,7 +114,8 @@ dist/
 ├── portfolio/
 ├── impressoes-3d/
 ├── hefesto/
-└── poseidon/
+├── poseidon/
+└── madrinha/
 ```
 
 ## Catálogo BlackLight 3D

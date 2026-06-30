@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Uma mensagem de carinho para Márcia, minha segunda mãe e minha madrinha.">
+  <meta name="theme-color" content="#141827">
+  <title>Para Márcia, minha madrinha</title>
+  <style>
+    :root {
+      --bg: #101321;
+      --ink: #fff8f1;
+      --muted: #c9c3bd;
+      --paper: rgba(255, 248, 241, .08);
+      --paper-strong: rgba(255, 248, 241, .13);
+      --rose: #ff7a90;
+      --blue: #7ab8ff;
+      --green: #91e0b7;
+      --gold: #ffd27d;
+      --line: rgba(255, 248, 241, .16);
+      --shadow: 0 22px 70px rgba(0, 0, 0, .32);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(255, 122, 144, .16), transparent 34%),
+        linear-gradient(215deg, rgba(122, 184, 255, .15), transparent 38%),
+        linear-gradient(180deg, #171a2a 0%, var(--bg) 48%, #151827 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .24;
+      background:
+        linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.08) calc(100% - 1px)),
+        linear-gradient(180deg, transparent 0, transparent calc(100% - 1px), rgba(255,255,255,.06) calc(100% - 1px));
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, #000, transparent 88%);
+    }
+
+    a { color: inherit; }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(16, 19, 33, .78);
+      backdrop-filter: blur(18px);
+    }
+
+    .head {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 850;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(255,122,144,.25), rgba(122,184,255,.22));
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .22);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .94rem;
+      font-weight: 750;
+    }
+
+    nav a:hover { color: var(--ink); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 248, 241, .06);
+      text-decoration: none;
+      font-weight: 850;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 248, 241, .34);
+      background: rgba(255, 248, 241, .1);
+    }
+
+    .button-primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--rose), var(--blue));
+      color: #101321;
+    }
+
+    main { overflow: hidden; }
+
+    .hero {
+      min-height: calc(100vh - 76px);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 48px;
+      padding: 68px 0 86px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 248, 241, .06);
+      color: #f7e8e8;
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
+    .dash {
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    h1, h2, h3, p { overflow-wrap: anywhere; }
+
+    h1 {
+      max-width: 780px;
+      margin: 22px 0 20px;
+      font-size: 4.6rem;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      display: block;
+      color: transparent;
+      background: linear-gradient(100deg, var(--rose), var(--gold), var(--green), var(--blue));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .lead {
+      max-width: 710px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.16rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .letter-preview {
+      position: relative;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 248, 241, .14), rgba(255, 248, 241, .07)),
+        rgba(16, 19, 33, .82);
+      box-shadow: var(--shadow);
+    }
+
+    .letter-preview::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(255, 248, 241, .1);
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    .letter-initial {
+      display: grid;
+      place-items: center;
+      width: 88px;
+      height: 88px;
+      margin-bottom: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(145,224,183,.24), rgba(255,210,125,.16)),
+        rgba(255, 248, 241, .08);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 3.1rem;
+      line-height: 1;
+    }
+
+    .letter-preview h2 {
+      margin: 0 0 14px;
+      font-size: 2rem;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .letter-preview p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .note-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .note {
+      min-height: 92px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 248, 241, .06);
+    }
+
+    .note strong {
+      display: block;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .note span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    section { padding: 84px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 30px;
+    }
+
+    .kicker {
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 8px 0 12px;
+      font-size: 2.65rem;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .letter {
+      padding: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(255,122,144,.09), transparent 38%),
+        linear-gradient(270deg, rgba(122,184,255,.09), transparent 42%),
+        rgba(255, 248, 241, .07);
+      box-shadow: var(--shadow);
+    }
+
+    .letter p {
+      max-width: 840px;
+      margin: 0 0 18px;
+      color: #f5eee7;
+      font-size: 1.08rem;
+    }
+
+    .letter p:last-child { margin-bottom: 0; }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .memory-card {
+      min-height: 250px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .memory-card:nth-child(2) {
+      background: linear-gradient(180deg, rgba(145,224,183,.11), rgba(255,248,241,.06));
+    }
+
+    .memory-card:nth-child(3) {
+      background: linear-gradient(180deg, rgba(122,184,255,.12), rgba(255,248,241,.06));
+    }
+
+    .memory-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.22rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .memory-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .98rem;
+    }
+
+    .promise {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .promise-title,
+    .promise-text {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .promise-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 310px;
+      padding: 26px;
+      background:
+        linear-gradient(155deg, rgba(255,210,125,.15), transparent 52%),
+        rgba(255, 248, 241, .08);
+    }
+
+    .promise-title span {
+      color: var(--gold);
+      font-size: .82rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .promise-title h2 {
+      margin: 18px 0 0;
+      font-size: 2.45rem;
+    }
+
+    .signature {
+      margin-top: 24px;
+      color: var(--muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+    }
+
+    .promise-text {
+      padding: 34px;
+      background:
+        linear-gradient(120deg, rgba(255,122,144,.12), transparent 45%),
+        linear-gradient(300deg, rgba(145,224,183,.11), transparent 50%),
+        var(--paper-strong);
+    }
+
+    .promise-text p {
+      margin: 0 0 18px;
+      color: #f7efe8;
+      font-size: 1.08rem;
+    }
+
+    .promise-text p:last-child { margin-bottom: 0; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 34px 0 46px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 900px) {
+      nav a:not(.button) { display: none; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 52px;
+      }
+      h1 { font-size: 3.5rem; }
+      .memory-grid,
+      .promise {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px, 1080px); }
+      .head { min-height: 68px; }
+      .brand span:last-child { display: none; }
+      h1 { font-size: 2.65rem; }
+      h2, .promise-title h2 { font-size: 2rem; }
+      section { padding: 62px 0; }
+      .letter,
+      .letter-preview,
+      .promise-text,
+      .promise-title {
+        padding: 22px;
+      }
+      .note-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="head wrap">
+      <a class="brand" href="#inicio" aria-label="Voltar ao início da mensagem">
+        <span class="mark" aria-hidden="true">M</span>
+        <span>Para Márcia</span>
+      </a>
+      <nav aria-label="Navegação da mensagem">
+        <a href="#carta">Carta</a>
+        <a href="#memorias">Memórias</a>
+        <a href="#promessa">Promessa</a>
+        <a class="button" href="/">Site principal</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap" id="inicio">
+      <div>
+        <div class="eyebrow"><span class="dash"></span> Minha segunda mãe e minha madrinha</div>
+        <h1>Márcia, obrigado por ser <span>casa na minha vida.</span></h1>
+        <p class="lead">Eu fiz esta página para deixar registrado, do meu jeito, o quanto você é importante para mim. Sem foto, sem pressa, só uma carta bonita para alguém que sempre ocupou um lugar enorme no meu coração.</p>
+        <div class="actions">
+          <a class="button button-primary" href="#carta">Ler a mensagem</a>
+          <a class="button" href="#promessa">Ir para a promessa</a>
+        </div>
+      </div>
+
+      <aside class="letter-preview" aria-label="Resumo da homenagem">
+        <div class="letter-initial" aria-hidden="true">M</div>
+        <h2>Para quem me cuidou, me corrigiu e continuou comigo.</h2>
+        <p>Acho que já são 12 anos de história, se minha conta não estiver me enganando. O tempo passou e muita coisa que antes eu não entendia hoje faz sentido.</p>
+        <div class="note-row">
+          <div class="note">
+            <strong>Carinho</strong>
+            <span>Daqueles que viram abrigo.</span>
+          </div>
+          <div class="note">
+            <strong>Cuidado</strong>
+            <span>Ate quando vinha em forma de bronca.</span>
+          </div>
+          <div class="note">
+            <strong>Presenca</strong>
+            <span>O tipo de amor que fica.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="wrap" id="carta">
+      <div class="section-head">
+        <div class="kicker">Carta</div>
+        <h2>Tem coisa que a gente so entende crescendo.</h2>
+        <p>Esta e uma mensagem para agradecer por tudo que foi cuidado, paciencia, limite, conselho e amor.</p>
+      </div>
+
+      <article class="letter">
+        <p>Márcia, minha segunda mãe e minha madrinha, eu queria te dizer uma coisa que talvez eu nem sempre tenha conseguido falar direito: obrigado por estar na minha vida.</p>
+        <p>Acho que já são 12 anos juntos, se eu não estiver enganado. Doze anos é muita coisa. E nesse tempo todo você esteve presente de um jeito que marcou quem eu sou: cuidando, aconselhando, se preocupando, comemorando comigo e também me dando aqueles puxões de orelha que, na hora, eu talvez não entendesse muito bem.</p>
+        <p>Hoje eu entendo mais. Entendo que muitas broncas não eram só broncas. Eram cuidado. Eram medo de me ver errar. Eram amor tentando me proteger antes que a vida ensinasse do jeito mais difícil. Talvez eu tenha demorado para perceber, mas agora eu vejo com mais carinho tudo o que você tentou me ensinar.</p>
+        <p>Você foi, e continua sendo, uma dessas pessoas que fazem a vida parecer mais segura. Uma presença que acolhe, que orienta, que puxa para perto e que também sabe falar sério quando precisa. Isso é raro, e eu tenho muita sorte por poder te chamar de madrinha e de segunda mãe.</p>
+        <p>Obrigado por cada conselho, cada cuidado, cada preocupação, cada risada e cada momento em que você escolheu ficar por perto. Eu espero, de verdade, que você esteja ao meu lado a vida inteira, vendo minhas conquistas, me lembrando de quem eu sou e fazendo parte dos capítulos mais importantes da minha história.</p>
+        <p>Eu te amo muito, e esta página é só um pedacinho pequeno do tamanho da gratidão que eu tenho por você.</p>
+      </article>
+    </section>
+
+    <section class="wrap" id="memorias">
+      <div class="section-head">
+        <div class="kicker">O que fica</div>
+        <h2>Algumas coisas que eu carrego comigo.</h2>
+        <p>Não precisa de foto para lembrar quando uma pessoa deixa marca. Algumas presenças a gente guarda por dentro.</p>
+      </div>
+
+      <div class="memory-grid">
+        <article class="memory-card">
+          <h3>Os puxões de orelha</h3>
+          <p>Na hora pareciam só cobrança. Hoje eu vejo que tinham amor, cuidado e vontade de me ver melhor. Obrigado por não desistir de me orientar.</p>
+        </article>
+        <article class="memory-card">
+          <h3>O lugar de segunda mãe</h3>
+          <p>Você virou família de um jeito que não depende só de sangue. Virou alguém que eu sei que torce por mim e que se importa de verdade.</p>
+        </article>
+        <article class="memory-card">
+          <h3>A presença no futuro</h3>
+          <p>Quero que você esteja comigo nos próximos passos também: nas conquistas, nas mudanças, nos dias comuns e nos dias que a gente nunca esquece.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap" id="promessa">
+      <div class="promise">
+        <div class="promise-title">
+          <div>
+            <span>Promessa</span>
+            <h2>Que venham muitos anos.</h2>
+          </div>
+          <div class="signature">Com amor, Wicolly</div>
+        </div>
+        <div class="promise-text">
+          <p>Eu quero continuar aprendendo a reconhecer o amor nas pequenas coisas: no conselho repetido, na preocupacao, na pergunta simples, na bronca que vem porque alguem se importa.</p>
+          <p>Que a vida me dê muitas oportunidades de te orgulhar, de retribuir um pouco do que você já fez por mim e de te lembrar que você tem um lugar gigante na minha história.</p>
+          <p>Obrigado por esses anos todos, Márcia. Que você esteja ao meu lado a vida inteira.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>Para Márcia, minha segunda mãe e minha madrinha.</span>
+    <span>Feito com carinho por Wicolly.</span>
+  </footer>
+</body>
+</html>

@@ -10,6 +10,7 @@ const requiredSourceFiles = [
   'hefesto/index.html',
   'poseidon/index.html',
   'impressoes-3d/index.html',
+  'madrinha/index.html',
   'portfolio/package.json',
 ]
 
@@ -18,6 +19,7 @@ const sourceHtmlFiles = [
   'hefesto/index.html',
   'poseidon/index.html',
   'impressoes-3d/index.html',
+  'madrinha/index.html',
   'portfolio/index.html',
 ]
 
@@ -26,6 +28,7 @@ const distFiles = [
   'dist/hefesto/index.html',
   'dist/poseidon/index.html',
   'dist/impressoes-3d/index.html',
+  'dist/madrinha/index.html',
   'dist/portfolio/index.html',
   'dist/_redirects',
   'dist/_routes.json',
@@ -184,7 +187,7 @@ function validateContentScans() {
 
 function validateSourceLinks() {
   const mainHtml = read('main/index.html')
-  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/impressoes-3d/']) {
+  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/impressoes-3d/', '/madrinha/']) {
     assert(mainHtml.includes(`href="${sitePath}"`), `main/index.html must link to ${sitePath}`)
   }
 
@@ -196,7 +199,7 @@ function validateSourceLinks() {
     'public/_routes.json must include /blacklight3d/*',
   )
 
-  for (const relativePath of ['hefesto/index.html', 'poseidon/index.html', 'impressoes-3d/index.html']) {
+  for (const relativePath of ['hefesto/index.html', 'poseidon/index.html', 'impressoes-3d/index.html', 'madrinha/index.html']) {
     const html = read(relativePath)
     assert(
       /href=["'](?:\/|https:\/\/wicolly\.com\.br\/?)['"]/.test(html),
