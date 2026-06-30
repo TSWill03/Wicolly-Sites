@@ -56,6 +56,7 @@ async function main() {
   await assertExists(resolveInsideRoot('main', 'index.html'), 'main/index.html')
   await assertExists(resolveInsideRoot('hefesto', 'index.html'), 'hefesto/index.html')
   await assertExists(resolveInsideRoot('poseidon', 'index.html'), 'poseidon/index.html')
+  await assertExists(resolveInsideRoot('blacklight3d', 'index.html'), 'blacklight3d/index.html')
   await assertExists(resolveInsideRoot('impressoes-3d', 'index.html'), 'impressoes-3d/index.html')
   await assertExists(resolveInsideRoot('madrinha', 'index.html'), 'madrinha/index.html')
   await assertExists(resolveInsideRoot('portfolio', 'package.json'), 'portfolio/package.json')
@@ -71,6 +72,7 @@ async function main() {
   await fs.copyFile(resolveInsideRoot('main', 'index.html'), path.join(distDir, 'index.html'))
   await copyDirectory(resolveInsideRoot('hefesto'), path.join(distDir, 'hefesto'))
   await copyDirectory(resolveInsideRoot('poseidon'), path.join(distDir, 'poseidon'))
+  await copyDirectory(resolveInsideRoot('blacklight3d'), path.join(distDir, 'blacklight3d'))
   await copyDirectory(resolveInsideRoot('impressoes-3d'), path.join(distDir, 'impressoes-3d'))
   await copyDirectory(resolveInsideRoot('madrinha'), path.join(distDir, 'madrinha'))
 

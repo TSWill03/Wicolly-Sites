@@ -8,8 +8,8 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 | --- | --- |
 | `https://wicolly.com.br/` | Site principal estático |
 | `https://wicolly.com.br/portfolio/` | Portfólio React, TypeScript e Vite |
-| `https://wicolly.com.br/impressoes-3d/` | Página da BlackLight Impressões 3D |
-| `https://wicolly.com.br/blacklight3d/` | Catálogo WordPress/WooCommerce da BlackLight 3D |
+| `https://wicolly.com.br/blacklight3d/` | Landing page e catálogo da Blacklight 3D |
+| `https://wicolly.com.br/impressoes-3d/` | Redirecionamento legado para `/blacklight3d/` |
 | `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
 | `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
 | `https://wicolly.com.br/madrinha/` | Homenagem para Márcia |
@@ -18,8 +18,8 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 
 - Node.js 20.19 ou superior;
 - React 19, TypeScript e Vite no portfólio;
-- HTML e CSS sem framework nas páginas principal, BlackLight Impressões 3D, Hefesto, Poseidon e Madrinha;
-- Cloudflare Pages Function para encaminhar `/blacklight3d/*` para o WordPress isolado;
+- HTML e CSS sem framework nas páginas principal, Blacklight 3D, Hefesto, Poseidon e Madrinha;
+- Cloudflare Pages Function para servir a landing estática de `/blacklight3d/` e manter proxy opcional para caminhos dinâmicos do WordPress isolado;
 - ESLint para análise estática;
 - scripts Node.js para montagem do site e validação de rotas;
 - GitHub Actions e Cloudflare Pages para integração e entrega contínuas.
@@ -35,6 +35,10 @@ Wicolly-Sites/
 │   ├── vite.config.ts
 │   ├── public/
 │   └── src/
+├── blacklight3d/
+│   ├── assets/
+│   ├── index.html
+│   └── styles.css
 ├── impressoes-3d/
 │   └── index.html
 ├── hefesto/
@@ -102,7 +106,7 @@ npm run build
 python -m http.server 8080 --directory dist
 ```
 
-Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/impressoes-3d/`, `/hefesto/`, `/poseidon/` e `/madrinha/`.
+Acesse `http://localhost:8080/` e teste também `/portfolio/`, `/blacklight3d/`, `/impressoes-3d/`, `/hefesto/`, `/poseidon/` e `/madrinha/`.
 
 A saída final fica em `dist/`:
 
@@ -112,15 +116,18 @@ dist/
 ├── _redirects
 ├── _routes.json
 ├── portfolio/
+├── blacklight3d/
 ├── impressoes-3d/
 ├── hefesto/
 ├── poseidon/
 └── madrinha/
 ```
 
-## Catálogo BlackLight 3D
+## Catálogo Blacklight 3D
 
-A rota `/blacklight3d/` não é uma página estática do Cloudflare Pages. Ela passa pela Pages Function em `functions/blacklight3d/[[path]].js`, que encaminha método, path, query string, headers principais e body para o origin WordPress.
+A rota `/blacklight3d/` é uma landing page estática dark/neon da Blacklight 3D, com catálogo preparado para produtos futuros, CTA real de WhatsApp, Instagram e SEO próprio.
+
+A Pages Function em `functions/blacklight3d/[[path]].js` continua interceptando `/blacklight3d/*`, mas serve os arquivos estáticos da landing pelo binding `ASSETS` quando o caminho é `/blacklight3d/`, `/blacklight3d/styles.css` ou `/blacklight3d/assets/*`. Caminhos dinâmicos, como uma futura área WordPress/WooCommerce, ainda podem ser encaminhados para o origin WordPress.
 
 Origin padrão:
 
@@ -134,18 +141,11 @@ Para trocar o origin sem alterar código, configure a variável do projeto Cloud
 BLACKLIGHT3D_ORIGIN=https://wp-origin.wicolly.com.br
 ```
 
-A infraestrutura Docker/Nginx do WordPress fica versionada em `infra/blacklight3d/`.
+A infraestrutura Docker/Nginx do WordPress fica versionada em `infra/blacklight3d/` e permanece opcional para um catálogo dinâmico futuro.
 
-## Página de impressões 3D
+## Rota legada de impressões 3D
 
-A rota `/impressoes-3d/` apresenta a marca BlackLight Impressões 3D e organiza os serviços em quatro frentes:
-
-- produtos personalizados, como luminárias e chaveiros;
-- peças funcionais, suportes, caixas e organizadores;
-- aplicações técnicas para cabos, drones agrícolas e manutenção;
-- protótipos, ajustes de escala e testes de encaixe.
-
-O contato é feito por WhatsApp ou e-mail, sem formulário e sem armazenamento de dados no site.
+A rota `/impressoes-3d/` foi mantida como compatibilidade e redireciona para `/blacklight3d/`. Novos links devem apontar diretamente para `/blacklight3d/`.
 
 ## Variáveis de ambiente
 
@@ -180,7 +180,7 @@ A seção de credenciais não publica exemplos ou comprovantes fictícios. Certi
 
 O currículo em PDF deve ser regenerado sempre que a versão HTML ou os dados profissionais forem atualizados.
 
-Fotos reais de produtos da BlackLight podem ser adicionadas futuramente em uma galeria, desde que os arquivos sejam otimizados e versionados no repositório.
+Fotos reais de produtos da Blacklight 3D podem ser adicionadas futuramente em uma galeria, desde que os arquivos sejam otimizados e versionados no repositório.
 
 ## Segurança
 

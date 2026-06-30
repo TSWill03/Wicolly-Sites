@@ -10,9 +10,15 @@ Root directory: vazio
 Dominio: wicolly.com.br
 ```
 
-## Rota dinâmica /blacklight3d
+## Rota /blacklight3d
 
-O projeto usa Cloudflare Pages Functions para interceptar:
+O projeto publica uma landing page estática em:
+
+```text
+wicolly.com.br/blacklight3d/
+```
+
+O projeto também usa Cloudflare Pages Functions para interceptar:
 
 ```text
 wicolly.com.br/blacklight3d*
@@ -24,7 +30,7 @@ A Function está em:
 functions/blacklight3d/[[path]].js
 ```
 
-Ela encaminha para `BLACKLIGHT3D_ORIGIN` ou, se a variável não existir, para:
+Ela serve `/blacklight3d/`, `/blacklight3d/styles.css` e `/blacklight3d/assets/*` diretamente do build estático pelo binding `ASSETS`. Demais caminhos continuam encaminhando para `BLACKLIGHT3D_ORIGIN` ou, se a variável não existir, para:
 
 ```text
 https://wp-origin.wicolly.com.br
@@ -47,7 +53,7 @@ proxy_set_header X-Forwarded-Proto https;
 proxy_set_header X-Forwarded-Host wicolly.com.br;
 ```
 
-A URL de uso do painel continua sendo:
+A URL de uso do painel WordPress, caso a infraestrutura dinâmica esteja ativa, continua sendo:
 
 ```text
 https://wicolly.com.br/blacklight3d/wp-admin/

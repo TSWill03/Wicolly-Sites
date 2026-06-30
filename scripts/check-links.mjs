@@ -8,6 +8,7 @@ const checkExternal = process.argv.includes('--external')
 const failures = []
 const warnings = []
 const externalUrls = new Set()
+const intentionallyUnlinkedRoutes = new Set(['/impressoes-3d/', '/portfolio/curriculo.html'])
 
 const ignoredProtocols = /^(?:mailto:|tel:|sms:|data:|blob:)/i
 const externalProtocol = /^https?:\/\//i
@@ -225,7 +226,7 @@ for (const file of htmlFiles) validateHtmlFile(file, linkedRoutes, functionRoute
 for (const file of cssFiles) validateCssFile(file)
 
 for (const route of knownRoutes) {
-  if (!linkedRoutes.has(route) && route !== '/portfolio/curriculo.html') {
+  if (!linkedRoutes.has(route) && !intentionallyUnlinkedRoutes.has(route)) {
     warnings.push(`Known route is not linked from another generated page: ${route}`)
   }
 }

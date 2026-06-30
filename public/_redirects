@@ -1,8 +1,9 @@
 /hefesto /hefesto/ 301
 /poseidon /poseidon/ 301
 /portfolio /portfolio/ 301
-/impressoes-3d /impressoes-3d/ 301
 /madrinha /madrinha/ 301
 /blacklight3d /blacklight3d/ 301
+/impressoes-3d /blacklight3d/ 301
+/impressoes-3d/ /blacklight3d/ 301
 /main / 301
 /main/ / 301
