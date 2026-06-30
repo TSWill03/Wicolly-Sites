@@ -20,8 +20,8 @@ function blacklight3d_quote_message($product = null): string
     $message = 'Olá! Vim pelo catálogo da BlackLight 3D e gostaria de pedir um orçamento para esta peça.';
 
     if ($product instanceof WC_Product) {
-        $message .= "\n\nProduto: " . $product->get_name();
-        $message .= "\nLink: " . get_permalink($product->get_id());
+        $message .= ' Produto: ' . $product->get_name();
+        $message .= ' Link: ' . get_permalink($product->get_id());
     }
 
     return $message;
