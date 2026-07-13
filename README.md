@@ -182,6 +182,29 @@ O currículo em PDF deve ser regenerado sempre que a versão HTML ou os dados pr
 
 Fotos reais de produtos da Blacklight 3D podem ser adicionadas futuramente em uma galeria, desde que os arquivos sejam otimizados e versionados no repositório.
 
+## Veredra
+
+A rota canônica do leitor Flutter/PWA é case-sensitive:
+
+```text
+https://wicolly.com.br/Veredra/
+```
+
+O build Flutter versionado fica em `Veredra/`. Para atualizá-lo de forma
+reproduzível, primeiro gere e valide o app no repositório irmão e depois execute:
+
+```bash
+npm run update:veredra -- ../app/build/web
+npm test
+```
+
+O script recusa builds sem `base href`, manifest e service-worker patch para
+`/Veredra/`. `_redirects` mantém aliases lowercase somente como compatibilidade,
+a Pages Function fornece fallback SPA sem loop, e `_headers` impede cache
+persistente do HTML e do service worker. Produção é
+publicada apenas pelo workflow da `main`; pull requests executam validação sem
+deploy.
+
 ## Segurança
 
 Não envie tokens, chaves privadas, `.env`, `node_modules`, `dist`, backups DNS ou resultados de deploy local. Links que abrem uma nova aba devem usar `noopener` ou `noreferrer`.

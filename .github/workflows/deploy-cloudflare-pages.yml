@@ -52,6 +52,9 @@ jobs:
           test -f dist/blacklight3d/styles.css
           test -f dist/impressoes-3d/index.html
           test -f dist/madrinha/index.html
+          test -f dist/Veredra/index.html
+          test -f dist/Veredra/flutter_service_worker.js
+          test -f dist/_headers
 
   deploy:
     name: Deploy wicolly-site
