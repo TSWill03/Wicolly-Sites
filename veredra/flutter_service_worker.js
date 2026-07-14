@@ -50,7 +50,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "ea883c608a7732d38e492e1d21a0f9c6
 "canvaskit/skwasm_heavy.wasm": "b0be7910760d205ea4e011458df6ee01",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "flutter.js": "24bc71911b75b5f8135c949e27a2984e",
-"flutter_bootstrap.js": "29dfc0c8d7b2f98910daa82629452065",
+"flutter_bootstrap.js": "386a4df274c32af3f71c171155edee14",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
@@ -180,17 +180,32 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+async function normalizeNavigationResponse(response) {
+  if (response == null || !response.redirected) {
+    return response;
+  }
+  var headers = new Headers(response.headers);
+  headers.delete('content-encoding');
+  headers.delete('content-length');
+  headers.delete('transfer-encoding');
+  return new Response(await response.blob(), {
+    status: response.status,
+    statusText: response.statusText,
+    headers: headers,
+  });
+}
+
 function respondWithCachedIndex(event) {
   return event.respondWith(
     fetch(event.request).catch((error) => {
       return caches.open(CACHE_NAME).then((cache) => {
         return cache.match(event.request).then((response) => {
           if (response != null) {
-            return response;
+            return normalizeNavigationResponse(response);
           }
           return cache.match('index.html').then((fallbackResponse) => {
             if (fallbackResponse != null) {
-              return fallbackResponse;
+              return normalizeNavigationResponse(fallbackResponse);
             }
             throw error;
           });

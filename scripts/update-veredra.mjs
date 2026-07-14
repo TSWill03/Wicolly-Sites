@@ -43,7 +43,12 @@ async function main() {
       throw new Error(`manifest.json ${property} must be /veredra/.`)
     }
   }
-  if (!worker.includes('function resourceKeyFromUrl(url)') || !worker.includes('function respondWithCachedIndex(event)')) {
+  if (
+    !worker.includes('function resourceKeyFromUrl(url)') ||
+    !worker.includes('function normalizeNavigationResponse(response)') ||
+    !worker.includes('function respondWithCachedIndex(event)') ||
+    !worker.includes('response.redirected')
+  ) {
     throw new Error('Run the Veredra service-worker patch before copying the build.')
   }
   if (appBundle.includes('https://wicolly.com.br/Veredra/')) {
