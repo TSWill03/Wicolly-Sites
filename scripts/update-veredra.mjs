@@ -3,7 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const target = path.resolve(root, 'Veredra')
+const target = path.resolve(root, 'veredra')
 const sourceArgument = process.argv[2]
 
 function assertTargetInsideRepository(candidate) {
@@ -33,17 +33,24 @@ async function main() {
   const index = await readRequired(source, 'index.html')
   const manifest = JSON.parse(await readRequired(source, 'manifest.json'))
   const worker = await readRequired(source, 'flutter_service_worker.js')
+  const appBundle = await readRequired(source, 'main.dart.js')
 
-  if (!index.includes('<base href="/Veredra/">')) {
-    throw new Error('Flutter build must use --base-href /Veredra/.')
+  if (!index.includes('<base href="/veredra/">')) {
+    throw new Error('Flutter build must use --base-href /veredra/.')
   }
   for (const property of ['id', 'start_url', 'scope']) {
-    if (manifest[property] !== '/Veredra/') {
-      throw new Error(`manifest.json ${property} must be /Veredra/.`)
+    if (manifest[property] !== '/veredra/') {
+      throw new Error(`manifest.json ${property} must be /veredra/.`)
     }
   }
   if (!worker.includes('function resourceKeyFromUrl(url)') || !worker.includes('function respondWithCachedIndex(event)')) {
     throw new Error('Run the Veredra service-worker patch before copying the build.')
+  }
+  if (appBundle.includes('https://wicolly.com.br/Veredra/')) {
+    throw new Error('Flutter build still contains the deprecated /Veredra/ production URL.')
+  }
+  if (!appBundle.includes('https://wicolly.com.br/veredra/')) {
+    throw new Error('Flutter build must contain the canonical /veredra/ production URL.')
   }
 
   assertTargetInsideRepository(target)

@@ -2,10 +2,10 @@
 /poseidon /poseidon/ 301
 /portfolio /portfolio/ 301
 /madrinha /madrinha/ 301
-/Veredra /Veredra/ 301
-/veredra /Veredra/ 301
-/veredra/ /Veredra/ 301
-/veredra/* /Veredra/:splat 301
+/veredra /veredra/ 301
+/Veredra /veredra/ 301
+/Veredra/ /veredra/ 301
+/Veredra/* /veredra/:splat 301
 /blacklight3d /blacklight3d/ 301
 /impressoes-3d /blacklight3d/ 301
 /impressoes-3d/ /blacklight3d/ 301

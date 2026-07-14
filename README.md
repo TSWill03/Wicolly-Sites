@@ -13,6 +13,7 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 | `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
 | `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
 | `https://wicolly.com.br/madrinha/` | Homenagem para Márcia |
+| `https://wicolly.com.br/veredra/` | Leitor Flutter/PWA Veredra (rota canônica) |
 
 ## Tecnologias
 
@@ -47,8 +48,17 @@ Wicolly-Sites/
 │   └── index.html
 ├── madrinha/
 │   └── index.html
+├── veredra/
+│   ├── index.html
+│   ├── manifest.json
+│   └── flutter_service_worker.js
+├── functions/
+│   └── veredra/
+│       └── [[path]].js
 ├── public/
-│   └── _redirects
+│   ├── _headers
+│   ├── _redirects
+│   └── _routes.json
 ├── scripts/
 │   ├── build-site.mjs
 │   ├── check-links.mjs
@@ -184,13 +194,13 @@ Fotos reais de produtos da Blacklight 3D podem ser adicionadas futuramente em um
 
 ## Veredra
 
-A rota canônica do leitor Flutter/PWA é case-sensitive:
+A rota canônica do leitor Flutter/PWA é minúscula e case-sensitive:
 
 ```text
-https://wicolly.com.br/Veredra/
+https://wicolly.com.br/veredra/
 ```
 
-O build Flutter versionado fica em `Veredra/`. Para atualizá-lo de forma
+O build Flutter versionado fica em `veredra/`. Para atualizá-lo de forma
 reproduzível, primeiro gere e valide o app no repositório irmão e depois execute:
 
 ```bash
@@ -199,11 +209,13 @@ npm test
 ```
 
 O script recusa builds sem `base href`, manifest e service-worker patch para
-`/Veredra/`. `_redirects` mantém aliases lowercase somente como compatibilidade,
+`/veredra/`. `_redirects` redireciona permanentemente `/Veredra` e
+`/Veredra/*` para a rota canônica minúscula,
 a Pages Function fornece fallback SPA sem loop, e `_headers` impede cache
-persistente do HTML e do service worker. Produção é
-publicada apenas pelo workflow da `main`; pull requests executam validação sem
-deploy.
+persistente do HTML e do service worker. O fluxo normal publica pelo workflow da
+`main`; uma validação controlada pode usar Wrangler antes do merge, preservando
+o deployment anterior para rollback. Pull requests executam validação sem
+deploy automático.
 
 ## Segurança
 

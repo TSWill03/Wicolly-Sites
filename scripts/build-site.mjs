@@ -59,7 +59,7 @@ async function main() {
   await assertExists(resolveInsideRoot('blacklight3d', 'index.html'), 'blacklight3d/index.html')
   await assertExists(resolveInsideRoot('impressoes-3d', 'index.html'), 'impressoes-3d/index.html')
   await assertExists(resolveInsideRoot('madrinha', 'index.html'), 'madrinha/index.html')
-  await assertExists(resolveInsideRoot('Veredra', 'index.html'), 'Veredra/index.html')
+  await assertExists(resolveInsideRoot('veredra', 'index.html'), 'veredra/index.html')
   await assertExists(resolveInsideRoot('portfolio', 'package.json'), 'portfolio/package.json')
   await assertExists(resolveInsideRoot('public', '_redirects'), 'public/_redirects')
   await assertExists(resolveInsideRoot('public', '_headers'), 'public/_headers')
@@ -77,7 +77,7 @@ async function main() {
   await copyDirectory(resolveInsideRoot('blacklight3d'), path.join(distDir, 'blacklight3d'))
   await copyDirectory(resolveInsideRoot('impressoes-3d'), path.join(distDir, 'impressoes-3d'))
   await copyDirectory(resolveInsideRoot('madrinha'), path.join(distDir, 'madrinha'))
-  await copyDirectory(resolveInsideRoot('Veredra'), path.join(distDir, 'Veredra'))
+  await copyDirectory(resolveInsideRoot('veredra'), path.join(distDir, 'veredra'))
 
   const lockfiles = ['package-lock.json', 'npm-shrinkwrap.json']
   const hasLockfile = lockfiles.some((file) => existsSync(path.join(portfolioDir, file)))

@@ -1,8 +1,7 @@
-const VEREDRA_PREFIX = "/Veredra";
+const VEREDRA_PREFIX = "/veredra";
 
 function isNavigationRequest(request, pathname) {
   if (!["GET", "HEAD"].includes(request.method)) return false;
-  if (request.headers.get("accept")?.includes("text/html")) return true;
   const finalSegment = pathname.split("/").pop() || "";
   return !finalSegment.includes(".");
 }
@@ -23,13 +22,11 @@ function withVeredraHeaders(response, pathname) {
   const noCache =
     pathname === `${VEREDRA_PREFIX}/` ||
     pathname === `${VEREDRA_PREFIX}/index.html` ||
-    pathname === `${VEREDRA_PREFIX}/flutter_service_worker.js`;
-  headers.set(
-    "Cache-Control",
-    noCache
-      ? "no-cache, no-store, must-revalidate"
-      : "public, max-age=3600, must-revalidate",
-  );
+    pathname === `${VEREDRA_PREFIX}/flutter_service_worker.js` ||
+    pathname === `${VEREDRA_PREFIX}/manifest.json`;
+  if (noCache) {
+    headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+  }
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
