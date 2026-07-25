@@ -14,49 +14,88 @@ permissions:
   deployments: write
 
 concurrency:
-  group: cloudflare-pages-wicolly-site-${{ github.ref }}
-  cancel-in-progress: true
+  group: production-deploy
+  cancel-in-progress: false
 
 jobs:
   quality:
-    name: Validate, build, lint and check links
+    name: Test and build unified site
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout event commit
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: portfolio/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            portfolio/package-lock.json
 
-      - name: Run complete verification
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run complete local-equivalent test suite
+        env:
+          BUILD_COMMIT: ${{ github.sha }}
+          BUILD_BRANCH: ${{ github.ref_name }}
         run: npm test
 
-      - name: Check build output
+      - name: Check external links
+        run: npm run check:links:external
+
+      - name: Rebuild deployable artifact
+        env:
+          BUILD_COMMIT: ${{ github.sha }}
+          BUILD_BRANCH: ${{ github.ref_name }}
+        run: npm run build
+
+      - name: Validate deployable artifact
         shell: bash
         run: |
           set -euo pipefail
           test -f dist/index.html
-          test -f dist/_redirects
+          test -f dist/servicos/index.html
+          test -f dist/shared/styles.css
+          test -f dist/shared/site-config.js
+          test -f dist/shared/navigation.js
           test -f dist/portfolio/index.html
-          test -d dist/portfolio/assets
           test -f dist/portfolio/curriculo.html
           test -f dist/portfolio/curriculo.pdf
           test -f dist/hefesto/index.html
           test -f dist/poseidon/index.html
           test -f dist/blacklight3d/index.html
-          test -f dist/blacklight3d/styles.css
-          test -f dist/impressoes-3d/index.html
           test -f dist/madrinha/index.html
+          test -f dist/veredra/index.html
+          test -f dist/veredra/flutter.js
+          test -f dist/veredra/main.dart.js
+          test -f dist/veredra/manifest.json
+          test -f dist/veredra/flutter_service_worker.js
+          test -f dist/version.json
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          test -f dist/_redirects
+          test -f dist/_headers
+          test -f dist/_routes.json
+          node -e "const v=require('./dist/version.json'); if(v.commit!==process.env.GITHUB_SHA) process.exit(1)"
+
+      - name: Upload tested site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wicolly-site-${{ github.sha }}
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
 
   deploy:
-    name: Deploy wicolly-site
+    name: Deploy main to wicolly-site
     needs: quality
-    if: github.event_name != 'pull_request'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment: production
 
@@ -65,88 +104,92 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
     steps:
-      - name: Checkout
+      - name: Checkout the exact main commit
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Verify checkout provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "$GITHUB_REF_NAME" = "main"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: portfolio/package-lock.json
+          cache-dependency-path: package-lock.json
 
-      - name: Build unified site
-        run: npm run build
+      - name: Install locked root dependencies
+        run: npm ci
 
-      - name: Validate Cloudflare secrets
+      - name: Download tested site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: wicolly-site-${{ github.sha }}
+          path: dist
+
+      - name: Validate Cloudflare credentials
         shell: bash
         run: |
           set -euo pipefail
+          test -n "${CLOUDFLARE_API_TOKEN:-}" || { echo "::error::CLOUDFLARE_API_TOKEN is missing."; exit 1; }
+          test -n "${CLOUDFLARE_ACCOUNT_ID:-}" || { echo "::error::CLOUDFLARE_ACCOUNT_ID is missing."; exit 1; }
 
-          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
-            echo "::error::Repository secret CLOUDFLARE_API_TOKEN is missing or empty."
-            exit 1
-          fi
-
-          if [ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
-            echo "::error::Repository secret CLOUDFLARE_ACCOUNT_ID is missing or empty."
-            exit 1
-          fi
-
-          echo "Cloudflare secrets are available to the workflow."
-
-      - name: Ensure Cloudflare Pages project exists
+      - name: Confirm official Cloudflare Pages project
         shell: bash
         run: |
           set -euo pipefail
-
-          check_project() {
+          http_status="$(
             curl --silent --show-error \
               --output cloudflare-project-response.json \
               --write-out "%{http_code}" \
               --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
               --header "Content-Type: application/json" \
               "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/wicolly-site"
-          }
-
-          status=$(check_project)
-
-          if [ "$status" = "404" ]; then
-            echo "Cloudflare Pages project 'wicolly-site' does not exist. Creating it..."
-            cat cloudflare-project-response.json
-
-            npx --yes wrangler@4 pages project create wicolly-site \
-              --production-branch=main
-
-            status=$(check_project)
-          fi
-
-          if [ "$status" != "200" ]; then
-            echo "::error::Cloudflare could not access or create the Pages project 'wicolly-site'. HTTP status: $status"
-            cat cloudflare-project-response.json
-            exit 1
-          fi
-
+          )"
+          test "$http_status" = "200" || { echo "::error::Could not access Cloudflare Pages project wicolly-site (HTTP $http_status)."; exit 1; }
           node --input-type=module <<'NODE'
           import fs from 'node:fs'
-
           const response = JSON.parse(fs.readFileSync('cloudflare-project-response.json', 'utf8'))
-          if (!response.success || response.result?.name !== 'wicolly-site') {
-            console.error('::error::The Cloudflare Pages project wicolly-site was not confirmed after validation.')
-            console.error(JSON.stringify(response.errors ?? response.messages ?? [], null, 2))
+          const project = response.result
+          if (!response.success || project?.name !== 'wicolly-site') {
+            console.error('::error::Official Pages project wicolly-site was not confirmed.')
             process.exit(1)
           }
-
-          console.log(`Cloudflare Pages project confirmed: ${response.result.name}`)
-          console.log(`Production branch: ${response.result.production_branch ?? 'main'}`)
+          if (project.production_branch !== 'main') {
+            console.error(`::error::Unexpected production branch: ${project.production_branch}`)
+            process.exit(1)
+          }
+          if (!project.domains?.includes('wicolly.com.br')) {
+            console.error('::error::wicolly.com.br is not attached to wicolly-site.')
+            process.exit(1)
+          }
+          console.log('Official Pages project confirmed: wicolly-site / main / wicolly.com.br')
           NODE
-
           rm -f cloudflare-project-response.json
 
-      - name: Deploy to Cloudflare Pages
+      - name: Deploy tested main artifact
         shell: bash
         run: |
           set -euo pipefail
           npx --yes wrangler@4 pages deploy dist \
             --project-name=wicolly-site \
-            --branch=main
+            --branch="$GITHUB_REF_NAME" \
+            --commit-hash="$GITHUB_SHA" \
+            --commit-message="Production ${GITHUB_SHA}"
+          {
+            echo "### Cloudflare Pages production"
+            echo "- Project: \`wicolly-site\`"
+            echo "- Branch: \`$GITHUB_REF_NAME\`"
+            echo "- Commit: \`$GITHUB_SHA\`"
+            echo "- Domain: https://wicolly.com.br"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Smoke test the real production domain
+        run: npm run smoke:production -- --base https://wicolly.com.br --commit "$GITHUB_SHA" --retries 18 --delay-ms 10000

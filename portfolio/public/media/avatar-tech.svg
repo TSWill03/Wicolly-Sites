@@ -19,7 +19,7 @@
   <circle cx="600" cy="504" r="296" stroke="#8DB0FF" stroke-opacity=".28" stroke-width="2.5" stroke-dasharray="10 16" />
   <circle cx="600" cy="504" r="112" fill="url(#avatar-accent)" fill-opacity=".16" stroke="#F4F8FF" stroke-opacity=".24" stroke-width="2" />
   <rect x="354" y="724" width="492" height="266" rx="28" fill="#0B1828" fill-opacity=".8" stroke="rgba(255,255,255,.12)" />
-  <text x="404" y="804" fill="#5EEAD4" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">PORTIFOLIO MODULAR</text>
+  <text x="404" y="804" fill="#5EEAD4" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">PORTFÓLIO MODULAR</text>
   <text x="404" y="868" fill="#EDF4FF" font-family="Arial, sans-serif" font-size="54" font-weight="700">Seu Nome Studio</text>
   <text x="404" y="918" fill="#98ADCA" font-family="Arial, sans-serif" font-size="24">Projetos, certificados, servicos e contato</text>
   <rect x="404" y="954" width="208" height="18" rx="9" fill="#5EEAD4" fill-opacity=".26" />

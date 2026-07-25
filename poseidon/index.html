@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Página pública do servidor Poseidon.">
   <meta name="theme-color" content="#075985">
+  <link rel="canonical" href="https://wicolly.com.br/poseidon/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Poseidon — Infraestrutura Wicolly">
+  <meta property="og:description" content="Página pública do servidor Poseidon e de sua função na infraestrutura Wicolly.">
+  <meta property="og:url" content="https://wicolly.com.br/poseidon/">
+  <meta name="twitter:card" content="summary">
   <title>Poseidon — Infraestrutura Wicolly</title>
   <style>
     :root {
@@ -49,6 +57,7 @@
     }
 
     a { color: inherit; }
+    a:focus-visible { outline: 3px solid var(--secondary); outline-offset: 4px; }
     .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 
     header {
@@ -316,6 +325,7 @@
       header { min-height: 74px; }
       h1 { font-size: clamp(3.1rem, 19vw, 5rem); }
       .hero { min-height: auto; padding-bottom: 64px; }
+      .orb::after { inset: -8px; transform: none; }
       .service-card, .notice { padding: 20px; }
       footer { flex-direction: column; }
     }

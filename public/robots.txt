@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wicolly.com.br/sitemap.xml

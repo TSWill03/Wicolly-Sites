@@ -52,15 +52,33 @@ async function copyDirectory(source, target) {
   await fs.cp(source, target, { recursive: true })
 }
 
+function gitValue(args, fallback) {
+  const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' })
+  return result.status === 0 && result.stdout.trim() ? result.stdout.trim() : fallback
+}
+
+async function replaceBuildCommit(relativePath, commit) {
+  const target = path.join(distDir, relativePath)
+  const content = await fs.readFile(target, 'utf8')
+  await fs.writeFile(target, content.replaceAll('__BUILD_COMMIT__', commit))
+}
+
 async function main() {
   await assertExists(resolveInsideRoot('main', 'index.html'), 'main/index.html')
+  await assertExists(resolveInsideRoot('servicos', 'index.html'), 'servicos/index.html')
+  await assertExists(resolveInsideRoot('shared', 'styles.css'), 'shared/styles.css')
+  await assertExists(resolveInsideRoot('shared', 'site-config.js'), 'shared/site-config.js')
+  await assertExists(resolveInsideRoot('shared', 'navigation.js'), 'shared/navigation.js')
+  await assertExists(resolveInsideRoot('privacidade', 'index.html'), 'privacidade/index.html')
   await assertExists(resolveInsideRoot('hefesto', 'index.html'), 'hefesto/index.html')
   await assertExists(resolveInsideRoot('poseidon', 'index.html'), 'poseidon/index.html')
   await assertExists(resolveInsideRoot('blacklight3d', 'index.html'), 'blacklight3d/index.html')
   await assertExists(resolveInsideRoot('impressoes-3d', 'index.html'), 'impressoes-3d/index.html')
   await assertExists(resolveInsideRoot('madrinha', 'index.html'), 'madrinha/index.html')
+  await assertExists(resolveInsideRoot('veredra', 'index.html'), 'veredra/index.html')
   await assertExists(resolveInsideRoot('portfolio', 'package.json'), 'portfolio/package.json')
   await assertExists(resolveInsideRoot('public', '_redirects'), 'public/_redirects')
+  await assertExists(resolveInsideRoot('public', '_headers'), 'public/_headers')
 
   if (path.basename(distDir) !== 'dist' || path.dirname(distDir) !== root) {
     throw new Error(`Refusing to remove unexpected dist path: ${distDir}`)
@@ -70,11 +88,15 @@ async function main() {
   await fs.mkdir(distDir, { recursive: true })
 
   await fs.copyFile(resolveInsideRoot('main', 'index.html'), path.join(distDir, 'index.html'))
+  await copyDirectory(resolveInsideRoot('servicos'), path.join(distDir, 'servicos'))
+  await copyDirectory(resolveInsideRoot('shared'), path.join(distDir, 'shared'))
+  await copyDirectory(resolveInsideRoot('privacidade'), path.join(distDir, 'privacidade'))
   await copyDirectory(resolveInsideRoot('hefesto'), path.join(distDir, 'hefesto'))
   await copyDirectory(resolveInsideRoot('poseidon'), path.join(distDir, 'poseidon'))
   await copyDirectory(resolveInsideRoot('blacklight3d'), path.join(distDir, 'blacklight3d'))
   await copyDirectory(resolveInsideRoot('impressoes-3d'), path.join(distDir, 'impressoes-3d'))
   await copyDirectory(resolveInsideRoot('madrinha'), path.join(distDir, 'madrinha'))
+  await copyDirectory(resolveInsideRoot('veredra'), path.join(distDir, 'veredra'))
 
   const lockfiles = ['package-lock.json', 'npm-shrinkwrap.json']
   const hasLockfile = lockfiles.some((file) => existsSync(path.join(portfolioDir, file)))
@@ -83,11 +105,26 @@ async function main() {
 
   await copyDirectory(portfolioDistDir, path.join(distDir, 'portfolio'))
   await fs.copyFile(resolveInsideRoot('public', '_redirects'), path.join(distDir, '_redirects'))
+  await fs.copyFile(resolveInsideRoot('public', '_headers'), path.join(distDir, '_headers'))
 
-  const routesFile = resolveInsideRoot('public', '_routes.json')
-  if (existsSync(routesFile)) {
-    await fs.copyFile(routesFile, path.join(distDir, '_routes.json'))
+  for (const publicFile of ['_routes.json', '404.html', 'favicon.svg', 'robots.txt', 'sitemap.xml']) {
+    const source = resolveInsideRoot('public', publicFile)
+    if (existsSync(source)) {
+      await fs.copyFile(source, path.join(distDir, publicFile))
+    }
   }
+
+  const commit = process.env.BUILD_COMMIT || process.env.GITHUB_SHA || gitValue(['rev-parse', 'HEAD'], 'unknown')
+  const branch = process.env.BUILD_BRANCH || process.env.GITHUB_REF_NAME || gitValue(['branch', '--show-current'], 'unknown')
+  const builtAt = new Date().toISOString()
+
+  await replaceBuildCommit('index.html', commit)
+  await replaceBuildCommit(path.join('servicos', 'index.html'), commit)
+  await replaceBuildCommit(path.join('veredra', 'index.html'), commit)
+  await fs.writeFile(
+    path.join(distDir, 'version.json'),
+    `${JSON.stringify({ commit, builtAt, branch }, null, 2)}\n`,
+  )
 }
 
 main().catch((error) => {
