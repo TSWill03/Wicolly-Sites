@@ -2,11 +2,11 @@ import type { PortfolioData } from '@/types/portfolio'
 
 export const portfolioData: PortfolioData = {
   seo: {
-    title: 'Wicolly Pedro Alcantara | Portifolio de software e produtos digitais',
+    title: 'Wícolly Pedro Alcântara | Portfólio de software e produtos digitais',
     description:
-      'Portifolio profissional com sistemas reais, apps multiplataforma, galeria visual e estrutura comercial pronta para personalizacao.',
+      'Portfólio profissional com sistemas reais, apps multiplataforma, galeria visual e estrutura comercial pronta para personalização.',
     keywords: [
-      'portifolio pessoal',
+      'portfólio pessoal',
       'portfolio desenvolvedor flutter',
       'portfolio react typescript',
       'sistema de estoque',
@@ -79,12 +79,12 @@ export const portfolioData: PortfolioData = {
     'contact',
   ],
   hero: {
-    eyebrow: 'Portifolio pessoal + produto digital sob encomenda',
+    eyebrow: 'Portfólio pessoal + produto digital sob encomenda',
     name: 'Wícolly Pedro Alcântara',
     role: 'Desenvolvedor de software focado em apps, sistemas e experiencias digitais premium',
     title: 'Projetos reais que conectam organizacao, usabilidade e valor de produto.',
     description:
-      'Aqui eu apresento um portifolio que mistura sistemas desktop, apps Flutter, organizadores offline-first e uma estrutura visual que tambem pode ser vendida como produto para outros clientes.',
+      'Aqui eu apresento um portfólio que mistura sistemas desktop, apps Flutter, organizadores offline-first e uma estrutura visual que também pode ser vendida como produto para outros clientes.',
     subtitle:
       'A base continua modular e totalmente editavel, mas agora destacando projetos autorais como controle de estoque, gerenciador academico, simulador de habitos e app de leitura.',
     availability: 'Disponivel para novos projetos e personalizacoes',
@@ -218,7 +218,7 @@ export const portfolioData: PortfolioData = {
     items: [
       {
         id: 'portfolio-premium',
-        title: 'Portifolio Comercial Personalizavel',
+        title: 'Portfólio Comercial Personalizável',
         description:
           'Este proprio site funciona como portfolio pessoal, vitrine de servicos e base reaproveitavel para novos clientes.',
         status: 'completed',
@@ -480,7 +480,7 @@ export const portfolioData: PortfolioData = {
     offerings: [
       {
         icon: 'sparkles',
-        title: 'Portifolio premium',
+        title: 'Portfólio premium',
         description:
           'Para profissionais que precisam apresentar projetos, experiencia, provas de capacidade e contatos em uma pagina mais sofisticada.',
         features: [
