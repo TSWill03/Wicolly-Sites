@@ -10,6 +10,7 @@
     "lint": "npm --prefix portfolio run lint",
     "check:links": "node scripts/check-links.mjs",
     "check:links:external": "node scripts/check-links.mjs --external",
+    "smoke:production": "node scripts/smoke-production.mjs",
     "test": "npm run build && npm run validate && npm run lint && npm run check:links"
   }
 }

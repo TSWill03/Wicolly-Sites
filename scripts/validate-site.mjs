@@ -7,6 +7,11 @@ const failures = []
 
 const requiredSourceFiles = [
   'main/index.html',
+  'servicos/index.html',
+  'shared/styles.css',
+  'shared/site-config.js',
+  'shared/navigation.js',
+  'privacidade/index.html',
   'hefesto/index.html',
   'poseidon/index.html',
   'blacklight3d/index.html',
@@ -22,6 +27,8 @@ const requiredSourceFiles = [
 
 const sourceHtmlFiles = [
   'main/index.html',
+  'servicos/index.html',
+  'privacidade/index.html',
   'hefesto/index.html',
   'poseidon/index.html',
   'blacklight3d/index.html',
@@ -33,6 +40,16 @@ const sourceHtmlFiles = [
 
 const distFiles = [
   'dist/index.html',
+  'dist/servicos/index.html',
+  'dist/shared/styles.css',
+  'dist/shared/site-config.js',
+  'dist/shared/navigation.js',
+  'dist/privacidade/index.html',
+  'dist/404.html',
+  'dist/favicon.svg',
+  'dist/robots.txt',
+  'dist/sitemap.xml',
+  'dist/version.json',
   'dist/hefesto/index.html',
   'dist/poseidon/index.html',
   'dist/blacklight3d/index.html',
@@ -93,6 +110,17 @@ const secretPatterns = [
   /\bBearer\s+[A-Za-z0-9._~+/=-]{20,}/i,
   /\bgh[opsu]_[A-Za-z0-9_]{20,}/,
   /\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}/,
+]
+
+const forbiddenPublishedPhrases = [
+  'Canva deck',
+  'Notion context',
+  'placeholder copy',
+  'not fake',
+  'GET /api/status',
+  'POST /api/chat',
+  'deck to real site',
+  'Wícolly builds the Blacklight stack',
 ]
 
 function rel(filePath) {
@@ -197,14 +225,59 @@ function validateContentScans() {
     for (const pattern of secretPatterns) {
       assert(!pattern.test(content), `${relativePath} contains a possible secret or private key`)
     }
+
+    if (relativePath.startsWith('main/') || relativePath.startsWith('servicos/') || relativePath.startsWith('dist/')) {
+      for (const phrase of forbiddenPublishedPhrases) {
+        assert(
+          !content.toLowerCase().includes(phrase.toLowerCase()),
+          `${relativePath} contains forbidden internal copy: ${phrase}`,
+        )
+      }
+    }
   }
 }
 
 function validateSourceLinks() {
   const mainHtml = read('main/index.html')
-  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/blacklight3d/', '/madrinha/', '/veredra/']) {
+  for (const sitePath of ['/servicos/', '/portfolio/', '/hefesto/', '/poseidon/', '/blacklight3d/', '/madrinha/', '/veredra/']) {
     assert(mainHtml.includes(`href="${sitePath}"`), `main/index.html must link to ${sitePath}`)
   }
+
+  assert(mainHtml.includes('lang="pt-BR"'), 'main/index.html must declare pt-BR')
+  assert(
+    mainHtml.includes('Software, servidores e automações para transformar ideias em projetos que funcionam.'),
+    'main/index.html must contain the approved commercial title',
+  )
+  assert(mainHtml.includes('data-menu-toggle'), 'main/index.html must include the accessible mobile menu')
+  assert(mainHtml.includes('rel="canonical"'), 'main/index.html must include canonical metadata')
+  assert(mainHtml.includes('application/ld+json'), 'main/index.html must include JSON-LD')
+
+  const servicesHtml = read('servicos/index.html')
+  for (const service of [
+    'Sites e presença digital',
+    'Sistemas e automações',
+    'Servidores e infraestrutura',
+    'Inteligência artificial',
+    'Servidores de jogos',
+    'Manutenção recorrente',
+    'Impressão 3D',
+  ]) {
+    assert(servicesHtml.includes(service), `servicos/index.html must mention ${service}`)
+  }
+  assert(servicesHtml.includes('data-contact="technology"'), 'Services page must include technology WhatsApp CTAs')
+  assert(servicesHtml.includes('data-contact="blacklight"'), 'Services page must separate Blacklight CTAs')
+  assert(servicesHtml.includes('mailto:wicolly@gmail.com'), 'Services page must include the confirmed email')
+  assert(servicesHtml.includes('ARK: Survival Evolved'), 'Services page must document ARK compatibility limits')
+
+  const siteConfig = read('shared/site-config.js')
+  assert(siteConfig.includes('5534997675400'), 'Site config must include the technology WhatsApp')
+  assert(siteConfig.includes('5564993252339'), 'Site config must include the Blacklight WhatsApp')
+  assert(siteConfig.includes('wicolly@gmail.com'), 'Site config must include the confirmed email')
+  assert(!/instagram:\s*["']/.test(siteConfig), 'Unconfirmed personal Instagram must not be published')
+
+  const redirects = read('public/_redirects')
+  assert(redirects.includes('/servicos /servicos/ 301'), 'Missing /servicos canonical redirect')
+  assert(redirects.includes('/veredra /veredra/ 301'), 'Missing /veredra canonical redirect')
 
   assert(existsFile('public/_routes.json'), 'public/_routes.json must exist for Pages Functions routing')
 
@@ -232,6 +305,8 @@ function validateVeredraDeployment() {
   const headers = read('public/_headers')
 
   assert(index.includes('<base href="/veredra/">'), 'veredra/index.html must use /veredra/')
+  assert(index.includes('lang="pt-BR"'), 'veredra/index.html must declare pt-BR')
+  assert(index.includes('href="/"'), 'Veredra must include a link back to the main site')
   for (const property of ['id', 'start_url', 'scope']) {
     assert(manifest[property] === '/veredra/', `veredra/manifest.json ${property} must be /veredra/`)
   }
@@ -241,6 +316,7 @@ function validateVeredraDeployment() {
   assert(worker.includes('function normalizeNavigationResponse(response)'), 'Veredra service worker is missing redirect-safe offline responses')
   assert(worker.includes('function respondWithCachedIndex(event)'), 'Veredra service worker is missing offline navigation fallback')
   assert(worker.includes('response.redirected'), 'Veredra service worker must normalize redirected cached responses')
+  assert(!worker.includes('urlsToCache = ["/"'), 'Veredra service worker must not cache the site root')
   assert(redirects.includes('/veredra /veredra/ 301'), 'Missing canonical /veredra redirect')
   assert(redirects.includes('/Veredra /veredra/ 301'), 'Missing /Veredra compatibility redirect')
   assert(redirects.includes('/Veredra/ /veredra/ 301'), 'Missing /Veredra/ compatibility redirect')
@@ -277,6 +353,13 @@ function validateDistIfPresent() {
   for (const relativePath of distFiles.filter((file) => file.endsWith('.html'))) {
     validateHtml(relativePath)
   }
+
+  const version = JSON.parse(read('dist/version.json'))
+  assert(typeof version.commit === 'string' && version.commit.length > 0, 'dist/version.json must include commit')
+  assert(typeof version.builtAt === 'string' && !Number.isNaN(Date.parse(version.builtAt)), 'dist/version.json must include builtAt')
+  assert(typeof version.branch === 'string' && version.branch.length > 0, 'dist/version.json must include branch')
+  assert(!read('dist/index.html').includes('__BUILD_COMMIT__'), 'dist/index.html build commit was not injected')
+  assert(!read('dist/servicos/index.html').includes('__BUILD_COMMIT__'), 'services build commit was not injected')
 }
 
 for (const relativePath of requiredSourceFiles) {

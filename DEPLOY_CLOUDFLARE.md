@@ -1,14 +1,35 @@
 # Deploy no Cloudflare Pages
 
 ```text
-Nome do projeto: wicolly-site
+Projeto oficial: wicolly-site
 Repositorio: TSWill03/Wicolly-Sites
 Branch: main
 Build command: npm run build
 Build output directory: dist
 Root directory: vazio
 Dominio: wicolly.com.br
+Metodo: upload direto pelo GitHub Actions
 ```
+
+## Fonte oficial de produção
+
+O domínio `wicolly.com.br` e o alias `www.wicolly.com.br` estão vinculados ao projeto `wicolly-site`. Esse projeto não possui integração Git direta: recebe somente o diretório `dist` testado pelo workflow `.github/workflows/deploy-cloudflare-pages.yml`.
+
+O projeto antigo `wicolly-sites` continua preservado no Cloudflare para manter o histórico, porém não possui domínio personalizado. Em 25/07/2026, os deploys automáticos de produção, previews e comentários em PR foram desativados. Ele não é uma origem de produção.
+
+O job de deploy possui a condição:
+
+```yaml
+if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+```
+
+O checkout do job é validado contra `GITHUB_SHA`; o upload usa a branch real do evento, que precisa ser `main`. Nunca rotule conteúdo de feature branch como `main`.
+
+Após o upload, o workflow valida `https://wicolly.com.br/version.json` e executa smoke tests no domínio real. O arquivo expõe apenas commit, data de build e branch.
+
+## Rollback
+
+O estado anterior foi preservado em `backup/pre-servicos-veredra-20260725-1152`. Se uma publicação crítica não puder ser corrigida, reverta a `main` com um commit rastreável baseado nesse tag e deixe o workflow republicar o estado anterior. Não use push forçado.
 
 ## Rota /blacklight3d
 

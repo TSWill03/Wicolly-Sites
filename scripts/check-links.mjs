@@ -8,7 +8,7 @@ const checkExternal = process.argv.includes('--external')
 const failures = []
 const warnings = []
 const externalUrls = new Set()
-const intentionallyUnlinkedRoutes = new Set(['/impressoes-3d/', '/portfolio/curriculo.html'])
+const intentionallyUnlinkedRoutes = new Set(['/404.html', '/impressoes-3d/', '/portfolio/curriculo.html'])
 
 const ignoredProtocols = /^(?:mailto:|tel:|sms:|data:|blob:)/i
 const externalProtocol = /^https?:\/\//i
@@ -125,6 +125,10 @@ function validateHtmlFile(filePath, routeMap, functionRoutePatterns) {
     }
 
     if (externalProtocol.test(value)) {
+      const relValues = new Set((parsed.rel ?? '').toLowerCase().split(/\s+/).filter(Boolean))
+      if (tag === 'link' && (relValues.has('preconnect') || relValues.has('dns-prefetch'))) {
+        continue
+      }
       externalUrls.add(value)
       continue
     }
