@@ -73,6 +73,7 @@ desktop.ini
 
 .codex/
 .claude/
+.playwright-cli/
 
 # Cobertura e testes
 

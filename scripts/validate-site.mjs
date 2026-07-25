@@ -12,6 +12,11 @@ const requiredSourceFiles = [
   'blacklight3d/index.html',
   'impressoes-3d/index.html',
   'madrinha/index.html',
+  'veredra/index.html',
+  'veredra/main.dart.js',
+  'veredra/manifest.json',
+  'veredra/flutter_service_worker.js',
+  'functions/veredra/[[path]].js',
   'portfolio/package.json',
 ]
 
@@ -22,6 +27,7 @@ const sourceHtmlFiles = [
   'blacklight3d/index.html',
   'impressoes-3d/index.html',
   'madrinha/index.html',
+  'veredra/index.html',
   'portfolio/index.html',
 ]
 
@@ -33,8 +39,13 @@ const distFiles = [
   'dist/blacklight3d/styles.css',
   'dist/impressoes-3d/index.html',
   'dist/madrinha/index.html',
+  'dist/veredra/index.html',
+  'dist/veredra/main.dart.js',
+  'dist/veredra/manifest.json',
+  'dist/veredra/flutter_service_worker.js',
   'dist/portfolio/index.html',
   'dist/_redirects',
+  'dist/_headers',
   'dist/_routes.json',
 ]
 
@@ -191,7 +202,7 @@ function validateContentScans() {
 
 function validateSourceLinks() {
   const mainHtml = read('main/index.html')
-  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/blacklight3d/', '/madrinha/']) {
+  for (const sitePath of ['/portfolio/', '/hefesto/', '/poseidon/', '/blacklight3d/', '/madrinha/', '/veredra/']) {
     assert(mainHtml.includes(`href="${sitePath}"`), `main/index.html must link to ${sitePath}`)
   }
 
@@ -210,6 +221,41 @@ function validateSourceLinks() {
       `${relativePath} must link back to / or https://wicolly.com.br/`,
     )
   }
+}
+
+function validateVeredraDeployment() {
+  const index = read('veredra/index.html')
+  const appBundle = read('veredra/main.dart.js')
+  const manifest = JSON.parse(read('veredra/manifest.json'))
+  const worker = read('veredra/flutter_service_worker.js')
+  const redirects = read('public/_redirects')
+  const headers = read('public/_headers')
+
+  assert(index.includes('<base href="/veredra/">'), 'veredra/index.html must use /veredra/')
+  for (const property of ['id', 'start_url', 'scope']) {
+    assert(manifest[property] === '/veredra/', `veredra/manifest.json ${property} must be /veredra/`)
+  }
+  assert(appBundle.includes('https://wicolly.com.br/veredra/'), 'Veredra bundle must use the canonical /veredra/ production URL')
+  assert(!appBundle.includes('https://wicolly.com.br/Veredra/'), 'Veredra bundle must not use the deprecated /Veredra/ production URL')
+  assert(worker.includes('function resourceKeyFromUrl(url)'), 'Veredra service worker is missing the subpath patch')
+  assert(worker.includes('function normalizeNavigationResponse(response)'), 'Veredra service worker is missing redirect-safe offline responses')
+  assert(worker.includes('function respondWithCachedIndex(event)'), 'Veredra service worker is missing offline navigation fallback')
+  assert(worker.includes('response.redirected'), 'Veredra service worker must normalize redirected cached responses')
+  assert(redirects.includes('/veredra /veredra/ 301'), 'Missing canonical /veredra redirect')
+  assert(redirects.includes('/Veredra /veredra/ 301'), 'Missing /Veredra compatibility redirect')
+  assert(redirects.includes('/Veredra/ /veredra/ 301'), 'Missing /Veredra/ compatibility redirect')
+  assert(redirects.includes('/Veredra/* /veredra/:splat 301'), 'Missing /Veredra/* compatibility redirect')
+  const routes = JSON.parse(read('public/_routes.json'))
+  assert(routes.include.includes('/veredra/*'), 'Pages Functions routes must include /veredra/*')
+  const fallbackFunction = read('functions/veredra/[[path]].js')
+  assert(fallbackFunction.includes('const VEREDRA_PREFIX = "/veredra"'), 'Veredra Pages Function must use /veredra')
+  assert(fallbackFunction.includes('`${VEREDRA_PREFIX}/index.html`'), 'Missing /veredra SPA function fallback')
+  assert(fallbackFunction.includes('no-cache, no-store, must-revalidate'), 'Veredra function must override service-worker cache')
+  assert(fallbackFunction.includes('`${VEREDRA_PREFIX}/manifest.json`'), 'Veredra function must disable manifest caching')
+  assert(!redirects.includes('/veredra/ /Veredra/'), 'Veredra redirects must not loop to uppercase')
+  assert(headers.includes('/veredra/\n  Cache-Control: no-cache, no-store, must-revalidate'), 'Missing no-cache headers for Veredra app shell')
+  assert(headers.includes('/veredra/flutter_service_worker.js'), 'Missing no-cache headers for Veredra service worker')
+  assert(headers.includes('/veredra/manifest.json'), 'Missing no-cache headers for Veredra manifest')
 }
 
 function validateDistIfPresent() {
@@ -242,6 +288,7 @@ for (const relativePath of sourceHtmlFiles) {
 }
 
 validateSourceLinks()
+validateVeredraDeployment()
 validateContentScans()
 validateDistIfPresent()
 

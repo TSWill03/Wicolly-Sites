@@ -13,6 +13,7 @@ Repositório central dos sites públicos do ecossistema Wicolly, publicado como 
 | `https://wicolly.com.br/hefesto/` | Página pública do servidor Hefesto |
 | `https://wicolly.com.br/poseidon/` | Página pública do servidor Poseidon |
 | `https://wicolly.com.br/madrinha/` | Homenagem para Márcia |
+| `https://wicolly.com.br/veredra/` | Leitor Flutter/PWA Veredra (rota canônica) |
 
 ## Tecnologias
 
@@ -47,8 +48,17 @@ Wicolly-Sites/
 │   └── index.html
 ├── madrinha/
 │   └── index.html
+├── veredra/
+│   ├── index.html
+│   ├── manifest.json
+│   └── flutter_service_worker.js
+├── functions/
+│   └── veredra/
+│       └── [[path]].js
 ├── public/
-│   └── _redirects
+│   ├── _headers
+│   ├── _redirects
+│   └── _routes.json
 ├── scripts/
 │   ├── build-site.mjs
 │   ├── check-links.mjs
@@ -181,6 +191,31 @@ A seção de credenciais não publica exemplos ou comprovantes fictícios. Certi
 O currículo em PDF deve ser regenerado sempre que a versão HTML ou os dados profissionais forem atualizados.
 
 Fotos reais de produtos da Blacklight 3D podem ser adicionadas futuramente em uma galeria, desde que os arquivos sejam otimizados e versionados no repositório.
+
+## Veredra
+
+A rota canônica do leitor Flutter/PWA é minúscula e case-sensitive:
+
+```text
+https://wicolly.com.br/veredra/
+```
+
+O build Flutter versionado fica em `veredra/`. Para atualizá-lo de forma
+reproduzível, primeiro gere e valide o app no repositório irmão e depois execute:
+
+```bash
+npm run update:veredra -- ../app/build/web
+npm test
+```
+
+O script recusa builds sem `base href`, manifest e service-worker patch para
+`/veredra/`. `_redirects` redireciona permanentemente `/Veredra` e
+`/Veredra/*` para a rota canônica minúscula,
+a Pages Function fornece fallback SPA sem loop, e `_headers` impede cache
+persistente do HTML e do service worker. O fluxo normal publica pelo workflow da
+`main`; uma validação controlada pode usar Wrangler antes do merge, preservando
+o deployment anterior para rollback. Pull requests executam validação sem
+deploy automático.
 
 ## Segurança
 
