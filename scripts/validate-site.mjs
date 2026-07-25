@@ -329,7 +329,10 @@ function validateVeredraDeployment() {
   assert(fallbackFunction.includes('no-cache, no-store, must-revalidate'), 'Veredra function must override service-worker cache')
   assert(fallbackFunction.includes('`${VEREDRA_PREFIX}/manifest.json`'), 'Veredra function must disable manifest caching')
   assert(!redirects.includes('/veredra/ /Veredra/'), 'Veredra redirects must not loop to uppercase')
-  assert(headers.includes('/veredra/\n  Cache-Control: no-cache, no-store, must-revalidate'), 'Missing no-cache headers for Veredra app shell')
+  assert(
+    /\/veredra\/\r?\n\s+Cache-Control: no-cache, no-store, must-revalidate/.test(headers),
+    'Missing no-cache headers for Veredra app shell',
+  )
   assert(headers.includes('/veredra/flutter_service_worker.js'), 'Missing no-cache headers for Veredra service worker')
   assert(headers.includes('/veredra/manifest.json'), 'Missing no-cache headers for Veredra manifest')
 }
