@@ -67,7 +67,13 @@ async function checkVersion() {
   const response = await request(`/version.json${suffix}`)
   assert(response.status === 200, `/version.json returned ${response.status}`)
   if (!response.ok) return false
-  const version = await response.json()
+  let version
+  try {
+    version = await response.json()
+  } catch {
+    failures.push('/version.json did not return JSON yet')
+    return false
+  }
   assert(version.branch === 'main', `version.json branch is ${version.branch}, expected main`)
   if (expectedCommit && version.commit !== expectedCommit) return false
   assert(typeof version.builtAt === 'string' && !Number.isNaN(Date.parse(version.builtAt)), 'version.json builtAt is invalid')
