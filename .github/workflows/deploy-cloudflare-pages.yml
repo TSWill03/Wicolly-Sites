@@ -26,12 +26,12 @@ jobs:
 
     steps:
       - name: Checkout event commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -102,7 +102,7 @@ jobs:
           node -e "const v=require('./dist/version.json'); if(v.commit!==process.env.GITHUB_SHA) process.exit(1)"
 
       - name: Upload tested site artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: wicolly-site-${{ github.sha }}
           path: dist
@@ -122,7 +122,7 @@ jobs:
 
     steps:
       - name: Checkout the exact main commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
@@ -136,7 +136,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -146,7 +146,7 @@ jobs:
         run: npm ci
 
       - name: Download tested site artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: wicolly-site-${{ github.sha }}
           path: dist
