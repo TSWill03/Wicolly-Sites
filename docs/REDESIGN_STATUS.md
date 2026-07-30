@@ -4,7 +4,7 @@ Atualizado em: 2026-07-30
 
 ## Fase atual
 
-Fase 2 — Conteúdo e dados concluídos. Fase 3 em execução.
+Fase 3 — Design e páginas concluídos. Fase 4 em execução.
 
 ## Concluído
 
@@ -18,12 +18,15 @@ Fase 2 — Conteúdo e dados concluídos. Fase 3 em execução.
 - Perfil, contatos, projetos, credenciais e dados da BlackLight centralizados em `data/`.
 - Políticas de atividade pública e privada registradas por projeto.
 - LinkedIn confirmado incluído na configuração compartilhada.
+- Home, Sobre, Projetos, sete estudos de caso, Novidades, BlackLight e portfólio gerados a partir dos JSONs.
+- Design responsivo com foco visível, navegação semântica e redução de movimento implementado.
+- Currículo HTML centralizado e PDF de uma página regenerado e revisado visualmente.
+- Screenshot real e limpo do Veredra capturado; screenshot real do Campus Flow preservado.
+- Formulário BlackLight validado até a mensagem estruturada no WhatsApp.
 
 ## Pendente
 
-- Criar o gerador de páginas e currículo a partir dos dados centrais.
-- Implementar novo design e páginas.
-- Implementar changelog, BlackLight e content studio.
+- Implementar sincronização GitHub e content studio.
 - Expandir testes e validar acessibilidade/desempenho.
 - Publicar, integrar e validar produção.
 
@@ -52,4 +55,4 @@ Fase 2 — Conteúdo e dados concluídos. Fase 3 em execução.
 
 ## Próxima ação
 
-Implementar o design e gerar as superfícies públicas a partir da fonte única de conteúdo.
+Implementar a automação de novidades e a ferramenta local de campanhas.
