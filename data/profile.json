@@ -1,0 +1,57 @@
+{
+  "name": "Wícolly Pedro Alcântara",
+  "preferredName": "Wícolly",
+  "location": "Goiatuba, Goiás, Brasil",
+  "headline": "Estudante de Ciência da Computação, desenvolvedor e mantenedor de servidores",
+  "shortBio": "Sou Wícolly, estudante de Ciência da Computação no IF Goiano. Desenvolvo aplicações, mantenho meus próprios servidores e uso projetos reais para aprender como software se comporta fora da sala de aula.",
+  "longBio": [
+    "Escolhi Ciência da Computação porque queria entender o que existe por trás dos programas e transformar curiosidade em coisas que funcionam. Na faculdade encontro a base; nos projetos pessoais descubro os detalhes que só aparecem quando alguém precisa instalar, usar, atualizar ou recuperar um sistema.",
+    "Tenho mais afinidade com back-end, bancos de dados, automação e infraestrutura. Front-end exige mais esforço de mim, então trato essa parte com método: começo pela informação, testo em telas reais e evito efeitos que não ajudam quem está usando.",
+    "Entre uma disciplina e outra, desenvolvo aplicações, mantenho ambientes Linux e Docker e documento os erros que encontro. Também participo da vida acadêmica como presidente do Centro Acadêmico de Ciência da Computação.",
+    "A BlackLight 3D é meu projeto empreendedor. Ela aproxima software, modelagem, produção física e atendimento: cada orçamento começa por entender o uso da peça, as medidas e o acabamento esperado."
+  ],
+  "education": {
+    "course": "Bacharelado em Ciência da Computação",
+    "institution": "IF Goiano — Campus Morrinhos",
+    "period": "2023–2027",
+    "status": "Em andamento"
+  },
+  "academicLeadership": "Presidente do Centro Acadêmico de Ciência da Computação",
+  "currentFocus": [
+    "Back-end com Java, APIs e bancos de dados",
+    "Aplicações Flutter para web, desktop e dispositivos móveis",
+    "Inteligência Artificial aplicada a ferramentas e automações",
+    "Linux, Docker, servidores e redes",
+    "Produção e personalização na BlackLight 3D"
+  ],
+  "technologies": [
+    "Java",
+    "SQL",
+    "Flutter",
+    "Dart",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Linux",
+    "Docker",
+    "GitHub Actions",
+    "Cloudflare"
+  ],
+  "services": [
+    { "name": "Sites e páginas", "description": "Páginas institucionais, portfólios e catálogos estáticos com conteúdo editável, responsividade e publicação." },
+    { "name": "Sistemas simples e protótipos", "description": "MVPs e ferramentas para validar um fluxo antes de investir em uma solução maior." },
+    { "name": "APIs e bancos de dados", "description": "Modelagem, endpoints e integrações para aplicações de pequeno porte." },
+    { "name": "Linux e Docker", "description": "Configuração, diagnóstico e documentação de serviços em ambientes controlados." },
+    { "name": "Servidores de jogos", "description": "Instalação, migração, painel, backups e rotina operacional combinada no escopo." },
+    { "name": "Automações", "description": "Scripts e integrações para eliminar tarefas repetitivas e registrar resultados." },
+    { "name": "Soluções com IA", "description": "Protótipos com modelos de linguagem, ferramentas e aprovação humana." },
+    { "name": "Impressão 3D", "description": "Orçamentos de peças personalizadas e pequenos lotes pela BlackLight 3D." }
+  ],
+  "portrait": null,
+  "portraitNote": "Retrato real ainda não publicado. Adicione uma fotografia autorizada em assets/profile/ e atualize data/profile.json.",
+  "resume": {
+    "objective": "Busco oportunidades de estágio, colaboração e projetos nos quais eu possa evoluir em desenvolvimento back-end, aplicações multiplataforma, infraestrutura e automação.",
+    "availability": "Goiatuba e Morrinhos, Goiás; oportunidades remotas ou a combinar.",
+    "updatedAt": "2026-07-30"
+  }
+}

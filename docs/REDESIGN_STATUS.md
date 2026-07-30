@@ -4,7 +4,7 @@ Atualizado em: 2026-07-30
 
 ## Fase atual
 
-Fase 1 — Auditoria concluída.
+Fase 2 — Conteúdo e dados concluídos. Fase 3 em execução.
 
 ## Concluído
 
@@ -15,11 +15,13 @@ Fase 1 — Auditoria concluída.
 - Imagens existentes classificadas entre screenshots reais e arte visual.
 - Conteúdo legado não comprovado identificado.
 - Estratégia estática orientada a dados definida.
+- Perfil, contatos, projetos, credenciais e dados da BlackLight centralizados em `data/`.
+- Políticas de atividade pública e privada registradas por projeto.
+- LinkedIn confirmado incluído na configuração compartilhada.
 
 ## Pendente
 
-- Criar dados centrais e gerador de páginas.
-- Corrigir identidade, currículo e links sociais.
+- Criar o gerador de páginas e currículo a partir dos dados centrais.
 - Implementar novo design e páginas.
 - Implementar changelog, BlackLight e content studio.
 - Expandir testes e validar acessibilidade/desempenho.
@@ -50,4 +52,4 @@ Fase 1 — Auditoria concluída.
 
 ## Próxima ação
 
-Implementar a fonte única de conteúdo e gerar as superfícies públicas a partir dela.
+Implementar o design e gerar as superfícies públicas a partir da fonte única de conteúdo.
