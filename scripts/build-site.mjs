@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
@@ -43,6 +44,30 @@ async function replaceBuildCommit(dir, commit) {
       await fs.writeFile(target, content.replaceAll('__BUILD_COMMIT__', commit))
     }
   }
+}
+
+async function applyGeneratedCsp() {
+  const hashes = new Set()
+  const generatedRoots = ['', 'sobre', 'projetos', 'novidades', 'blacklight3d', 'portfolio']
+  async function collect(dir) {
+    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+      const target = path.join(dir, entry.name)
+      if (entry.isDirectory()) await collect(target)
+      if (entry.isFile() && entry.name.endsWith('.html')) {
+        const html = await fs.readFile(target, 'utf8')
+        for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+          hashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`)
+        }
+      }
+    }
+  }
+  for (const relative of generatedRoots) {
+    const target = path.join(distDir, relative)
+    if (existsSync(target)) await collect(target)
+  }
+  const headersPath = path.join(distDir, '_headers')
+  const headers = await fs.readFile(headersPath, 'utf8')
+  await fs.writeFile(headersPath, headers.replaceAll('__CSP_SCRIPT_HASHES__', [...hashes].join(' ')))
 }
 
 async function main() {
@@ -102,6 +127,7 @@ async function main() {
 
   await renderSite({ root, distDir })
   await replaceBuildCommit(distDir, commit)
+  await applyGeneratedCsp()
   await fs.writeFile(
     path.join(distDir, 'version.json'),
     `${JSON.stringify({ commit, builtAt, branch }, null, 2)}\n`,

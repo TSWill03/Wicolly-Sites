@@ -13,9 +13,8 @@
     })
   }
 
-  const config = window.WICOLLY_SITE || {}
   document.querySelectorAll('[data-contact]').forEach((link) => {
-    const phone = link.dataset.contact === 'blacklight' ? config.blacklightWhatsApp : config.technologyWhatsApp
+    const phone = link.dataset.phone
     if (!phone) return
     link.href = `https://wa.me/${phone}?text=${encodeURIComponent(link.dataset.message || 'Olá! Vim pelo site wicolly.com.br.')}`
   })

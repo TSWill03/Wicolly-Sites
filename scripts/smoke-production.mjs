@@ -97,10 +97,14 @@ async function waitForExpectedVersion() {
 async function main() {
   await waitForExpectedVersion()
 
-  const homepage = await expectPage(`/?build=${encodeURIComponent(expectedCommit || 'smoke')}`, 'Software, servidores e automações para transformar ideias em projetos que funcionam.')
+  const homepage = await expectPage(`/?build=${encodeURIComponent(expectedCommit || 'smoke')}`, 'Eu estudo computação construindo coisas que precisam funcionar de verdade.')
   assert(/<html[^>]+lang=["']pt-BR["']/i.test(homepage.body), 'Homepage does not declare lang="pt-BR"')
   assert(homepage.body.includes('href="/servicos/"'), 'Homepage does not link to /servicos/')
   assert(homepage.body.includes('href="/veredra/"'), 'Homepage does not link to /veredra/')
+  assert(homepage.body.includes('href="/sobre/"'), 'Homepage does not link to /sobre/')
+  assert(homepage.body.includes('href="/projetos/"'), 'Homepage does not link to /projetos/')
+  assert(homepage.body.includes('href="/novidades/"'), 'Homepage does not link to /novidades/')
+  assert(homepage.body.includes('wicolly-alcantara-3454102a7'), 'Homepage does not link to the confirmed LinkedIn')
   for (const phrase of ['Canva deck', 'Notion context', 'placeholder copy', 'not fake', 'GET /api/status', 'POST /api/chat', 'deck to real site']) {
     assert(!homepage.body.toLowerCase().includes(phrase.toLowerCase()), `Homepage exposes forbidden text: ${phrase}`)
   }
@@ -112,6 +116,15 @@ async function main() {
   }
   assert(services.body.includes('data-contact="technology"'), '/servicos/ is missing technology WhatsApp CTAs')
   assert(services.body.includes('wicolly@gmail.com'), '/servicos/ has an incorrect or missing email')
+
+  for (const route of ['/sobre', '/projetos', '/novidades']) await checkRedirect(route, `${route}/`)
+  const newPages = [
+    ['/sobre/', 'Meu caminho entre a faculdade'], ['/projetos/', 'O que já funciona'], ['/novidades/', 'Mudanças públicas'],
+    ['/projetos/campus-flow/', 'Campus Flow'], ['/projetos/veredra/', 'Veredra'], ['/projetos/little-x/', 'Little X'],
+    ['/projetos/openclaw-little-x/', 'OpenClaw Little X'], ['/projetos/blacklight-3d/', 'BlackLight 3D'],
+    ['/projetos/laboratorio-infraestrutura/', 'Hefesto e Poseidon'], ['/projetos/wicolly-sites/', 'Wicolly Sites'],
+  ]
+  for (const [pathname, text] of newPages) await expectPage(pathname, text)
 
   await checkRedirect('/veredra', '/veredra/')
   const veredra = await expectPage('/veredra/', 'Veredra')
@@ -134,8 +147,9 @@ async function main() {
 
   const pages = [
     ['/', 'Wícolly'],
-    ['/portfolio/', 'Wicolly'],
-    ['/blacklight3d/', 'Blacklight 3D'],
+    ['/portfolio/', 'Wícolly'],
+    ['/portfolio/curriculo.html', 'Wícolly Pedro Alcântara'],
+    ['/blacklight3d/', 'BlackLight 3D'],
     ['/hefesto/', 'Hefesto'],
     ['/poseidon/', 'Poseidon'],
     ['/madrinha/', 'Madrinha'],
@@ -147,6 +161,11 @@ async function main() {
     }
   }
   await checkRedirect('/impressoes-3d/', '/blacklight3d/')
+
+  const homeHeaders = await request('/')
+  assert(homeHeaders.headers.get('content-security-policy')?.includes("script-src 'self'"), 'Homepage CSP is missing')
+  assert(homeHeaders.headers.get('x-content-type-options') === 'nosniff', 'Homepage nosniff header is missing')
+  assert(homeHeaders.headers.get('x-frame-options') === 'DENY', 'Homepage frame protection is missing')
 
   for (const secretPath of ['/.env', '/.git/config', '/package.json', '/infra/blacklight3d/.env.example']) {
     const response = await request(secretPath, { redirect: 'manual' })

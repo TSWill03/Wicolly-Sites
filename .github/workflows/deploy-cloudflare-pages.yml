@@ -47,6 +47,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run sync:github
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+
       - name: Run complete local-equivalent test suite
         env:
           BUILD_COMMIT: ${{ github.sha }}

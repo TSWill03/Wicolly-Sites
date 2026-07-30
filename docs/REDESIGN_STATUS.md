@@ -4,7 +4,7 @@ Atualizado em: 2026-07-30
 
 ## Fase atual
 
-Fase 4 — Automações concluídas. Fase 5 em execução.
+Fase 5 — Qualidade concluída. Fase 6 em execução.
 
 ## Concluído
 
@@ -27,11 +27,16 @@ Fase 4 — Automações concluídas. Fase 5 em execução.
 - Visibilidade pública conferida antes do sync; Little X e OpenClaw permanecem manuais e sem repositório no JSON publicado.
 - Workflow diário e manual integrado sem commits automáticos ou loops de deploy.
 - Content studio local implementado com pacotes Markdown/JSON e adaptadores bloqueados por aprovação humana.
+- Matriz Playwright criada para desktop, notebook, tablet, iPhone, Android, Firefox e Edge.
+- Validação estrutural ampliada para identidade, privacidade, metadados, imagens, rotas, estudos de caso e política de repositórios privados.
+- Headers globais de segurança e CSP por hash adicionados às novas páginas.
+- Lighthouse mobile atingiu 100 em Performance, Accessibility, Best Practices e SEO.
+- Revisão de segurança concluída sem achados críticos ou altos.
 
 ## Pendente
 
-- Expandir testes e validar acessibilidade/desempenho.
-- Publicar, integrar e validar produção.
+- Publicar a branch e abrir o pull request.
+- Aguardar os checks, integrar em `main` e validar o deploy no domínio real.
 
 ## Decisões
 
@@ -40,6 +45,7 @@ Fase 4 — Automações concluídas. Fase 5 em execução.
 - LittleX e OpenClaw Little X permanecerão em modo manual por serem privados.
 - Dados não confirmados não serão inferidos.
 - `/veredra/` será preservado como bundle independente.
+- O CSP estrito fica restrito às páginas novas até que os bundles legados sejam auditados sem risco de regressão.
 
 ## Testes executados
 
@@ -47,6 +53,14 @@ Fase 4 — Automações concluídas. Fase 5 em execução.
 - `gh auth status`: conta `TSWill03` autenticada.
 - `gh repo view`: remoto, branch padrão e visibilidade confirmados.
 - Inspeção estática dos workflows, scripts e páginas existentes.
+- `npm ci`: concluído com zero vulnerabilidades reportadas.
+- `npm test`: build, validação, lint, links internos e Playwright aprovados; 15 testes passaram e 27 foram pulados pela matriz intencional.
+- Edge opt-in: 6 testes passaram e 1 foi pulado.
+- Links externos: aprovados; LinkedIn (`999`) e Instagram (`429`) bloquearam apenas o robô de verificação.
+- Lighthouse mobile: Performance 100, Accessibility 100, Best Practices 100 e SEO 100; LCP 1,1 s, CLS 0 e TBT 0 ms.
+- Lighthouse desktop: Performance 100, Best Practices 100 e SEO 100; a acessibilidade foi corrigida e revalidada separadamente em 100.
+- Fallback da sincronização GitHub: cache preservado com a API indisponível.
+- PDF do currículo: renderizado e inspecionado visualmente em uma página.
 
 ## Problemas encontrados
 
@@ -55,7 +69,9 @@ Fase 4 — Automações concluídas. Fase 5 em execução.
 - Dados duplicados.
 - Ausência das novas páginas e automações solicitadas.
 - Ausência de retrato e fotos reais de produtos.
+- Chrome DevTools MCP não estava disponível; o Lighthouse CLI foi usado como fallback reproduzível.
+- LinkedIn e Instagram limitam verificações automatizadas, embora os URLs estejam corretos.
 
 ## Próxima ação
 
-Expandir a validação automatizada e executar a matriz completa de qualidade.
+Publicar a branch, acompanhar o pull request e validar o SHA integrado em `https://wicolly.com.br/version.json`.

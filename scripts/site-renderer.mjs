@@ -24,7 +24,7 @@ function nav() {
   return `<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="wordmark" href="/" aria-label="Wícolly — início"><span aria-hidden="true">W/</span> Wícolly</a>
+      <a class="wordmark" href="/"><span aria-hidden="true">W/</span> Wícolly</a>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>Menu</button>
       <nav id="site-menu" class="site-nav" aria-label="Navegação principal" data-menu>
         <a href="/sobre/">Sobre</a><a href="/projetos/">Projetos</a><a href="/novidades/">Novidades</a><a href="/servicos/">Serviços</a><a href="/blacklight3d/">BlackLight 3D</a>
@@ -38,7 +38,7 @@ function footer(profile, links) {
     <div><a class="wordmark" href="/"><span aria-hidden="true">W/</span> Wícolly</a><p>${esc(profile.shortBio)}</p></div>
     <div><h2>Explorar</h2><a href="/sobre/">Sobre</a><a href="/projetos/">Projetos</a><a href="/novidades/">Novidades</a><a href="/portfolio/curriculo.html">Currículo</a></div>
     <div><h2>Contato</h2><a href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="${esc(links.github)}" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:${esc(links.email)}">${esc(links.email)}</a></div>
-  </div><div class="shell footer-bottom"><span>© <span data-current-year>2026</span> ${esc(profile.name)}.</span><a href="/privacidade/">Privacidade</a><span>Build __BUILD_COMMIT__</span></div></footer>`
+  </div><div class="shell footer-bottom"><span>© <span data-current-year>2026</span> ${esc(profile.name)}.</span><a href="/privacidade/">Privacidade</a></div></footer>`
 }
 
 function layout({ profile, links, title, description, pathName, body, schema = [], extraScript = '' }) {
@@ -57,7 +57,7 @@ function layout({ profile, links, title, description, pathName, body, schema = [
   <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/shared/redesign.css">
   ${schemas.map((item) => `<script type="application/ld+json">${jsonLd(item)}</script>`).join('')}
   </head><body>${nav()}<main id="conteudo">${body}</main>${footer(profile, links)}
-  <script src="/shared/site-config.js"></script><script src="/shared/redesign.js" defer></script>${extraScript}</body></html>`
+  <script src="/shared/redesign.js" defer></script>${extraScript}</body></html>`
 }
 
 function updateFor(project, activity) {
@@ -114,7 +114,7 @@ function home(profile, links, projects, activity) {
   ${recent.length ? `<ol class="update-list">${recent.map((item) => `<li><time datetime="${esc(item.date)}">${esc(item.displayDate)}</time><div><strong>${esc(item.projectName)}</strong><p>${esc(item.summary)}</p></div></li>`).join('')}</ol>` : '<p class="empty-state">A sincronização pública ainda não gerou atualizações. O cache permanece válido e o site continua funcionando.</p>'}</div></section>
   <section class="section" aria-labelledby="trajetoria"><div class="shell split"><div><p class="kicker">Formação e trajetória</p><h2 id="trajetoria">Faculdade como base. Projetos como laboratório.</h2><p>${esc(profile.longBio[0])}</p><a class="text-link" href="/sobre/">Conhecer minha trajetória</a></div><ol class="timeline"><li><span>Formação</span><strong>${esc(profile.education.course)}</strong><small>${esc(profile.education.institution)} · ${esc(profile.education.period)}</small></li><li><span>Participação</span><strong>${esc(profile.academicLeadership)}</strong></li><li><span>Prática</span><strong>Aplicações, servidores e automações próprias</strong></li><li><span>Empreender</span><strong>Fundador da BlackLight 3D</strong></li><li><span>Agora</span><strong>Back-end, IA, infraestrutura e produtos úteis</strong></li></ol></div></section>
   <section class="section dark-section" aria-labelledby="servicos"><div class="shell"><div class="section-heading"><div><p class="kicker">Trabalhos contratáveis</p><h2 id="servicos">Serviços com escopo claro e entrega verificável</h2></div><p>Portfólio mostra aprendizado. Esta seção mostra trabalhos que posso avaliar e executar.</p></div><div class="service-grid">${profile.services.map((service) => `<article><h3>${esc(service.name)}</h3><p>${esc(service.description)}</p></article>`).join('')}</div><p class="experimental-note"><strong>Produtos experimentais:</strong> Campus Flow, Veredra e Little X têm estados próprios e não são vendidos como soluções finalizadas.</p><a class="button light" href="/servicos/">Ver formas de contratação</a></div></section>
-  <section id="contato" class="section" aria-labelledby="contato-titulo"><div class="shell contact-panel"><div><p class="kicker">Contato</p><h2 id="contato-titulo">Conte o problema antes de pedir a tecnologia.</h2><p>Uma boa primeira mensagem explica o contexto, quem vai usar e o que precisa acontecer.</p></div><div class="contact-links"><a class="button primary" data-contact="technology" data-message="Olá, Wícolly! Vim pelo site e quero conversar sobre um projeto." href="https://wa.me/${esc(links.technologyWhatsApp)}">WhatsApp</a><a class="button" href="mailto:${esc(links.email)}">E-mail</a><a class="button" href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div></section>`
+  <section id="contato" class="section" aria-labelledby="contato-titulo"><div class="shell contact-panel"><div><p class="kicker">Contato</p><h2 id="contato-titulo">Conte o problema antes de pedir a tecnologia.</h2><p>Uma boa primeira mensagem explica o contexto, quem vai usar e o que precisa acontecer.</p></div><div class="contact-links"><a class="button primary" data-contact="technology" data-phone="${esc(links.technologyWhatsApp)}" data-message="Olá, Wícolly! Vim pelo site e quero conversar sobre um projeto." href="https://wa.me/${esc(links.technologyWhatsApp)}">WhatsApp</a><a class="button" href="mailto:${esc(links.email)}">E-mail</a><a class="button" href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div></section>`
   return layout({ profile, links, title: 'Wícolly Pedro Alcântara | Software, servidores e aprendizagem', description: profile.shortBio, pathName: '/', body, schema: [personSchema, serviceSchema] })
 }
 
