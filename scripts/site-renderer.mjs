@@ -73,13 +73,18 @@ function projectMedia(project, eager = false) {
 
 function projectCard(project, activity) {
   const last = updateFor(project, activity)
+  const productionUrl = project.productionUrl ? new URL(project.productionUrl) : null
+  const productionHref = productionUrl?.origin === SITE ? productionUrl.pathname : project.productionUrl
+  const productionLink = productionHref
+    ? `<a class="text-link" href="${esc(productionHref)}">Abrir projeto <span aria-hidden="true">↗</span></a>`
+    : ''
   return `<article class="project-card">
     ${projectMedia(project)}
     <div class="project-card-body"><p class="kicker">${esc(project.status)}</p><h3><a href="/projetos/${esc(project.slug)}/">${esc(project.name)}</a></h3>
     <p>${esc(project.shortDescription)}</p><p><strong>Problema:</strong> ${esc(project.problemsSolved[0])}</p>
     ${list(project.technologies.slice(0, 5))}
     <p class="last-update">${last ? `Atualização pública: ${esc(last.summary)} · <time datetime="${esc(last.date)}">${esc(last.displayDate)}</time>` : 'Sem atualização pública recente.'}</p>
-    <a class="text-link" href="/projetos/${esc(project.slug)}/">Ler estudo de caso <span aria-hidden="true">→</span></a></div>
+    <div class="card-links"><a class="text-link" href="/projetos/${esc(project.slug)}/">Ler estudo de caso <span aria-hidden="true">→</span></a>${productionLink}</div></div>
   </article>`
 }
 

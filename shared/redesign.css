@@ -75,6 +75,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; padding: 0; list-style: none; }
 .tag-list li { border: 1px solid var(--line); padding: 4px 9px; color: #c8ceda; font-size: .82rem; }
 .last-update { min-height: 3.2em; color: var(--muted); font-size: .9rem; }
+.card-links { display: flex; flex-wrap: wrap; gap: .55rem 1rem; align-items: center; }
 .update-list, .timeline, .news-list { margin: 0; padding: 0; list-style: none; }
 .update-list li { display: grid; grid-template-columns: 145px 1fr; gap: 30px; padding: 24px 0; border-top: 1px solid var(--line); }
 .update-list time, .news-list time { color: var(--muted); font-variant-numeric: tabular-nums; }

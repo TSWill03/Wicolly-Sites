@@ -84,7 +84,7 @@ async function waitForExpectedVersion() {
   for (let attempt = 1; attempt <= retries; attempt += 1) {
     const failureCount = failures.length
     const matches = await checkVersion()
-    if (matches) return
+    if (matches) return true
     failures.splice(failureCount)
     if (attempt < retries) {
       console.log(`Published commit is not ${expectedCommit} yet; retrying (${attempt}/${retries}).`)
@@ -92,11 +92,10 @@ async function waitForExpectedVersion() {
     }
   }
   failures.push(`version.json did not reach expected commit ${expectedCommit}`)
+  return false
 }
 
-async function main() {
-  await waitForExpectedVersion()
-
+async function checkProductionContent() {
   const homepage = await expectPage(`/?build=${encodeURIComponent(expectedCommit || 'smoke')}`, 'Eu estudo computação construindo coisas que precisam funcionar de verdade.')
   assert(/<html[^>]+lang=["']pt-BR["']/i.test(homepage.body), 'Homepage does not declare lang="pt-BR"')
   assert(homepage.body.includes('href="/servicos/"'), 'Homepage does not link to /servicos/')
@@ -172,11 +171,30 @@ async function main() {
     assert(response.status === 404, `Sensitive/source path ${secretPath} is exposed with status ${response.status}`)
   }
 
-  if (failures.length) {
+}
+
+async function main() {
+  if (!(await waitForExpectedVersion())) {
     for (const failure of failures) console.error(`- ${failure}`)
     process.exit(1)
   }
-  console.log(`Production smoke passed for ${base.origin}${expectedCommit ? ` at ${expectedCommit}` : ''}.`)
+
+  for (let attempt = 1; attempt <= retries; attempt += 1) {
+    failures.length = 0
+    checkedResources.clear()
+    await checkProductionContent()
+    if (!failures.length) {
+      console.log(`Production smoke passed for ${base.origin}${expectedCommit ? ` at ${expectedCommit}` : ''}.`)
+      return
+    }
+    if (attempt < retries) {
+      console.log(`Production routes are not consistent across the edge yet; retrying (${attempt}/${retries}).`)
+      await delay(retryDelay)
+    }
+  }
+
+  for (const failure of failures) console.error(`- ${failure}`)
+  process.exit(1)
 }
 
 main().catch((error) => {
