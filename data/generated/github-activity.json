@@ -1,5 +1,153 @@
 {
-  "generatedAt": null,
-  "source": "versioned-fallback",
-  "projects": {}
+  "generatedAt": "2026-07-30T23:20:09.036Z",
+  "source": "github-and-reviewed-manual",
+  "projects": {
+    "campus-flow": {
+      "name": "Campus Flow",
+      "repository": "TSWill03/Campus_Flow",
+      "visibility": "public",
+      "mode": "public",
+      "source": "releases",
+      "items": [
+        {
+          "type": "release",
+          "kindLabel": "Release",
+          "summary": "Campus Flow v1.0.0.",
+          "date": "2026-07-30T18:51:44Z",
+          "displayDate": "30 de jul de 2026",
+          "url": "https://github.com/TSWill03/Campus_Flow/releases/tag/v1.0.0"
+        }
+      ]
+    },
+    "veredra": {
+      "name": "Veredra",
+      "repository": "TSWill03/Veredra",
+      "visibility": "public",
+      "mode": "public",
+      "source": "commits",
+      "items": [
+        {
+          "type": "feat",
+          "kindLabel": "Funcionalidade",
+          "summary": "Adicionados metadados de produção e um link de retorno ao site.",
+          "date": "2026-07-25T15:38:40Z",
+          "displayDate": "25 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "fix",
+          "kindLabel": "Correção",
+          "summary": "Normalizadas as respostas redirecionadas do cache da PWA.",
+          "date": "2026-07-14T02:54:25Z",
+          "displayDate": "13 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "fix",
+          "kindLabel": "Correção",
+          "summary": "Corrigida a importação de EPUB no navegador e ampliada a cobertura de testes no navegador.",
+          "date": "2026-07-14T02:34:49Z",
+          "displayDate": "13 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "fix",
+          "kindLabel": "Correção",
+          "summary": "Isolada a autenticação do Google e configurada a versão web de produção.",
+          "date": "2026-07-14T02:34:41Z",
+          "displayDate": "13 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "fix",
+          "kindLabel": "Correção",
+          "summary": "Mantida a integração contínua do iOS compatível com a versão estável do Xcode.",
+          "date": "2026-07-13T22:41:51Z",
+          "displayDate": "13 de jul de 2026",
+          "url": null
+        }
+      ]
+    },
+    "little-x": {
+      "name": "Little X",
+      "repository": null,
+      "visibility": "private",
+      "mode": "manual",
+      "source": "reviewed-manual-file",
+      "items": []
+    },
+    "openclaw-little-x": {
+      "name": "OpenClaw Little X",
+      "repository": null,
+      "visibility": "private",
+      "mode": "manual",
+      "source": "reviewed-manual-file",
+      "items": []
+    },
+    "blacklight-3d": {
+      "name": "BlackLight 3D",
+      "repository": null,
+      "visibility": "public",
+      "mode": "manual",
+      "source": "reviewed-manual-file",
+      "items": []
+    },
+    "laboratorio-infraestrutura": {
+      "name": "Hefesto e Poseidon",
+      "repository": null,
+      "visibility": "private-infrastructure",
+      "mode": "manual",
+      "source": "reviewed-manual-file",
+      "items": []
+    },
+    "wicolly-sites": {
+      "name": "Wicolly Sites",
+      "repository": "TSWill03/Wicolly-Sites",
+      "visibility": "public",
+      "mode": "public",
+      "source": "commits",
+      "items": [
+        {
+          "type": "fix",
+          "kindLabel": "Correção",
+          "summary": "Repetido o smoke de produção durante a propagação do Cloudflare Pages.",
+          "date": "2026-07-25T15:51:48Z",
+          "displayDate": "25 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "ci",
+          "kindLabel": "Entrega contínua",
+          "summary": "Restrito o deploy de produção e adicionada validação por smoke test.",
+          "date": "2026-07-25T15:41:26Z",
+          "displayDate": "25 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "feat",
+          "kindLabel": "Funcionalidade",
+          "summary": "Integrada a versão web mais recente do Veredra.",
+          "date": "2026-07-25T15:41:15Z",
+          "displayDate": "25 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "feat",
+          "kindLabel": "Funcionalidade",
+          "summary": "Reconstruído o site comercial em português brasileiro.",
+          "date": "2026-07-25T15:41:11Z",
+          "displayDate": "25 de jul de 2026",
+          "url": null
+        },
+        {
+          "type": "fix",
+          "kindLabel": "Correção",
+          "summary": "Mantido o Veredra disponível offline após o redirecionamento canônico.",
+          "date": "2026-07-14T02:54:29Z",
+          "displayDate": "13 de jul de 2026",
+          "url": null
+        }
+      ]
+    }
+  }
 }

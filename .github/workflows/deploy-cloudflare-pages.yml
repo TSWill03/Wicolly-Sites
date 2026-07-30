@@ -8,6 +8,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
 
 permissions:
   contents: read
@@ -40,6 +42,11 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
+      - name: Sync public GitHub activity with cache fallback
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run sync:github
+
       - name: Run complete local-equivalent test suite
         env:
           BUILD_COMMIT: ${{ github.sha }}
@@ -61,12 +68,19 @@ jobs:
           set -euo pipefail
           test -f dist/index.html
           test -f dist/servicos/index.html
+          test -f dist/sobre/index.html
+          test -f dist/projetos/index.html
+          test -f dist/projetos/campus-flow/index.html
+          test -f dist/projetos/veredra/index.html
+          test -f dist/novidades/index.html
           test -f dist/shared/styles.css
           test -f dist/shared/site-config.js
           test -f dist/shared/navigation.js
           test -f dist/portfolio/index.html
           test -f dist/portfolio/curriculo.html
           test -f dist/portfolio/curriculo.pdf
+          test -f dist/assets/projects/campus-flow.png
+          test -f dist/assets/projects/veredra.png
           test -f dist/hefesto/index.html
           test -f dist/poseidon/index.html
           test -f dist/blacklight3d/index.html

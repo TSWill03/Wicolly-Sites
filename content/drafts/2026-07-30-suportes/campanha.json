@@ -1,0 +1,37 @@
+{
+  "type": "produto",
+  "slug": "suportes",
+  "title": "BlackLight 3D — Suportes",
+  "link": "https://wicolly.com.br/blacklight3d/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=blacklight-suportes#produto-suportes",
+  "short": "Suportes sob orçamento: As medidas dependem do objeto e do local de uso. Foto real e especificações serão confirmadas antes da publicação do item.",
+  "detailed": "Suportes sob orçamento: As medidas dependem do objeto e do local de uso.\n\nMaterial, dimensões e prazo dependem do uso e serão definidos no orçamento. Esta categoria ainda não representa um produto pronto.\n\nPrepare seu pedido: https://wicolly.com.br/blacklight3d/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=blacklight-suportes#produto-suportes",
+  "linkedin": "A BlackLight 3D está preparando a categoria Suportes.\n\nAs medidas dependem do objeto e do local de uso.\n\nO cadastro só será tratado como produto quando houver foto real, medidas, material e tempo de produção confirmados. Enquanto isso, o site abre um orçamento estruturado: https://wicolly.com.br/blacklight3d/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=blacklight-suportes#produto-suportes",
+  "status": "Precisa de suportes? Envie o uso, as medidas e a quantidade: https://wicolly.com.br/blacklight3d/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=blacklight-suportes#produto-suportes",
+  "description": "Suportes sob orçamento: As medidas dependem do objeto e do local de uso.",
+  "alt": "Foto real de Suportes ainda não produzida para o catálogo.",
+  "scenes": [
+    "Peça real girando sobre uma superfície neutra",
+    "Close do acabamento e das camadas",
+    "Régua ou paquímetro mostrando a escala",
+    "Peça em uso no contexto real"
+  ],
+  "hashtags": [
+    "#Desenvolvimento",
+    "#ProjetosReais",
+    "#AprendizadoEmPúblico"
+  ],
+  "publishingAdapters": {
+    "instagram": {
+      "enabled": false,
+      "requiresHumanApproval": true
+    },
+    "linkedin": {
+      "enabled": false,
+      "requiresHumanApproval": true
+    },
+    "whatsapp": {
+      "enabled": false,
+      "requiresHumanApproval": true
+    }
+  }
+}

@@ -4,7 +4,7 @@ Atualizado em: 2026-07-30
 
 ## Fase atual
 
-Fase 3 — Design e páginas concluídos. Fase 4 em execução.
+Fase 4 — Automações concluídas. Fase 5 em execução.
 
 ## Concluído
 
@@ -23,10 +23,13 @@ Fase 3 — Design e páginas concluídos. Fase 4 em execução.
 - Currículo HTML centralizado e PDF de uma página regenerado e revisado visualmente.
 - Screenshot real e limpo do Veredra capturado; screenshot real do Campus Flow preservado.
 - Formulário BlackLight validado até a mensagem estruturada no WhatsApp.
+- Sync GitHub implementado com prioridade para releases, classificação, sanitização e cache resiliente.
+- Visibilidade pública conferida antes do sync; Little X e OpenClaw permanecem manuais e sem repositório no JSON publicado.
+- Workflow diário e manual integrado sem commits automáticos ou loops de deploy.
+- Content studio local implementado com pacotes Markdown/JSON e adaptadores bloqueados por aprovação humana.
 
 ## Pendente
 
-- Implementar sincronização GitHub e content studio.
 - Expandir testes e validar acessibilidade/desempenho.
 - Publicar, integrar e validar produção.
 
@@ -55,4 +58,4 @@ Fase 3 — Design e páginas concluídos. Fase 4 em execução.
 
 ## Próxima ação
 
-Implementar a automação de novidades e a ferramenta local de campanhas.
+Expandir a validação automatizada e executar a matriz completa de qualidade.
