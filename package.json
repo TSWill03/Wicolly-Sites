@@ -5,12 +5,19 @@
   },
   "scripts": {
     "build": "node scripts/build-site.mjs",
+    "sync:github": "node scripts/sync-github-activity.mjs",
+    "content:studio": "node scripts/content-studio.mjs",
+    "campanha": "node scripts/content-studio.mjs",
     "update:veredra": "node scripts/update-veredra.mjs",
     "validate": "node scripts/validate-site.mjs",
-    "lint": "npm --prefix portfolio run lint",
+    "lint": "node --check scripts/build-site.mjs && node --check scripts/site-renderer.mjs && node --check scripts/sync-github-activity.mjs && node --check scripts/content-studio.mjs && node --check shared/redesign.js",
     "check:links": "node scripts/check-links.mjs",
     "check:links:external": "node scripts/check-links.mjs --external",
+    "test:browser": "playwright test",
     "smoke:production": "node scripts/smoke-production.mjs",
-    "test": "npm run build && npm run validate && npm run lint && npm run check:links"
+    "test": "npm run build && npm run validate && npm run lint && npm run check:links && npm run test:browser"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
   }
 }

@@ -2,6 +2,38 @@
 
 Repositório central dos sites públicos do ecossistema Wícolly, publicado em `https://wicolly.com.br`.
 
+## Conteúdo centralizado
+
+As páginas pessoais, estudos de caso, currículo e BlackLight são gerados por `scripts/site-renderer.mjs` a partir de:
+
+- `data/profile.json`: bio curta, bio longa, formação, foco atual e serviços;
+- `data/social-links.json`: canais públicos confirmados;
+- `data/projects.json`: estado, visibilidade e estudo de caso de cada projeto;
+- `data/credentials.json`: somente credenciais com comprovação;
+- `data/blacklight-products.json` e `data/blacklight-gallery.json`: categorias, produtos e fotos reais;
+- `data/generated/github-activity.json`: cache público usado no build.
+
+Não edite os HTMLs dentro de `dist/`; eles são artefatos temporários. Para atualizar o currículo, altere a fonte JSON, execute o build e regenere `portfolio/public/curriculo.pdf` a partir de `/portfolio/curriculo.html`.
+
+## Atividade pública do GitHub
+
+```powershell
+npm run sync:github
+```
+
+O sync confere a visibilidade do repositório antes de consultar releases ou commits, prioriza releases, remove ruído e preserva o cache quando a API está indisponível. `LittleX` e `OpenClaw_LittleX` são privados e usam somente `data/private-project-public-updates.json`; commits privados nunca são consultados para publicação.
+
+No GitHub Actions, a sincronização usa `GITHUB_TOKEN` apenas no runner. Nenhum token é enviado ao navegador ou gravado no artefato.
+
+## Estúdio local de conteúdo
+
+```powershell
+npm run campanha -- --tipo projeto --slug campus-flow
+npm run campanha -- --tipo produto --slug suportes
+```
+
+Os pacotes editáveis são salvos em `content/drafts/YYYY-MM-DD-slug/`. Adaptadores de redes sociais estão deliberadamente desativados em `scripts/content-publish-adapters.mjs`; publicação futura continua exigindo aprovação humana explícita.
+
 ## Rotas
 
 | Caminho | Conteúdo |

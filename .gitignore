@@ -9,6 +9,7 @@ dist/
 portfolio/dist/
 build/
 out/
+output/
 
 # Variáveis de ambiente e segredos
 

@@ -125,6 +125,13 @@ function validateHtmlFile(filePath, routeMap, functionRoutePatterns) {
     }
 
     if (externalProtocol.test(value)) {
+      const absolute = new URL(value)
+      if (['wicolly.com.br', 'www.wicolly.com.br'].includes(absolute.hostname)) {
+        const targetFile = resolveInternalFile(absolute.pathname)
+        if (!targetFile) failures.push(`${relative(filePath)} points to missing same-site resource: ${value}`)
+        else if (tag === 'a' && name === 'href' && targetFile.endsWith('.html')) routeMap.add(routeForHtml(targetFile))
+        continue
+      }
       const relValues = new Set((parsed.rel ?? '').toLowerCase().split(/\s+/).filter(Boolean))
       if (tag === 'link' && (relValues.has('preconnect') || relValues.has('dns-prefetch'))) {
         continue

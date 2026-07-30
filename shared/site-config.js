@@ -6,7 +6,7 @@ window.WICOLLY_SITE = Object.freeze({
   technologyWhatsApp: "5534997675400",
   blacklightWhatsApp: "5564993252339",
   github: "https://github.com/TSWill03",
-  linkedin: null,
+  linkedin: "https://br.linkedin.com/in/wicolly-alcantara-3454102a7",
   instagram: null,
   blacklightInstagram: "https://www.instagram.com/blacklight_3d/",
   availability: "Projetos sob orçamento e manutenção conforme escopo contratado."

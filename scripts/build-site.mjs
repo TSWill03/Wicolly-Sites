@@ -1,14 +1,13 @@
 import { spawnSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { renderSite } from './site-renderer.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(root, 'dist')
-const portfolioDir = path.join(root, 'portfolio')
-const portfolioDistDir = path.join(portfolioDir, 'dist')
-const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm'
 
 function resolveInsideRoot(...segments) {
   const target = path.resolve(root, ...segments)
@@ -26,27 +25,6 @@ async function assertExists(filePath, label = filePath) {
   }
 }
 
-function run(command, args, cwd = root) {
-  const options = {
-    cwd,
-    stdio: 'inherit',
-    env: process.env,
-  }
-
-  const result =
-    process.platform === 'win32'
-      ? spawnSync([command, ...args].join(' '), { ...options, shell: true })
-      : spawnSync(command, args, options)
-
-  if (result.error) {
-    throw result.error
-  }
-
-  if (result.status !== 0) {
-    throw new Error(`${command} ${args.join(' ')} failed with exit code ${result.status}`)
-  }
-}
-
 async function copyDirectory(source, target) {
   await assertExists(source)
   await fs.cp(source, target, { recursive: true })
@@ -57,14 +35,45 @@ function gitValue(args, fallback) {
   return result.status === 0 && result.stdout.trim() ? result.stdout.trim() : fallback
 }
 
-async function replaceBuildCommit(relativePath, commit) {
-  const target = path.join(distDir, relativePath)
-  const content = await fs.readFile(target, 'utf8')
-  await fs.writeFile(target, content.replaceAll('__BUILD_COMMIT__', commit))
+async function replaceBuildCommit(dir, commit) {
+  for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+    const target = path.join(dir, entry.name)
+    if (entry.isDirectory()) await replaceBuildCommit(target, commit)
+    if (entry.isFile() && entry.name.endsWith('.html')) {
+      const content = await fs.readFile(target, 'utf8')
+      await fs.writeFile(target, content.replaceAll('__BUILD_COMMIT__', commit))
+    }
+  }
+}
+
+async function applyGeneratedCsp() {
+  const hashes = new Set()
+  const generatedRoots = ['', 'sobre', 'projetos', 'novidades', 'blacklight3d', 'portfolio']
+  async function collect(dir) {
+    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+      const target = path.join(dir, entry.name)
+      if (entry.isDirectory()) await collect(target)
+      if (entry.isFile() && entry.name.endsWith('.html')) {
+        const html = await fs.readFile(target, 'utf8')
+        for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+          hashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`)
+        }
+      }
+    }
+  }
+  for (const relative of generatedRoots) {
+    const target = path.join(distDir, relative)
+    if (existsSync(target)) await collect(target)
+  }
+  const headersPath = path.join(distDir, '_headers')
+  const headers = await fs.readFile(headersPath, 'utf8')
+  await fs.writeFile(headersPath, headers.replaceAll('__CSP_SCRIPT_HASHES__', [...hashes].join(' ')))
 }
 
 async function main() {
-  await assertExists(resolveInsideRoot('main', 'index.html'), 'main/index.html')
+  await assertExists(resolveInsideRoot('data', 'profile.json'), 'data/profile.json')
+  await assertExists(resolveInsideRoot('data', 'projects.json'), 'data/projects.json')
+  await assertExists(resolveInsideRoot('data', 'generated', 'github-activity.json'), 'GitHub activity cache')
   await assertExists(resolveInsideRoot('servicos', 'index.html'), 'servicos/index.html')
   await assertExists(resolveInsideRoot('shared', 'styles.css'), 'shared/styles.css')
   await assertExists(resolveInsideRoot('shared', 'site-config.js'), 'shared/site-config.js')
@@ -76,7 +85,7 @@ async function main() {
   await assertExists(resolveInsideRoot('impressoes-3d', 'index.html'), 'impressoes-3d/index.html')
   await assertExists(resolveInsideRoot('madrinha', 'index.html'), 'madrinha/index.html')
   await assertExists(resolveInsideRoot('veredra', 'index.html'), 'veredra/index.html')
-  await assertExists(resolveInsideRoot('portfolio', 'package.json'), 'portfolio/package.json')
+  await assertExists(resolveInsideRoot('portfolio', 'public', 'curriculo.pdf'), 'portfolio/public/curriculo.pdf')
   await assertExists(resolveInsideRoot('public', '_redirects'), 'public/_redirects')
   await assertExists(resolveInsideRoot('public', '_headers'), 'public/_headers')
 
@@ -87,7 +96,6 @@ async function main() {
   await fs.rm(distDir, { recursive: true, force: true })
   await fs.mkdir(distDir, { recursive: true })
 
-  await fs.copyFile(resolveInsideRoot('main', 'index.html'), path.join(distDir, 'index.html'))
   await copyDirectory(resolveInsideRoot('servicos'), path.join(distDir, 'servicos'))
   await copyDirectory(resolveInsideRoot('shared'), path.join(distDir, 'shared'))
   await copyDirectory(resolveInsideRoot('privacidade'), path.join(distDir, 'privacidade'))
@@ -98,12 +106,11 @@ async function main() {
   await copyDirectory(resolveInsideRoot('madrinha'), path.join(distDir, 'madrinha'))
   await copyDirectory(resolveInsideRoot('veredra'), path.join(distDir, 'veredra'))
 
-  const lockfiles = ['package-lock.json', 'npm-shrinkwrap.json']
-  const hasLockfile = lockfiles.some((file) => existsSync(path.join(portfolioDir, file)))
-  run(npmCmd, hasLockfile ? ['ci', '--no-audit', '--no-fund'] : ['install', '--no-audit', '--no-fund'], portfolioDir)
-  run(npmCmd, ['run', 'build'], portfolioDir)
-
-  await copyDirectory(portfolioDistDir, path.join(distDir, 'portfolio'))
+  await fs.mkdir(path.join(distDir, 'assets', 'projects'), { recursive: true })
+  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-campusflow-real.png'), path.join(distDir, 'assets', 'projects', 'campus-flow.png'))
+  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-veredra-real.png'), path.join(distDir, 'assets', 'projects', 'veredra.png'))
+  await fs.mkdir(path.join(distDir, 'portfolio'), { recursive: true })
+  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'curriculo.pdf'), path.join(distDir, 'portfolio', 'curriculo.pdf'))
   await fs.copyFile(resolveInsideRoot('public', '_redirects'), path.join(distDir, '_redirects'))
   await fs.copyFile(resolveInsideRoot('public', '_headers'), path.join(distDir, '_headers'))
 
@@ -118,9 +125,9 @@ async function main() {
   const branch = process.env.BUILD_BRANCH || process.env.GITHUB_REF_NAME || gitValue(['branch', '--show-current'], 'unknown')
   const builtAt = new Date().toISOString()
 
-  await replaceBuildCommit('index.html', commit)
-  await replaceBuildCommit(path.join('servicos', 'index.html'), commit)
-  await replaceBuildCommit(path.join('veredra', 'index.html'), commit)
+  await renderSite({ root, distDir })
+  await replaceBuildCommit(distDir, commit)
+  await applyGeneratedCsp()
   await fs.writeFile(
     path.join(distDir, 'version.json'),
     `${JSON.stringify({ commit, builtAt, branch }, null, 2)}\n`,

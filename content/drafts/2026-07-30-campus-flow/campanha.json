@@ -1,0 +1,41 @@
+{
+  "type": "projeto",
+  "slug": "campus-flow",
+  "title": "Campus Flow",
+  "link": "https://wicolly.com.br/projetos/campus-flow/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=campus-flow",
+  "short": "Campus Flow: Aplicação acadêmica offline-first para organizar disciplinas, estudos e obrigações da graduação. Estado atual: Em desenvolvimento.",
+  "detailed": "Estou construindo Campus Flow.\n\nO ponto de partida foi simples: Concentrar disciplinas, horas, estágios, extensão e estudos em um fluxo pessoal. Hoje o projeto está em em desenvolvimento e ainda tem limites claros.\n\nUma coisa que aprendi no processo: Recursos de nuvem precisam ser opcionais em uma aplicação offline-first.\n\nDetalhes e próximos passos: https://wicolly.com.br/projetos/campus-flow/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=campus-flow",
+  "linkedin": "Projeto em andamento: Campus Flow\n\nAplicação acadêmica offline-first para organizar disciplinas, estudos e obrigações da graduação.\n\nProblema que estou tentando resolver: Concentrar disciplinas, horas, estágios, extensão e estudos em um fluxo pessoal.\n\nO que este trabalho já me ensinou: Recursos de nuvem precisam ser opcionais em uma aplicação offline-first. Não apresento esta etapa como produto final; o estado público é “Em desenvolvimento”.\n\nEstudo de caso: https://wicolly.com.br/projetos/campus-flow/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=campus-flow",
+  "status": "Campus Flow — Aplicação acadêmica offline-first para organizar disciplinas, estudos e obrigações da graduação.\nVeja o estado atual: https://wicolly.com.br/projetos/campus-flow/?utm_source=content_studio&utm_medium=organic_social&utm_campaign=campus-flow",
+  "description": "Campus Flow é aplicação acadêmica offline-first para organizar disciplinas, estudos e obrigações da graduação.",
+  "alt": "Tela real do Campus Flow mostrando perfis acadêmicos",
+  "scenes": [
+    "Tela inicial ou visão geral do projeto",
+    "Detalhe do problema resolvido",
+    "Uma interação funcionando",
+    "Próximo passo escrito na tela"
+  ],
+  "hashtags": [
+    "#Desenvolvimento",
+    "#ProjetosReais",
+    "#AprendizadoEmPúblico",
+    "#Flutter",
+    "#Dart",
+    "#Riverpod",
+    "#Drift"
+  ],
+  "publishingAdapters": {
+    "instagram": {
+      "enabled": false,
+      "requiresHumanApproval": true
+    },
+    "linkedin": {
+      "enabled": false,
+      "requiresHumanApproval": true
+    },
+    "whatsapp": {
+      "enabled": false,
+      "requiresHumanApproval": true
+    }
+  }
+}
