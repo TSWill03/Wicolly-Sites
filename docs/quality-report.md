@@ -54,8 +54,10 @@ Após o ajuste de contraste, a auditoria dedicada de acessibilidade marcou 100. 
 
 Os links foram aprovados. LinkedIn retornou `999` e Instagram retornou `429` durante a automação, comportamento de bloqueio a robôs registrado como aviso, não como link quebrado. GitHub, WhatsApp e demais destinos responderam normalmente.
 
-## Evidências ainda dependentes de produção
+## Evidências de produção
 
-- Confirmação do commit exato em `https://wicolly.com.br/version.json`.
-- Smoke do domínio real após o deploy da `main`.
-- Inspeção final de desktop e mobile na versão publicada.
+- Workflow `30591908799`: qualidade, deploy no projeto `wicolly-site` e smoke do domínio concluídos com sucesso.
+- `version.json`: branch `main` e commit de implementação `6699d0b1b64ddb9684bdcd50546911354643ea03` confirmados.
+- Smoke independente contra `https://wicolly.com.br`: aprovado.
+- Playwright em produção: Home, Sobre, Projetos, Novidades, BlackLight e Veredra retornaram 200 em desktop e mobile, sem overflow ou imagens quebradas.
+- O beacon automático de analytics do Cloudflare é rejeitado pela CSP. Trata-se de bloqueio intencional de terceiro; nenhum erro da aplicação foi encontrado.
