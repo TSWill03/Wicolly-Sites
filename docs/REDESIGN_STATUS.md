@@ -4,7 +4,7 @@ Atualizado em: 2026-07-30
 
 ## Fase atual
 
-Fase 5 — Qualidade concluída. Fase 6 em execução.
+Fase 6 — Publicação e validação de produção concluídas.
 
 ## Concluído
 
@@ -32,11 +32,14 @@ Fase 5 — Qualidade concluída. Fase 6 em execução.
 - Headers globais de segurança e CSP por hash adicionados às novas páginas.
 - Lighthouse mobile atingiu 100 em Performance, Accessibility, Best Practices e SEO.
 - Revisão de segurança concluída sem achados críticos ou altos.
+- Pull requests `#6` e `#7` integrados em `main` com todos os checks aprovados.
+- Artefato testado publicado no projeto Cloudflare Pages oficial `wicolly-site`.
+- Smoke do domínio real aprovado no GitHub Actions e repetido localmente contra o mesmo commit.
+- Produção inspecionada em 1920 × 1080 e 390 × 844 sem overflow ou imagens quebradas.
 
 ## Pendente
 
-- Publicar a branch e abrir o pull request.
-- Aguardar os checks, integrar em `main` e validar o deploy no domínio real.
+- Fornecer fotografia pessoal real e fotos/dados reais dos produtos BlackLight.
 
 ## Decisões
 
@@ -61,6 +64,9 @@ Fase 5 — Qualidade concluída. Fase 6 em execução.
 - Lighthouse desktop: Performance 100, Best Practices 100 e SEO 100; a acessibilidade foi corrigida e revalidada separadamente em 100.
 - Fallback da sincronização GitHub: cache preservado com a API indisponível.
 - PDF do currículo: renderizado e inspecionado visualmente em uma página.
+- GitHub Actions `30591908799`: qualidade, deploy Cloudflare e smoke de produção aprovados.
+- Smoke independente: aprovado para `https://wicolly.com.br` no commit de implementação `6699d0b1b64ddb9684bdcd50546911354643ea03`.
+- Browser em produção: rotas principais com HTTP 200; desktop e mobile sem overflow ou imagens quebradas.
 
 ## Problemas encontrados
 
@@ -71,7 +77,9 @@ Fase 5 — Qualidade concluída. Fase 6 em execução.
 - Ausência de retrato e fotos reais de produtos.
 - Chrome DevTools MCP não estava disponível; o Lighthouse CLI foi usado como fallback reproduzível.
 - LinkedIn e Instagram limitam verificações automatizadas, embora os URLs estejam corretos.
+- O Cloudflare tenta injetar um beacon de analytics; a CSP o bloqueia intencionalmente para não liberar rastreamento não adotado pelo site.
+- A primeira execução de produção leu edges em estados diferentes; o smoke foi corrigido para repetir a verificação completa sem ocultar falhas definitivas.
 
 ## Próxima ação
 
-Publicar a branch, acompanhar o pull request e validar o SHA integrado em `https://wicolly.com.br/version.json`.
+Substituir os placeholders honestos quando Wícolly fornecer fotografia pessoal e imagens, materiais, dimensões e prazos reais da BlackLight.
