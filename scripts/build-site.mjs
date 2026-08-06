@@ -41,7 +41,9 @@ async function replaceBuildCommit(dir, commit) {
     if (entry.isDirectory()) await replaceBuildCommit(target, commit)
     if (entry.isFile() && entry.name.endsWith('.html')) {
       const content = await fs.readFile(target, 'utf8')
-      await fs.writeFile(target, content.replaceAll('__BUILD_COMMIT__', commit))
+      await fs.writeFile(target, content
+        .replaceAll('__BUILD_COMMIT__', commit)
+        .replaceAll('__BUILD_VERSION__', commit.slice(0, 12)))
     }
   }
 }
