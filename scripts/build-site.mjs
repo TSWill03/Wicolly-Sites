@@ -128,8 +128,18 @@ async function main() {
   await copyDirectory(resolveInsideRoot('veredra'), path.join(distDir, 'veredra'))
 
   await fs.mkdir(path.join(distDir, 'assets', 'projects'), { recursive: true })
-  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-campusflow-real.webp'), path.join(distDir, 'assets', 'projects', 'campus-flow.webp'))
-  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-veredra-real.webp'), path.join(distDir, 'assets', 'projects', 'veredra.webp'))
+  const projectAssets = {
+    'project-campusflow-real.webp': 'campus-flow.webp',
+    'project-veredra-real.webp': 'veredra.webp',
+    'project-little-x.svg': 'little-x.svg',
+    'project-openclaw-little-x.svg': 'openclaw-little-x.svg',
+    'project-blacklight-real.png': 'blacklight-3d.png',
+    'project-infrastructure.svg': 'infrastructure.svg',
+    'project-wicolly-sites-real.png': 'wicolly-sites.png',
+  }
+  for (const [source, destination] of Object.entries(projectAssets)) {
+    await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', source), path.join(distDir, 'assets', 'projects', destination))
+  }
   await fs.mkdir(path.join(distDir, 'portfolio'), { recursive: true })
   await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'curriculo.pdf'), path.join(distDir, 'portfolio', 'curriculo.pdf'))
   await fs.copyFile(resolveInsideRoot('public', '_redirects'), path.join(distDir, '_redirects'))
