@@ -96,12 +96,14 @@ async function waitForExpectedVersion() {
 }
 
 async function checkProductionContent() {
-  const homepage = await expectPage(`/?build=${encodeURIComponent(expectedCommit || 'smoke')}`, 'Eu estudo computação construindo coisas que precisam funcionar de verdade.')
+  const homepage = await expectPage(`/?build=${encodeURIComponent(expectedCommit || 'smoke')}`, 'Um ecossistema de projetos que precisam funcionar de verdade.')
   assert(/<html[^>]+lang=["']pt-BR["']/i.test(homepage.body), 'Homepage does not declare lang="pt-BR"')
   assert(homepage.body.includes('href="/servicos/"'), 'Homepage does not link to /servicos/')
   assert(homepage.body.includes('href="/veredra/"'), 'Homepage does not link to /veredra/')
   assert(homepage.body.includes('href="/sobre/"'), 'Homepage does not link to /sobre/')
   assert(homepage.body.includes('href="/projetos/"'), 'Homepage does not link to /projetos/')
+  assert(homepage.body.includes('href="/infraestrutura/"'), 'Homepage does not link to /infraestrutura/')
+  assert(homepage.body.includes('href="/contato/"'), 'Homepage does not link to /contato/')
   assert(homepage.body.includes('href="/novidades/"'), 'Homepage does not link to /novidades/')
   assert(homepage.body.includes('wicolly-alcantara-3454102a7'), 'Homepage does not link to the confirmed LinkedIn')
   for (const phrase of ['Canva deck', 'Notion context', 'placeholder copy', 'not fake', 'GET /api/status', 'POST /api/chat', 'deck to real site']) {
@@ -109,12 +111,17 @@ async function checkProductionContent() {
   }
 
   await checkRedirect('/servicos', '/servicos/')
-  const services = await expectPage('/servicos/', 'Sites e presença digital')
-  for (const text of ['Sistemas e automações', 'Servidores e infraestrutura', 'Inteligência artificial', 'Servidores de jogos', 'Impressão 3D']) {
+  const services = await expectPage('/servicos/', 'Diagnóstico, implementação e documentação')
+  for (const text of ['Sites e páginas', 'APIs e bancos de dados', 'Linux e Docker', 'Servidores de jogos', 'Impressão 3D']) {
     assert(services.body.includes(text), `/servicos/ is missing ${text}`)
   }
   assert(services.body.includes('data-contact="technology"'), '/servicos/ is missing technology WhatsApp CTAs')
   assert(services.body.includes('wicolly@gmail.com'), '/servicos/ has an incorrect or missing email')
+
+  await checkRedirect('/infraestrutura', '/infraestrutura/')
+  await checkRedirect('/contato', '/contato/')
+  await expectPage('/infraestrutura/', 'Servidores são uma base operacional')
+  await expectPage('/contato/', 'Escolha o canal pelo tipo de conversa')
 
   for (const route of ['/sobre', '/projetos', '/novidades']) await checkRedirect(route, `${route}/`)
   const newPages = [
