@@ -40,7 +40,7 @@ Os pacotes editáveis são salvos em `content/drafts/YYYY-MM-DD-slug/`. Adaptado
 | --- | --- |
 | `/` | Homepage comercial |
 | `/servicos/` | Serviços de tecnologia |
-| `/portfolio/` | Portfólio React, TypeScript e Vite |
+| `/portfolio/` | Índice estático de projetos gerado a partir dos JSONs |
 | `/veredra/` | Leitor Flutter Web/PWA |
 | `/blacklight3d/` | Blacklight 3D |
 | `/impressoes-3d/` | Redirecionamento legado para `/blacklight3d/` |
@@ -55,7 +55,7 @@ Wicolly-Sites/
 ├── main/                 # homepage estática
 ├── servicos/             # página comercial
 ├── shared/               # estilos, navegação e contatos centralizados
-├── portfolio/            # aplicação React/Vite preservada
+├── portfolio/            # fonte React/Vite legada preservada; não publicada pelo build raiz
 ├── veredra/              # build Flutter Web versionado
 ├── blacklight3d/
 ├── hefesto/
@@ -79,7 +79,15 @@ npm run check:links:external
 npm run build
 ```
 
-O build instala de forma reproduzível as dependências do portfólio usando `portfolio/package-lock.json`, gera tudo em `dist/`, valida links internos, varre possíveis segredos e rejeita conteúdo interno proibido.
+O build raiz gera tudo em `dist/`, valida links internos, varre possíveis segredos e rejeita conteúdo interno proibido. A rota `/portfolio/` publicada vem de `scripts/site-renderer.mjs`; a aplicação React/Vite em `portfolio/src/` está preservada como fonte legada e é validada separadamente.
+
+Para validar o subprojeto legado sem confundi-lo com o artefato publicado:
+
+```bash
+npm --prefix portfolio ci
+npm --prefix portfolio run lint
+npm --prefix portfolio run build
+```
 
 Para visualizar localmente:
 
