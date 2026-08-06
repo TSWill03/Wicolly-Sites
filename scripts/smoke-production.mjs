@@ -116,7 +116,9 @@ async function checkProductionContent() {
     assert(services.body.includes(text), `/servicos/ is missing ${text}`)
   }
   assert(services.body.includes('data-contact="technology"'), '/servicos/ is missing technology WhatsApp CTAs')
-  assert(services.body.includes('wicolly@gmail.com'), '/servicos/ has an incorrect or missing email')
+  const hasPlainEmail = services.body.includes('wicolly@gmail.com')
+  const hasCloudflareProtectedEmail = services.body.includes('/cdn-cgi/l/email-protection#') && services.body.includes('data-cfemail=')
+  assert(hasPlainEmail || hasCloudflareProtectedEmail, '/servicos/ has an incorrect or missing email')
 
   await checkRedirect('/infraestrutura', '/infraestrutura/')
   await checkRedirect('/contato', '/contato/')

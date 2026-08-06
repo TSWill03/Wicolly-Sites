@@ -47,27 +47,46 @@ async function replaceBuildCommit(dir, commit) {
 }
 
 async function applyGeneratedCsp() {
-  const hashes = new Set()
-  const generatedRoots = ['', 'sobre', 'projetos', 'novidades', 'servicos', 'infraestrutura', 'contato', 'privacidade', 'hefesto', 'poseidon', 'blacklight3d', 'portfolio']
-  async function collect(dir) {
-    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
-      const target = path.join(dir, entry.name)
-      if (entry.isDirectory()) await collect(target)
-      if (entry.isFile() && entry.name.endsWith('.html')) {
-        const html = await fs.readFile(target, 'utf8')
-        for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
-          hashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`)
-        }
+  const groups = {
+    HOME: [path.join(distDir, 'index.html')],
+    SOBRE: [path.join(distDir, 'sobre')],
+    PROJETOS: [path.join(distDir, 'projetos')],
+    NOVIDADES: [path.join(distDir, 'novidades')],
+    BLACKLIGHT: [path.join(distDir, 'blacklight3d')],
+    PORTFOLIO: [path.join(distDir, 'portfolio')],
+    SERVICOS: [path.join(distDir, 'servicos')],
+    INFRAESTRUTURA: [path.join(distDir, 'infraestrutura')],
+    CONTATO: [path.join(distDir, 'contato')],
+  }
+
+  async function collect(target, hashes) {
+    const stat = await fs.stat(target)
+    if (stat.isFile()) {
+      const html = await fs.readFile(target, 'utf8')
+      for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+        hashes.add(`'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`)
       }
+      return
+    }
+
+    const dir = target
+    for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
+      const child = path.join(dir, entry.name)
+      if (entry.isDirectory()) await collect(child, hashes)
+      if (entry.isFile() && entry.name.endsWith('.html')) await collect(child, hashes)
     }
   }
-  for (const relative of generatedRoots) {
-    const target = path.join(distDir, relative)
-    if (existsSync(target)) await collect(target)
-  }
+
   const headersPath = path.join(distDir, '_headers')
-  const headers = await fs.readFile(headersPath, 'utf8')
-  await fs.writeFile(headersPath, headers.replaceAll('__CSP_SCRIPT_HASHES__', [...hashes].join(' ')))
+  let headers = await fs.readFile(headersPath, 'utf8')
+  for (const [name, targets] of Object.entries(groups)) {
+    const hashes = new Set()
+    for (const target of targets) {
+      if (existsSync(target)) await collect(target, hashes)
+    }
+    headers = headers.replaceAll(`__CSP_${name}_HASHES__`, [...hashes].join(' '))
+  }
+  await fs.writeFile(headersPath, headers)
 }
 
 async function main() {
