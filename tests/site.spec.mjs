@@ -33,6 +33,29 @@ test('rotas públicas e estudos de caso respondem com HTML sem imagens quebradas
   }
 })
 
+test('cards de projetos mostram mídia completa e não mantêm placeholders', async ({ page }, testInfo) => {
+  test.skip(!['desktop-chromium', 'iphone-chromium'].includes(testInfo.project.name))
+  await page.goto('/projetos/')
+  await expect(page.locator('.media-missing')).toHaveCount(0)
+  const projectImages = page.locator('.project-image')
+  await expect(projectImages).toHaveCount(7)
+  for (let index = 0; index < await projectImages.count(); index += 1) {
+    const image = projectImages.nth(index)
+    await image.scrollIntoViewIfNeeded()
+    await expect.poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0)).toBe(true)
+  }
+  const media = await projectImages.evaluateAll((images) => images.map((image) => {
+    const rect = image.getBoundingClientRect()
+    return { width: rect.width, height: rect.height, naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight }
+  }))
+  expect(media).toHaveLength(7)
+  for (const image of media) {
+    expect(image.naturalWidth).toBeGreaterThan(0)
+    expect(image.naturalHeight).toBeGreaterThan(0)
+    expect(image.height).toBeLessThanOrEqual(image.width * 0.7)
+  }
+})
+
 test('navegação móvel abre, mantém foco visível e não cria overflow', async ({ page }, testInfo) => {
   test.skip(!['iphone-chromium', 'android-chromium', 'tablet-chromium'].includes(testInfo.project.name))
   await page.goto('/')

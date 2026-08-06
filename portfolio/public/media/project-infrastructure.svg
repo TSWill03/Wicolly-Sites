@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Hefesto e Poseidon</title>
+  <desc id="desc">Visão pública sanitizada dos dois servidores do laboratório, com funções gerais e sem endereços ou dados operacionais.</desc>
+  <rect width="1600" height="900" fill="#0b0d12"/><text x="100" y="138" fill="#9db0ff" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">LABORATÓRIO DE INFRAESTRUTURA</text><path d="M800 190v590" stroke="#303746" stroke-width="2"/>
+  <g font-family="Arial, sans-serif"><text x="100" y="290" fill="#f5f7fb" font-size="94" font-weight="800">Hefesto</text><text x="100" y="354" fill="#afb5c2" font-size="28">Aplicações · serviços web · observabilidade</text><text x="900" y="290" fill="#f5f7fb" font-size="94" font-weight="800">Poseidon</text><text x="900" y="354" fill="#afb5c2" font-size="28">Jogos · aplicações · capacidade complementar</text></g>
+  <g fill="#11151d" stroke-width="4"><rect x="100" y="430" width="560" height="248" rx="8" stroke="#5272ff"/><rect x="900" y="430" width="560" height="248" rx="8" stroke="#9b74ff"/></g>
+  <g stroke="#65718a" stroke-width="3" fill="none"><path d="M146 488h468M146 548h468M146 608h468M946 488h468M946 548h468M946 608h468"/></g>
+  <g fill="#45c98a"><circle cx="580" cy="488" r="9"/><circle cx="580" cy="548" r="9"/><circle cx="580" cy="608" r="9"/></g><g fill="#9b74ff"><circle cx="1380" cy="488" r="9"/><circle cx="1380" cy="548" r="9"/><circle cx="1380" cy="608" r="9"/></g>
+  <text x="100" y="790" fill="#6f7786" font-family="Arial, sans-serif" font-size="22">Visão pública sanitizada · sem IPs, portas, credenciais ou topologia privada</text>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visual editorial do OpenClaw Little X</title>
+  <desc id="desc">Diagrama abstrato de roteamento entre comandos, modelos e execução guardada, sem representar uma tela real.</desc>
+  <rect width="1600" height="900" fill="#11151d"/><rect x="80" y="80" width="1440" height="740" fill="none" stroke="#303746" stroke-width="2"/>
+  <text x="132" y="160" fill="#c5b6ff" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="5">PESQUISA PRIVADA · ARQUITETURA DE AGENTES</text>
+  <text x="126" y="326" fill="#f5f7fb" font-family="Arial, sans-serif" font-size="92" font-weight="800" letter-spacing="-5">OpenClaw</text>
+  <text x="132" y="416" fill="#9b74ff" font-family="Arial, sans-serif" font-size="72" font-weight="800">Little X</text>
+  <text x="136" y="486" fill="#afb5c2" font-family="Arial, sans-serif" font-size="30">Roteamento, limites e execução observável.</text>
+  <g font-family="Arial, sans-serif" font-size="24" font-weight="700">
+    <rect x="820" y="188" width="278" height="112" rx="4" fill="#181d27" stroke="#5272ff" stroke-width="3"/><text x="959" y="254" fill="#f5f7fb" text-anchor="middle">COMANDOS</text>
+    <rect x="1190" y="394" width="278" height="112" rx="4" fill="#181d27" stroke="#9b74ff" stroke-width="3"/><text x="1329" y="460" fill="#f5f7fb" text-anchor="middle">MODELOS</text>
+    <rect x="820" y="600" width="278" height="112" rx="4" fill="#181d27" stroke="#45c98a" stroke-width="3"/><text x="959" y="666" fill="#f5f7fb" text-anchor="middle">EXECUÇÃO</text>
+    <circle cx="1015" cy="450" r="112" fill="#0b0d12" stroke="#ff8a3d" stroke-width="4"/><text x="1015" y="440" fill="#f5f7fb" text-anchor="middle">LIMITE</text><text x="1015" y="476" fill="#f5f7fb" text-anchor="middle">HUMANO</text>
+  </g>
+  <g stroke="#59657a" stroke-width="4" fill="none"><path d="M966 300 994 338M1127 450h63M994 562l-28 38"/></g>
+  <text x="132" y="762" fill="#6f7786" font-family="Arial, sans-serif" font-size="22">Visual sanitizado · sem comandos, hosts ou provedores privados</text>
+</svg>
