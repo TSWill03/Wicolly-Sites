@@ -20,14 +20,31 @@ function list(items, className = 'tag-list') {
   return `<ul class="${className}">${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`
 }
 
-function nav() {
+const NAV_ITEMS = [
+  ['/', 'Início'],
+  ['/projetos/', 'Projetos'],
+  ['/servicos/', 'Serviços'],
+  ['/infraestrutura/', 'Infraestrutura'],
+  ['/blacklight3d/', 'BlackLight 3D'],
+  ['/sobre/', 'Sobre'],
+  ['/contato/', 'Contato'],
+]
+
+function isCurrentPath(pathName, href) {
+  if (href === '/') return pathName === '/'
+  if (href === '/projetos/') return pathName === '/portfolio/' || pathName.startsWith('/projetos/') || pathName === '/novidades/'
+  return pathName.startsWith(href)
+}
+
+function nav(pathName) {
+  const navLinks = NAV_ITEMS.map(([href, label]) => `<a href="${href}"${isCurrentPath(pathName, href) ? ' aria-current="page"' : ''}>${label}</a>`).join('')
   return `<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header class="site-header">
     <div class="shell header-inner">
       <a class="wordmark" href="/"><span aria-hidden="true">W/</span> Wícolly</a>
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>Menu</button>
+      <div class="header-actions"><button class="theme-button" type="button" aria-label="Alternar tema" aria-pressed="false" data-theme-toggle><span aria-hidden="true" data-theme-icon>◐</span></button><button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>Menu</button></div>
       <nav id="site-menu" class="site-nav" aria-label="Navegação principal" data-menu>
-        <a href="/sobre/">Sobre</a><a href="/projetos/">Projetos</a><a href="/novidades/">Novidades</a><a href="/servicos/">Serviços</a><a href="/blacklight3d/">BlackLight 3D</a>
+        ${navLinks}
       </nav>
     </div>
   </header>`
@@ -36,28 +53,39 @@ function nav() {
 function footer(profile, links) {
   return `<footer class="site-footer"><div class="shell footer-grid">
     <div><a class="wordmark" href="/"><span aria-hidden="true">W/</span> Wícolly</a><p>${esc(profile.shortBio)}</p></div>
-    <div><h2>Explorar</h2><a href="/sobre/">Sobre</a><a href="/projetos/">Projetos</a><a href="/novidades/">Novidades</a><a href="/portfolio/curriculo.html">Currículo</a></div>
+    <div><h2>Explorar</h2><a href="/sobre/">Sobre</a><a href="/projetos/">Projetos</a><a href="/servicos/">Serviços</a><a href="/infraestrutura/">Infraestrutura</a><a href="/novidades/">Novidades</a></div>
     <div><h2>Contato</h2><a href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="${esc(links.github)}" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:${esc(links.email)}">${esc(links.email)}</a></div>
   </div><div class="shell footer-bottom"><span>© <span data-current-year>2026</span> ${esc(profile.name)}.</span><a href="/privacidade/">Privacidade</a></div></footer>`
 }
 
 function layout({ profile, links, title, description, pathName, body, schema = [], extraScript = '' }) {
   const canonical = `${SITE}${pathName}`
+  const breadcrumbSchema = pathName === '/' ? [] : [{
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: SITE },
+      { '@type': 'ListItem', position: 2, name: title.split('|')[0].split('—')[0].trim(), item: canonical },
+    ],
+  }]
   const schemas = [
     { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Wícolly', url: SITE, inLanguage: 'pt-BR' },
+    ...breadcrumbSchema,
     ...schema,
   ]
   return `<!doctype html><html lang="pt-BR"><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${esc(title)}</title><meta name="description" content="${esc(description)}">
-  <link rel="canonical" href="${canonical}"><meta name="theme-color" content="#0b0d12">
+  <link rel="canonical" href="${canonical}"><meta name="theme-color" content="#0b0d12" data-theme-color>
   <meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="Wícolly">
   <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${SITE}/shared/og-card.svg">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="${SITE}/shared/og-card.svg">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/shared/redesign.css">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml"><script src="/shared/theme.js"></script><link rel="stylesheet" href="/shared/redesign.css">
   ${schemas.map((item) => `<script type="application/ld+json">${jsonLd(item)}</script>`).join('')}
-  </head><body>${nav()}<main id="conteudo">${body}</main>${footer(profile, links)}
+  </head><body>${nav(pathName)}<main id="conteudo">${body}</main>${footer(profile, links)}
   <script src="/shared/redesign.js" defer></script>${extraScript}</body></html>`
+}
+
+function breadcrumbs(label) {
+  return `<nav class="breadcrumbs shell" aria-label="Breadcrumb"><ol><li><a href="/">Início</a></li><li aria-current="page">${esc(label)}</li></ol></nav>`
 }
 
 function updateFor(project, activity) {
@@ -68,10 +96,10 @@ function updateFor(project, activity) {
 function projectMedia(project, eager = false) {
   const shot = project.screenshots?.[0]
   if (!shot) return `<div class="media-missing" role="img" aria-label="Imagem real ainda não disponível"><span>Imagem real pendente</span><small>Sem ilustração simulada</small></div>`
-  return `<img class="project-image" src="${esc(shot.src)}" alt="${esc(shot.alt)}" width="1600" height="900" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}>`
+  return `<img class="project-image" src="${esc(shot.src)}" alt="${esc(shot.alt)}" width="${esc(shot.width || 1600)}" height="${esc(shot.height || 900)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}>`
 }
 
-function projectCard(project, activity) {
+function projectCard(project, activity, eager = false) {
   const last = updateFor(project, activity)
   const productionUrl = project.productionUrl ? new URL(project.productionUrl) : null
   const productionHref = productionUrl?.origin === SITE ? productionUrl.pathname : project.productionUrl
@@ -79,7 +107,7 @@ function projectCard(project, activity) {
     ? `<a class="text-link" href="${esc(productionHref)}">Abrir projeto <span aria-hidden="true">↗</span></a>`
     : ''
   return `<article class="project-card">
-    ${projectMedia(project)}
+    ${projectMedia(project, eager)}
     <div class="project-card-body"><p class="kicker">${esc(project.status)}</p><h3><a href="/projetos/${esc(project.slug)}/">${esc(project.name)}</a></h3>
     <p>${esc(project.shortDescription)}</p><p><strong>Problema:</strong> ${esc(project.problemsSolved[0])}</p>
     ${list(project.technologies.slice(0, 5))}
@@ -95,9 +123,10 @@ function activityItems(activity, limit = 5) {
     .slice(0, limit)
 }
 
-function home(profile, links, projects, activity) {
+function home(profile, links, projects, activity, ecosystem) {
   const featured = projects.filter((project) => project.featured)
   const recent = activityItems(activity, 5)
+  const ecosystemNodes = ecosystem.areas.map((area) => `<a class="ecosystem-node" data-accent="${esc(area.accent)}" href="${esc(area.href)}"><h3>${esc(area.name)}</h3><p>${esc(area.summary)}</p></a>`).join('')
   const personSchema = {
     '@context': 'https://schema.org', '@type': 'Person', '@id': `${SITE}/#wicolly`, name: profile.name,
     url: SITE, homeLocation: { '@type': 'Place', name: profile.location },
@@ -109,17 +138,18 @@ function home(profile, links, projects, activity) {
     url: `${SITE}/servicos/`, areaServed: 'Brasil', provider: { '@id': `${SITE}/#wicolly` },
   }
   const body = `<section class="hero"><div class="shell hero-grid"><div>
-    <p class="kicker">Goiatuba · IF Goiano — Campus Morrinhos</p><h1>Eu estudo computação construindo coisas que precisam funcionar de verdade.</h1>
-    <p class="hero-copy">${esc(profile.shortBio)}</p>
-    <div class="actions"><a class="button primary" href="/projetos/">Ver projetos</a><a class="button" href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button" href="${esc(links.github)}" target="_blank" rel="noopener noreferrer">GitHub</a><a class="text-link" href="#contato">Contato</a></div>
+    <p class="kicker">Software · IA · Infraestrutura · Fabricação</p><h1>Um ecossistema de projetos que precisam funcionar de verdade.</h1>
+    <p class="hero-copy">Sou ${esc(profile.preferredName)}. Transformo estudo em aplicações, automações, servidores e peças físicas — cada frente com seu estado, seu destino e seus limites bem explicados.</p>
+    <div class="actions"><a class="button primary" href="/projetos/">Explorar projetos</a><a class="button" href="/servicos/">Ver serviços</a><a class="text-link" href="/contato/">Entrar em contato</a></div>
     ${list(profile.currentFocus.slice(0, 4))}
-  </div><aside class="portrait-placeholder" aria-label="Espaço reservado para retrato real"><span class="portrait-mark" aria-hidden="true">W/</span><p>Retrato real ainda não publicado.</p><small>Este espaço não usa uma pessoa gerada por IA.</small></aside></div></section>
+  </div><aside class="portrait-placeholder" aria-label="Resumo do ecossistema Wícolly"><span class="portrait-mark" aria-hidden="true">W/</span><p>Do código ao servidor. Do protótipo à peça.</p><small>Um ponto de entrada para software, serviços, infraestrutura e BlackLight 3D.</small></aside></div></section>
+  <section class="section ruled" aria-labelledby="mapa-ecossistema"><div class="shell"><div class="section-heading"><div><p class="kicker">Mapa do ecossistema</p><h2 id="mapa-ecossistema">Escolha o caminho pela sua necessidade</h2></div><p>Cada nó leva a uma página própria. Nenhuma área principal depende de âncora na Home.</p></div><div class="ecosystem-map">${ecosystemNodes}</div></div></section>
   <section class="section" aria-labelledby="projetos-destaque"><div class="shell"><div class="section-heading"><div><p class="kicker">Trabalho em andamento</p><h2 id="projetos-destaque">Projetos que existem além desta página</h2></div><p>Cada estudo de caso separa o que já funciona do que ainda é experimento.</p></div><div class="project-grid">${featured.map((project) => projectCard(project, activity)).join('')}</div></div></section>
   <section class="section ruled" aria-labelledby="agora"><div class="shell"><div class="section-heading"><div><p class="kicker">Evolução recente</p><h2 id="agora">O que estou construindo agora</h2></div><a class="text-link" href="/novidades/">Abrir todas as novidades</a></div>
   ${recent.length ? `<ol class="update-list">${recent.map((item) => `<li><time datetime="${esc(item.date)}">${esc(item.displayDate)}</time><div><strong>${esc(item.projectName)}</strong><p>${esc(item.summary)}</p></div></li>`).join('')}</ol>` : '<p class="empty-state">A sincronização pública ainda não gerou atualizações. O cache permanece válido e o site continua funcionando.</p>'}</div></section>
   <section class="section" aria-labelledby="trajetoria"><div class="shell split"><div><p class="kicker">Formação e trajetória</p><h2 id="trajetoria">Faculdade como base. Projetos como laboratório.</h2><p>${esc(profile.longBio[0])}</p><a class="text-link" href="/sobre/">Conhecer minha trajetória</a></div><ol class="timeline"><li><span>Formação</span><strong>${esc(profile.education.course)}</strong><small>${esc(profile.education.institution)} · ${esc(profile.education.period)}</small></li><li><span>Participação</span><strong>${esc(profile.academicLeadership)}</strong></li><li><span>Prática</span><strong>Aplicações, servidores e automações próprias</strong></li><li><span>Empreender</span><strong>Fundador da BlackLight 3D</strong></li><li><span>Agora</span><strong>Back-end, IA, infraestrutura e produtos úteis</strong></li></ol></div></section>
   <section class="section dark-section" aria-labelledby="servicos"><div class="shell"><div class="section-heading"><div><p class="kicker">Trabalhos contratáveis</p><h2 id="servicos">Serviços com escopo claro e entrega verificável</h2></div><p>Portfólio mostra aprendizado. Esta seção mostra trabalhos que posso avaliar e executar.</p></div><div class="service-grid">${profile.services.map((service) => `<article><h3>${esc(service.name)}</h3><p>${esc(service.description)}</p></article>`).join('')}</div><p class="experimental-note"><strong>Produtos experimentais:</strong> Campus Flow, Veredra e Little X têm estados próprios e não são vendidos como soluções finalizadas.</p><a class="button light" href="/servicos/">Ver formas de contratação</a></div></section>
-  <section id="contato" class="section" aria-labelledby="contato-titulo"><div class="shell contact-panel"><div><p class="kicker">Contato</p><h2 id="contato-titulo">Conte o problema antes de pedir a tecnologia.</h2><p>Uma boa primeira mensagem explica o contexto, quem vai usar e o que precisa acontecer.</p></div><div class="contact-links"><a class="button primary" data-contact="technology" data-phone="${esc(links.technologyWhatsApp)}" data-message="Olá, Wícolly! Vim pelo site e quero conversar sobre um projeto." href="https://wa.me/${esc(links.technologyWhatsApp)}">WhatsApp</a><a class="button" href="mailto:${esc(links.email)}">E-mail</a><a class="button" href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div></section>`
+  <section class="section" aria-labelledby="contato-titulo"><div class="shell contact-panel"><div><p class="kicker">Próximo passo</p><h2 id="contato-titulo">Conte o problema antes de pedir a tecnologia.</h2><p>A página de contato separa tecnologia, impressão 3D e oportunidades profissionais para levar você ao canal certo.</p></div><div class="contact-links"><a class="button primary" href="/contato/">Escolher um canal</a><a class="button" href="/sobre/">Conhecer Wícolly</a></div></div></section>`
   return layout({ profile, links, title: 'Wícolly Pedro Alcântara | Software, servidores e aprendizagem', description: profile.shortBio, pathName: '/', body, schema: [personSchema, serviceSchema] })
 }
 
@@ -132,7 +162,7 @@ function about(profile, links) {
 }
 
 function projectsIndex(profile, links, projects, activity, pathName = '/projetos/') {
-  const body = `<section class="page-hero"><div class="shell"><p class="kicker">Projetos</p><h1>O que já funciona, o que ainda estou testando e o que aprendi no caminho.</h1><p class="lead">Não uso o mesmo rótulo para uma beta pública, um experimento privado e um serviço em operação.</p></div></section><section class="section"><div class="shell project-grid">${projects.map((project) => projectCard(project, activity)).join('')}</div></section>`
+  const body = `<section class="page-hero"><div class="shell"><p class="kicker">Projetos</p><h1>O que já funciona, o que ainda estou testando e o que aprendi no caminho.</h1><p class="lead">Não uso o mesmo rótulo para uma beta pública, um experimento privado e um serviço em operação.</p></div></section><section class="section" aria-labelledby="todos-projetos"><div class="shell"><div class="section-heading"><div><p class="kicker">Índice</p><h2 id="todos-projetos">Todos os projetos documentados</h2></div><p>Estudos de caso públicos e descrições sanitizadas de trabalhos privados.</p></div><div class="project-grid">${projects.map((project, index) => projectCard(project, activity, index === 0)).join('')}</div></div></section>`
   return layout({ profile, links, title: `Projetos | ${profile.name}`, description: 'Estudos de caso de software, infraestrutura, automação e impressão 3D desenvolvidos por Wícolly.', pathName, body })
 }
 
@@ -158,6 +188,39 @@ function news(profile, links, projects, activity) {
   return layout({ profile, links, title: 'Novidades de desenvolvimento | Wícolly', description: 'Linha do tempo pública e sanitizada dos projetos de Wícolly.', pathName: '/novidades/', body })
 }
 
+function services(profile, links) {
+  const serviceCards = profile.services.map((service) => `<article class="route-choice"><h3>${esc(service.name)}</h3><p>${esc(service.description)}</p></article>`).join('')
+  const body = `${breadcrumbs('Serviços')}<section class="page-hero"><div class="shell"><p class="kicker">Serviços de tecnologia</p><h1>Diagnóstico, implementação e documentação no mesmo caminho.</h1><p class="lead">O ponto de partida é o resultado esperado. A tecnologia, o prazo e a forma de manutenção são definidos depois que o cenário real fica claro.</p><div class="actions"><a class="button primary" data-contact="technology" data-phone="${esc(links.technologyWhatsApp)}" data-message="Olá, Wícolly! Vim pela página de serviços e quero conversar sobre um projeto." href="https://wa.me/${esc(links.technologyWhatsApp)}">Solicitar avaliação</a><a class="button" href="/projetos/">Ver projetos relacionados</a></div></div></section>
+  <section class="section"><div class="shell"><div class="section-heading"><div><p class="kicker">Frentes de trabalho</p><h2>O que pode entrar no escopo</h2></div><p>Nenhum item implica SLA, disponibilidade permanente ou resultado comercial sem proposta específica.</p></div><div class="route-choices">${serviceCards}</div></div></section>
+  <section class="section ruled"><div class="shell"><div class="section-heading"><div><p class="kicker">Como funciona</p><h2>Um processo curto, mas verificável</h2></div></div><ol class="status-list"><li><span class="status-label">1 · Diagnóstico</span><span>Objetivo, usuários, estado atual, restrições e riscos.</span></li><li><span class="status-label">2 · Proposta</span><span>Escopo, entregáveis, prazo, responsabilidades e critérios de aceite.</span></li><li><span class="status-label">3 · Implementação</span><span>Mudanças incrementais, testes proporcionais ao risco e evidência do resultado.</span></li><li><span class="status-label">4 · Entrega</span><span>Publicação combinada, documentação e caminho de rollback.</span></li></ol></div></section>`
+  return layout({ profile, links, title: `Serviços | ${profile.name}`, description: 'Serviços de software, automação, infraestrutura, IA e impressão 3D com escopo e validação.', pathName: '/servicos/', body, schema: [{ '@context': 'https://schema.org', '@type': 'ProfessionalService', name: `${profile.name} — serviços de tecnologia`, url: `${SITE}/servicos/`, areaServed: 'Brasil', provider: { '@type': 'Person', name: profile.name } }] })
+}
+
+function infrastructurePage(profile, links, infrastructure) {
+  const serverCards = infrastructure.servers.map((server) => `<article class="server-summary"><p class="server-status" data-tone="${esc(server.statusTone)}">${esc(server.publicStatus)}</p><h2>${esc(server.name)}</h2><p>${esc(server.role)}</p>${list(server.capabilities)}<p class="boundary-note">${esc(server.boundary)}</p>${server.publicRoute ? `<a class="text-link" href="${esc(server.publicRoute)}">Ver página pública</a>` : ''}</article>`).join('')
+  const body = `${breadcrumbs('Infraestrutura')}<section class="page-hero"><div class="shell"><p class="kicker">Infraestrutura pública</p><h1>Servidores são uma base operacional, não uma vitrine de portas e painéis.</h1><p class="lead">Hefesto, Poseidon e Goiatuba formam um laboratório de Linux, Docker, redes e continuidade. Esta página mostra funções e práticas; a topologia privada continua privada.</p></div></section>
+  <section class="section"><div class="shell"><div class="section-heading"><div><p class="kicker">Inventário sanitizado</p><h2>Papéis conhecidos e estado da auditoria</h2></div><p>Atualizado em ${esc(infrastructure.updatedAt)}. “Operacional” só aparece quando houve verificação ao vivo nesta execução.</p></div><div class="server-grid">${serverCards}</div></div></section>
+  <section class="section ruled"><div class="shell prose-grid"><article class="prose"><h2>Princípios de operação</h2>${list(infrastructure.principles, 'plain-list')}</article><aside class="fact-sheet"><h2>Limite público e privado</h2><p>${esc(infrastructure.privacyNote)}</p><a class="button" href="/projetos/laboratorio-infraestrutura/">Ler estudo de caso</a></aside></div></section>`
+  return layout({ profile, links, title: `Infraestrutura | ${profile.name}`, description: 'Visão pública e sanitizada do laboratório de infraestrutura Wícolly.', pathName: '/infraestrutura/', body, schema: [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Infraestrutura Wícolly', url: `${SITE}/infraestrutura/` }] })
+}
+
+function serverPage(profile, links, server) {
+  const body = `${breadcrumbs(server.name)}<section class="case-hero"><div class="shell case-grid"><div><p class="server-status" data-tone="${esc(server.statusTone)}">${esc(server.publicStatus)}</p><h1>${esc(server.name)}</h1><p class="lead">${esc(server.role)}</p><div class="actions"><a class="button primary" href="/infraestrutura/">Ver infraestrutura</a><a class="button" href="/contato/">Falar sobre tecnologia</a></div></div><aside class="fact-sheet"><h2>Resumo público</h2><dl><dt>Plataforma</dt><dd>${esc(server.platform)}</dd><dt>Capacidades</dt><dd>${esc(server.capabilities.join(' · '))}</dd><dt>Limite</dt><dd>${esc(server.boundary)}</dd></dl></aside></div></section>
+  <section class="section"><div class="shell prose-grid"><article class="prose"><h2>Função no ecossistema</h2><p>${esc(server.role)}</p><h2>O que esta página não é</h2><p>Ela não é um painel de administração, um inventário de rede ou uma promessa de disponibilidade em tempo real. Endereços, portas e serviços internos não são publicados aqui.</p></article><aside class="boundary-note"><strong>Arquitetura segura por padrão</strong><p>Domínios reconhecidos devem chegar ao serviço correto; acessos diretos ou hosts desconhecidos devem receber uma resposta neutra.</p></aside></div></section>`
+  return layout({ profile, links, title: `${server.name} — Infraestrutura Wícolly`, description: `Papel público do servidor ${server.name} no ecossistema Wícolly.`, pathName: server.publicRoute, body, schema: [{ '@context': 'https://schema.org', '@type': 'CreativeWork', name: `${server.name} — infraestrutura`, author: { '@type': 'Person', name: profile.name } }] })
+}
+
+function contact(profile, links) {
+  const body = `${breadcrumbs('Contato')}<section class="page-hero"><div class="shell"><p class="kicker">Contato</p><h1>Escolha o canal pelo tipo de conversa.</h1><p class="lead">Uma primeira mensagem útil informa o objetivo, quem vai usar, o que já existe e se há um prazo real.</p></div></section>
+  <section class="section"><div class="shell contact-options"><article class="contact-option"><p class="kicker">Tecnologia</p><h2>Software, sites e infraestrutura</h2><p>Projetos, diagnósticos, automações, servidores e colaboração técnica.</p><a class="button primary" data-contact="technology" data-phone="${esc(links.technologyWhatsApp)}" data-message="Olá, Wícolly! Vim pela página de contato e quero conversar sobre tecnologia." href="https://wa.me/${esc(links.technologyWhatsApp)}">Abrir WhatsApp</a></article><article class="contact-option blacklight"><p class="kicker">Fabricação</p><h2>BlackLight 3D</h2><p>Peças sob encomenda, medidas, referências, arquivos 3D e acabamento.</p><a class="button" data-contact="blacklight" data-phone="${esc(links.blacklightWhatsApp)}" data-message="Olá! Vim pela página de contato e quero solicitar um orçamento de impressão 3D." href="https://wa.me/${esc(links.blacklightWhatsApp)}">Falar com a BlackLight</a></article><article class="contact-option"><p class="kicker">Profissional</p><h2>Oportunidades e colaboração</h2><p>Estágio, projetos, comunidades acadêmicas e conversas profissionais.</p><a class="button" href="mailto:${esc(links.email)}?subject=Contato%20pelo%20wicolly.com.br">Enviar e-mail</a><a class="text-link" href="${esc(links.linkedin)}" target="_blank" rel="noopener noreferrer">Abrir LinkedIn</a></article></div></section>`
+  return layout({ profile, links, title: `Contato | ${profile.name}`, description: 'Canais para projetos de tecnologia, impressão 3D, oportunidades e colaboração.', pathName: '/contato/', body })
+}
+
+function privacy(profile, links) {
+  const body = `${breadcrumbs('Privacidade')}<section class="page-hero"><div class="shell narrow"><p class="kicker">Privacidade</p><h1>Contato voluntário, sem rastreamento escondido.</h1><p class="lead">O site não exige cadastro, não instala analytics e não recebe arquivos no formulário da BlackLight.</p></div></section><section class="section"><div class="shell prose"><h2>Quando você escolhe um canal externo</h2><p>WhatsApp, e-mail, GitHub, LinkedIn e Instagram aplicam suas próprias políticas. Os dados enviados voluntariamente servem para responder ao contato e avaliar a solicitação.</p><h2>O que não deve ser enviado</h2><p>Não envie senhas, tokens, chaves privadas ou outros segredos em uma mensagem inicial.</p><a class="button" href="/contato/">Escolher um canal</a></div></section>`
+  return layout({ profile, links, title: `Privacidade | ${profile.name}`, description: 'Como o wicolly.com.br trata contato, navegação e serviços externos.', pathName: '/privacidade/', body })
+}
+
 function blacklight(profile, links, products, gallery) {
   const cards = products.map((product) => `<article class="product-card" id="produto-${esc(product.slug)}"><div class="product-photo-missing" role="img" aria-label="Foto real será adicionada em breve">Foto real será adicionada em breve.</div><p class="kicker">${esc(product.status)}</p><h3>${esc(product.name)}</h3><p>${esc(product.customization)}</p><dl><dt>Material</dt><dd>A definir após avaliar o uso</dd><dt>Dimensões</dt><dd>A definir no orçamento</dd><dt>Produção</dt><dd>Prazo informado após análise</dd></dl><details><summary>Ver detalhes</summary><p>Esta é uma categoria de orçamento, não um produto pronto. Uma peça real só será publicada com foto, medidas e dados de produção confirmados.</p></details><div class="product-actions"><button type="button" class="text-button" data-product-quote="${esc(product.name)}">Solicitar orçamento</button><button type="button" class="text-button" data-share-url="${SITE}/blacklight3d/#produto-${esc(product.slug)}" data-share-title="${esc(product.name)} — BlackLight 3D">Compartilhar</button><button type="button" class="text-button" data-copy-url="${SITE}/blacklight3d/#produto-${esc(product.slug)}">Copiar link</button></div></article>`).join('')
   const body = `<section class="blacklight-hero"><div class="shell split"><div><p class="kicker">BlackLight 3D · Goiatuba</p><h1>Impressão 3D começa com medidas e uso, não com uma foto genérica.</h1><p class="lead">Ainda não há fotografias reais de peças neste repositório. Por isso, o catálogo abaixo apresenta categorias de orçamento e diz claramente o que falta confirmar.</p><div class="actions"><a class="button light" href="#orcamento">Montar pedido</a><a class="button outline-light" href="${esc(links.blacklightInstagram)}?utm_source=wicolly.com.br&utm_medium=referral&utm_campaign=blacklight_catalogo" target="_blank" rel="noopener noreferrer">Instagram</a></div></div><img class="blacklight-logo" src="/blacklight3d/assets/blacklight-logo.webp" alt="Logotipo da BlackLight 3D" width="360" height="360" fetchpriority="high"></div></section>
@@ -181,16 +244,22 @@ async function writePage(distDir, relativeDir, html) {
 
 export async function renderSite({ root, distDir }) {
   const readJson = async (relative) => JSON.parse(await fs.readFile(path.join(root, relative), 'utf8'))
-  const [profile, links, projects, activity, products, gallery] = await Promise.all([
+  const [profile, links, projects, activity, products, gallery, ecosystem, infrastructure] = await Promise.all([
     readJson('data/profile.json'), readJson('data/social-links.json'), readJson('data/projects.json'),
     readJson('data/generated/github-activity.json'), readJson('data/blacklight-products.json'), readJson('data/blacklight-gallery.json'),
+    readJson('data/ecosystem.json'), readJson('data/infrastructure.json'),
   ])
 
-  await fs.writeFile(path.join(distDir, 'index.html'), `${home(profile, links, projects, activity)}\n`)
+  await fs.writeFile(path.join(distDir, 'index.html'), `${home(profile, links, projects, activity, ecosystem)}\n`)
   await writePage(distDir, 'sobre', about(profile, links))
   await writePage(distDir, 'projetos', projectsIndex(profile, links, projects, activity))
   for (const project of projects) await writePage(distDir, path.join('projetos', project.slug), projectCase(profile, links, project, activity))
   await writePage(distDir, 'novidades', news(profile, links, projects, activity))
+  await writePage(distDir, 'servicos', services(profile, links))
+  await writePage(distDir, 'infraestrutura', infrastructurePage(profile, links, infrastructure))
+  for (const server of infrastructure.servers.filter((item) => item.publicRoute)) await writePage(distDir, server.slug, serverPage(profile, links, server))
+  await writePage(distDir, 'contato', contact(profile, links))
+  await writePage(distDir, 'privacidade', privacy(profile, links))
   await writePage(distDir, 'blacklight3d', blacklight(profile, links, products, gallery))
   await writePage(distDir, 'portfolio', projectsIndex(profile, links, projects, activity, '/portfolio/'))
   await fs.writeFile(path.join(distDir, 'portfolio', 'curriculo.html'), `${resume(profile, links, projects)}\n`)

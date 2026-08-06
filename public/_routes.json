@@ -1,5 +1,5 @@
 {
   "version": 1,
-  "include": ["/blacklight3d", "/blacklight3d/*", "/veredra/*"],
+  "include": ["/veredra/*"],
   "exclude": []
 }

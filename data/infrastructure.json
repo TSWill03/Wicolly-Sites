@@ -1,0 +1,45 @@
+{
+  "updatedAt": "2026-08-06",
+  "privacyNote": "A visão pública explica papéis e práticas sem divulgar endereços, portas, credenciais, nomes internos desnecessários ou topologia detalhada.",
+  "servers": [
+    {
+      "slug": "hefesto",
+      "name": "Hefesto",
+      "role": "Aplicações, serviços web, observabilidade e cargas em contêineres.",
+      "platform": "Linux ARM64",
+      "publicStatus": "Operacional — verificado ao vivo em 06/08/2026",
+      "statusTone": "verified",
+      "publicRoute": "/hefesto/",
+      "capabilities": ["Docker", "Proxy web", "Cloudflare Tunnel", "Tailscale", "Monitoramento"],
+      "boundary": "Painéis administrativos e acessos de operação não são publicados."
+    },
+    {
+      "slug": "poseidon",
+      "name": "Poseidon",
+      "role": "Jogos, aplicações e capacidade complementar do laboratório.",
+      "platform": "Linux ARM64",
+      "publicStatus": "Operacional — verificado ao vivo em 06/08/2026",
+      "statusTone": "verified",
+      "publicRoute": "/poseidon/",
+      "capabilities": ["Docker", "Jogos", "Aplicações", "Tailscale", "Backups"],
+      "boundary": "A página pública não é um painel de disponibilidade em tempo real."
+    },
+    {
+      "slug": "goiatuba",
+      "name": "Goiatuba",
+      "role": "Ambiente local de apoio, monitoramento e continuidade.",
+      "platform": "Linux",
+      "publicStatus": "Inventariado — acesso ao vivo não confirmado nesta execução",
+      "statusTone": "limited",
+      "publicRoute": null,
+      "capabilities": ["Docker", "Cloudflare Tunnel", "Tailscale", "Monitoramento", "Continuidade"],
+      "boundary": "Não há servidor web ativo na porta HTTP padrão e não existe página individual com endereço operacional publicado."
+    }
+  ],
+  "principles": [
+    "Serviços públicos passam por nomes e rotas explícitas; acesso direto não deve revelar conteúdo pessoal, painel ou aplicação aleatória.",
+    "Serviços administrativos permanecem em redes privadas ou protegidos por controles de acesso.",
+    "Mudanças operacionais exigem backup legível, caminho alternativo e rollback documentado.",
+    "Backup só é considerado comprovado depois de verificação e restauração de amostra."
+  ]
+}

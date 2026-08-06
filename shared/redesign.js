@@ -1,4 +1,19 @@
 (() => {
+  const themeButton = document.querySelector('[data-theme-toggle]')
+  const themeColor = document.querySelector('[data-theme-color]')
+  const applyTheme = (theme) => {
+    document.documentElement.dataset.theme = theme
+    themeButton?.setAttribute('aria-pressed', String(theme === 'light'))
+    themeButton?.setAttribute('aria-label', theme === 'light' ? 'Usar tema escuro' : 'Usar tema claro')
+    if (themeColor) themeColor.content = theme === 'light' ? '#f4f6fb' : '#0b0d12'
+  }
+  applyTheme(document.documentElement.dataset.theme || 'dark')
+  themeButton?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'
+    try { localStorage.setItem('wicolly-theme', next) } catch { /* Keep the current session theme when storage is unavailable. */ }
+    applyTheme(next)
+  })
+
   document.querySelectorAll('[data-current-year]').forEach((element) => {
     element.textContent = String(new Date().getFullYear())
   })
@@ -6,10 +21,21 @@
   const menuButton = document.querySelector('[data-menu-toggle]')
   const menu = document.querySelector('[data-menu]')
   if (menuButton && menu) {
+    const closeMenu = (restoreFocus = false) => {
+      menuButton.setAttribute('aria-expanded', 'false')
+      menu.removeAttribute('data-open')
+      if (restoreFocus) menuButton.focus()
+    }
     menuButton.addEventListener('click', () => {
       const open = menuButton.getAttribute('aria-expanded') === 'true'
       menuButton.setAttribute('aria-expanded', String(!open))
       menu.toggleAttribute('data-open', !open)
+    })
+    menu.addEventListener('click', (event) => {
+      if (event.target.closest('a')) closeMenu()
+    })
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') closeMenu(true)
     })
   }
 
