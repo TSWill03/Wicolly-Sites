@@ -31,3 +31,7 @@ São métricas de laboratório local. Um erro `EPERM` ocorreu apenas ao Lighthou
 ## Proveniência do artefato
 
 O diretório `dist` produzido no início de `npm test` é validado, enviado como artefato e baixado no job de deploy sem uma segunda compilação entre teste e publicação.
+
+## Validação de produção
+
+O primeiro deploy do commit integrado confirmou o SHA em `version.json`, mas revelou que o Cloudflare Pages descartava a linha CSP global, que acumulava hashes de todas as páginas, e que a proteção de e-mail do domínio altera o HTML servido. O build passou a gerar hashes por família de rota, com orçamento máximo de 1.500 caracteres por linha, e o smoke passou a reconhecer tanto o e-mail original quanto a forma protegida pelo Cloudflare.

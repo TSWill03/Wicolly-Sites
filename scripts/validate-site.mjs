@@ -166,8 +166,10 @@ for (const route of ['/sobre/', '/projetos/', '/novidades/', '/servicos/', '/inf
 
 const headers = read('dist/_headers')
 assert(headers.includes('Content-Security-Policy:'), 'Generated routes are missing CSP')
-assert(!headers.includes('__CSP_SCRIPT_HASHES__'), 'CSP hashes were not generated')
+assert(!/__CSP_[A-Z_]+_HASHES__/.test(headers), 'CSP hashes were not generated')
 assert(!headers.includes("'unsafe-inline'") && !headers.includes("'unsafe-eval'"), 'CSP must not allow unsafe inline/eval scripts')
+const cspLines = headers.split(/\r?\n/).filter((line) => line.includes('Content-Security-Policy:'))
+assert(Math.max(...cspLines.map((line) => line.length)) < 1500, 'CSP header line exceeds the Pages-safe size budget')
 for (const header of ['X-Content-Type-Options: nosniff', 'Referrer-Policy: strict-origin-when-cross-origin', 'Permissions-Policy:', 'X-Frame-Options: DENY']) assert(headers.includes(header), `Missing security header: ${header}`)
 
 const frontendJs = read('dist/shared/redesign.js')
