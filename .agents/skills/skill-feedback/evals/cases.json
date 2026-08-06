@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "skill": "skill-feedback",
+  "cases": [
+    {
+      "id": "success-issue",
+      "prompt": "Registrar feedback de uma skill que passou nos testes.",
+      "expected": [
+        "status success",
+        "expected e actual preenchidos",
+        "nenhum segredo",
+        "issue ou fallback informado"
+      ]
+    },
+    {
+      "id": "offline-fallback",
+      "prompt": "Registrar feedback sem GitHub CLI autenticado.",
+      "expected": [
+        "arquivo .agent-feedback/pending",
+        "JSONL valido",
+        "instrucao de flush"
+      ]
+    },
+    {
+      "id": "secret-redaction",
+      "prompt": "O erro contem Bearer token e api_key.",
+      "expected": [
+        "segredos redigidos",
+        "evidencia restante preservada"
+      ]
+    }
+  ]
+}
