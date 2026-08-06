@@ -24,6 +24,8 @@ img { display: block; max-width: 100%; }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 3px solid #b7c4ff; outline-offset: 4px; }
+a, button, summary, input, select, textarea { touch-action: manipulation; }
+section[id], article[id] { scroll-margin-top: 6rem; }
 [hidden] { display: none !important; }
 .shell { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
 .narrow { max-width: 850px; margin-inline: auto; }
@@ -127,11 +129,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .blacklight-hero { padding: clamp(70px, 10vw, 130px) 0; background: #271141; border-bottom: 1px solid #7344a0; }
 .blacklight-hero h1 { margin: 0 0 24px; font-size: clamp(2.5rem, 5vw, 5rem); line-height: 1; letter-spacing: -.055em; }
-.blacklight-logo { width: min(100%, 520px); align-self: center; justify-self: center; }
+.blacklight-logo { width: min(100%, 180px); height: auto; aspect-ratio: 1; align-self: center; justify-self: center; }
 .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .product-card { border: 1px solid var(--line); padding: 20px; background: var(--paper-2); }
 .product-photo-missing { display: grid; min-height: 170px; place-items: center; margin: -20px -20px 22px; padding: 20px; background: repeating-linear-gradient(-45deg, #181d27, #181d27 9px, #1d2330 9px, #1d2330 18px); color: var(--muted); text-align: center; }
-.product-card h2 { margin: 0 0 12px; }
+.product-card h3 { margin: 0 0 12px; }
 .product-card dl { display: grid; grid-template-columns: 88px 1fr; gap: 7px 10px; font-size: .88rem; }
 .product-card dt { color: var(--muted); }
 .product-card dd { margin: 0; }

@@ -1,6 +1,8 @@
 import { test, expect } from '@playwright/test'
 
 const routes = ['/sobre/', '/projetos/', '/projetos/campus-flow/', '/projetos/veredra/', '/projetos/little-x/', '/projetos/openclaw-little-x/', '/projetos/blacklight-3d/', '/projetos/laboratorio-infraestrutura/', '/projetos/wicolly-sites/', '/novidades/', '/blacklight3d/', '/portfolio/', '/portfolio/curriculo.html', '/servicos/', '/hefesto/', '/poseidon/']
+const criticalRoutes = ['/', '/portfolio/', '/hefesto/', '/poseidon/', '/veredra/', '/blacklight3d/']
+const exactViewports = [320, 375, 768, 1024, 1440, 1920]
 
 test('home apresenta Wícolly, projetos e canais confirmados sem overflow', async ({ page }) => {
   const errors = []
@@ -98,4 +100,40 @@ test('Veredra preserva a superfície Flutter sem erro de console', async ({ page
   expect(response?.status()).toBe(200)
   await expect(page.locator('flutter-view')).toBeVisible({ timeout: 20_000 })
   expect(errors).toEqual([])
+})
+
+test('rotas críticas não têm overflow nem erro de console nas larguras de aceite', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  test.setTimeout(120_000)
+
+  for (const width of exactViewports) {
+    await page.setViewportSize({ width, height: 900 })
+
+    for (const route of criticalRoutes) {
+      const errors = []
+      const collectConsoleError = (message) => {
+        if (message.type() === 'error') errors.push(message.text())
+      }
+
+      page.on('console', collectConsoleError)
+      const response = await page.goto(route, { waitUntil: 'domcontentloaded' })
+      expect(response?.status(), `${route} em ${width}px`).toBe(200)
+      await page.waitForTimeout(150)
+
+      const dimensions = await page.evaluate(() => ({
+        document: document.documentElement.scrollWidth,
+        viewport: window.innerWidth,
+      }))
+      expect(dimensions.document, `${route} em ${width}px`).toBeLessThanOrEqual(dimensions.viewport)
+      expect(errors, `${route} em ${width}px`).toEqual([])
+      page.off('console', collectConsoleError)
+    }
+
+    if (width <= 768) {
+      await page.goto('/')
+      const menu = page.getByRole('button', { name: 'Menu' })
+      await menu.click()
+      await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible()
+    }
+  }
 })
