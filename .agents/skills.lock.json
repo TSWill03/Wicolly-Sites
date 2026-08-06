@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "canonical_registry": {
+    "repository": "TSWill03/AgentsSkills",
+    "commit": "a636bc9c0f97c699ce8fb6ef0989c8dbfef64d3e"
+  },
+  "agent": "codex",
+  "skills": [
+    {
+      "name": "skill-feedback",
+      "repository": "TSWill03/AgentsSkills",
+      "url": "https://github.com/TSWill03/AgentsSkills.git",
+      "path": "skills/skill-feedback",
+      "commit": "a636bc9c0f97c699ce8fb6ef0989c8dbfef64d3e",
+      "version": "0.1.0",
+      "license": "private first-party"
+    },
+    {
+      "name": "frontend-design",
+      "repository": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills.git",
+      "path": "skills/frontend-design",
+      "commit": "b29e7cf65e5cb78a5ac33d582270551bc74a14eb",
+      "version": "commit-pinned",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "web-design-guidelines",
+      "repository": "vercel-labs/agent-skills",
+      "url": "https://github.com/vercel-labs/agent-skills.git",
+      "path": "skills/web-design-guidelines",
+      "commit": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
+      "version": "1.0.0",
+      "license": "MIT"
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "repository": "vercel-labs/agent-skills",
+      "url": "https://github.com/vercel-labs/agent-skills.git",
+      "path": "skills/react-best-practices",
+      "commit": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
+      "version": "1.0.0",
+      "license": "MIT"
+    }
+  ]
+}
