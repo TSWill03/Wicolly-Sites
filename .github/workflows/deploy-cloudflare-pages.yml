@@ -59,12 +59,6 @@ jobs:
       - name: Check external links
         run: npm run check:links:external
 
-      - name: Rebuild deployable artifact
-        env:
-          BUILD_COMMIT: ${{ github.sha }}
-          BUILD_BRANCH: ${{ github.ref_name }}
-        run: npm run build
-
       - name: Validate deployable artifact
         shell: bash
         run: |

@@ -27,3 +27,7 @@ Referências versionadas: `docs/screenshots/centralization/home-light-1440.webp`
 | BlackLight | 100 | 100 | 100 | 100 | 1,35 s | 0 | 0 ms |
 
 São métricas de laboratório local. Um erro `EPERM` ocorreu apenas ao Lighthouse remover alguns perfis temporários após escrever relatórios válidos; as medições e o processo encerraram.
+
+## Proveniência do artefato
+
+O diretório `dist` produzido no início de `npm test` é validado, enviado como artefato e baixado no job de deploy sem uma segunda compilação entre teste e publicação.
