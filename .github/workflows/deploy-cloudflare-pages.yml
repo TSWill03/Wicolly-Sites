@@ -59,18 +59,14 @@ jobs:
       - name: Check external links
         run: npm run check:links:external
 
-      - name: Rebuild deployable artifact
-        env:
-          BUILD_COMMIT: ${{ github.sha }}
-          BUILD_BRANCH: ${{ github.ref_name }}
-        run: npm run build
-
       - name: Validate deployable artifact
         shell: bash
         run: |
           set -euo pipefail
           test -f dist/index.html
           test -f dist/servicos/index.html
+          test -f dist/infraestrutura/index.html
+          test -f dist/contato/index.html
           test -f dist/sobre/index.html
           test -f dist/projetos/index.html
           test -f dist/projetos/campus-flow/index.html
@@ -82,8 +78,8 @@ jobs:
           test -f dist/portfolio/index.html
           test -f dist/portfolio/curriculo.html
           test -f dist/portfolio/curriculo.pdf
-          test -f dist/assets/projects/campus-flow.png
-          test -f dist/assets/projects/veredra.png
+          test -f dist/assets/projects/campus-flow.webp
+          test -f dist/assets/projects/veredra.webp
           test -f dist/hefesto/index.html
           test -f dist/poseidon/index.html
           test -f dist/blacklight3d/index.html

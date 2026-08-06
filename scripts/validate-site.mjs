@@ -16,12 +16,13 @@ function assert(condition, message) { if (!condition) failures.push(message) }
 
 const required = [
   'data/profile.json', 'data/social-links.json', 'data/projects.json', 'data/credentials.json',
-  'data/blacklight-products.json', 'data/blacklight-gallery.json', 'data/generated/github-activity.json',
+  'data/blacklight-products.json', 'data/blacklight-gallery.json', 'data/ecosystem.json', 'data/infrastructure.json', 'data/generated/github-activity.json',
   'scripts/site-renderer.mjs', 'scripts/sync-github-activity.mjs', 'scripts/content-studio.mjs',
   'dist/index.html', 'dist/sobre/index.html', 'dist/projetos/index.html', 'dist/novidades/index.html',
-  'dist/blacklight3d/index.html', 'dist/portfolio/index.html', 'dist/portfolio/curriculo.html',
-  'dist/portfolio/curriculo.pdf', 'dist/assets/projects/campus-flow.png', 'dist/assets/projects/veredra.png',
-  'dist/shared/redesign.css', 'dist/shared/redesign.js', 'dist/shared/og-card.svg', 'dist/version.json',
+  'dist/servicos/index.html', 'dist/infraestrutura/index.html', 'dist/contato/index.html',
+  'dist/hefesto/index.html', 'dist/poseidon/index.html', 'dist/blacklight3d/index.html', 'dist/portfolio/index.html', 'dist/portfolio/curriculo.html',
+  'dist/portfolio/curriculo.pdf', 'dist/assets/projects/campus-flow.webp', 'dist/assets/projects/veredra.webp',
+  'dist/shared/redesign.css', 'dist/shared/redesign.js', 'dist/shared/theme.js', 'dist/shared/og-card.svg', 'dist/version.json',
   'dist/_headers', 'dist/_redirects', 'dist/robots.txt', 'dist/sitemap.xml', 'dist/404.html',
   'dist/veredra/index.html', 'dist/veredra/main.dart.js', 'dist/veredra/flutter_service_worker.js',
 ]
@@ -82,7 +83,7 @@ for (const product of products) {
 }
 assert(gallery.items.length === 0, 'BlackLight gallery must remain empty until real photos are provided')
 
-const generatedPages = ['dist/index.html', 'dist/sobre/index.html', 'dist/projetos/index.html', 'dist/novidades/index.html', 'dist/blacklight3d/index.html', 'dist/portfolio/index.html', 'dist/portfolio/curriculo.html', ...projects.map((project) => `dist/projetos/${project.slug}/index.html`)]
+const generatedPages = ['dist/index.html', 'dist/sobre/index.html', 'dist/projetos/index.html', 'dist/novidades/index.html', 'dist/servicos/index.html', 'dist/infraestrutura/index.html', 'dist/contato/index.html', 'dist/privacidade/index.html', 'dist/hefesto/index.html', 'dist/poseidon/index.html', 'dist/blacklight3d/index.html', 'dist/portfolio/index.html', 'dist/portfolio/curriculo.html', ...projects.map((project) => `dist/projetos/${project.slug}/index.html`)]
 for (const page of generatedPages) {
   const html = read(page)
   assert(/<!doctype html>/i.test(html), `${page} is missing doctype`)
@@ -102,8 +103,8 @@ for (const page of generatedPages) {
 }
 
 const home = read('dist/index.html')
-for (const expected of ['O que estou construindo agora', 'Projetos que existem além desta página', 'Formação e trajetória', 'Trabalhos contratáveis', links.linkedin, links.github]) assert(home.includes(expected), `Home is missing: ${expected}`)
-assert(home.includes('Retrato real ainda não publicado'), 'Home must honestly disclose the missing portrait')
+for (const expected of ['Escolha o caminho pela sua necessidade', 'O que estou construindo agora', 'Projetos que existem além desta página', 'Formação e trajetória', 'Trabalhos contratáveis', '/infraestrutura/', '/contato/']) assert(home.includes(expected), `Home is missing: ${expected}`)
+assert(home.includes('data-theme-toggle'), 'Home is missing the theme control')
 
 const about = read('dist/sobre/index.html')
 assert(about.includes('mais afinidade com back-end'), 'About page must discuss the professional frontend tradeoff')
@@ -135,7 +136,7 @@ const secretPatterns = [
   /\bBearer\s+[A-Za-z0-9._~+/=-]{20,}/i,
   /\b(?:10|127|169\.254|172\.(?:1[6-9]|2\d|3[01])|192\.168)(?:\.\d{1,3}){2}\b/,
 ]
-const publishedPages = [...generatedPages, 'dist/servicos/index.html', 'dist/privacidade/index.html', 'dist/hefesto/index.html', 'dist/poseidon/index.html', 'dist/madrinha/index.html', 'dist/404.html']
+const publishedPages = [...generatedPages, 'dist/madrinha/index.html', 'dist/404.html']
 const publishedText = publishedPages.map(read).join('\n')
 for (const phrase of forbidden) assert(!publishedText.toLowerCase().includes(phrase.toLowerCase()), `Published site contains forbidden content: ${phrase}`)
 for (const pattern of secretPatterns) assert(!pattern.test(publishedText), `Published site matches sensitive pattern: ${pattern}`)
@@ -159,9 +160,9 @@ for (const page of generatedPages) {
 }
 
 const redirects = read('dist/_redirects')
-for (const route of ['/sobre', '/projetos', '/novidades', '/portfolio', '/servicos', '/blacklight3d', '/veredra']) assert(redirects.includes(`${route} `), `Missing trailing-slash redirect for ${route}`)
+for (const route of ['/sobre', '/projetos', '/novidades', '/portfolio', '/servicos', '/infraestrutura', '/contato', '/blacklight3d', '/veredra']) assert(redirects.includes(`${route} `), `Missing trailing-slash redirect for ${route}`)
 const sitemap = read('dist/sitemap.xml')
-for (const route of ['/sobre/', '/projetos/', '/novidades/', '/blacklight3d/']) assert(sitemap.includes(`https://wicolly.com.br${route}`), `Sitemap is missing ${route}`)
+for (const route of ['/sobre/', '/projetos/', '/novidades/', '/servicos/', '/infraestrutura/', '/contato/', '/blacklight3d/']) assert(sitemap.includes(`https://wicolly.com.br${route}`), `Sitemap is missing ${route}`)
 
 const headers = read('dist/_headers')
 assert(headers.includes('Content-Security-Policy:'), 'Generated routes are missing CSP')

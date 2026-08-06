@@ -9,6 +9,8 @@ As páginas pessoais, estudos de caso, currículo e BlackLight são gerados por 
 - `data/profile.json`: bio curta, bio longa, formação, foco atual e serviços;
 - `data/social-links.json`: canais públicos confirmados;
 - `data/projects.json`: estado, visibilidade e estudo de caso de cada projeto;
+- `data/ecosystem.json`: áreas e destinos do mapa da página inicial;
+- `data/infrastructure.json`: inventário público sanitizado dos servidores;
 - `data/credentials.json`: somente credenciais com comprovação;
 - `data/blacklight-products.json` e `data/blacklight-gallery.json`: categorias, produtos e fotos reais;
 - `data/generated/github-activity.json`: cache público usado no build.
@@ -40,6 +42,8 @@ Os pacotes editáveis são salvos em `content/drafts/YYYY-MM-DD-slug/`. Adaptado
 | --- | --- |
 | `/` | Homepage comercial |
 | `/servicos/` | Serviços de tecnologia |
+| `/infraestrutura/` | Visão pública e sanitizada da infraestrutura |
+| `/contato/` | Canais por tipo de necessidade |
 | `/portfolio/` | Índice estático de projetos gerado a partir dos JSONs |
 | `/veredra/` | Leitor Flutter Web/PWA |
 | `/blacklight3d/` | Blacklight 3D |
@@ -62,7 +66,7 @@ Wicolly-Sites/
 ├── poseidon/
 ├── madrinha/
 ├── privacidade/
-├── functions/            # fallbacks Pages para Blacklight e Veredra
+├── functions/            # fallback Pages isolado do Veredra
 ├── public/                # redirects, headers, routes, SEO e favicon
 ├── scripts/              # build, validação, links e smoke de produção
 └── .github/workflows/
@@ -95,7 +99,7 @@ Para visualizar localmente:
 python -m http.server 8080 --directory dist
 ```
 
-Teste `/`, `/servicos/`, `/portfolio/`, `/veredra/`, `/blacklight3d/`, `/hefesto/`, `/poseidon/`, `/madrinha/` e `/impressoes-3d/`.
+Teste `/`, `/sobre/`, `/projetos/`, `/servicos/`, `/infraestrutura/`, `/contato/`, `/portfolio/`, `/veredra/`, `/blacklight3d/`, `/hefesto/`, `/poseidon/`, `/madrinha/` e `/impressoes-3d/`.
 
 ## Atualização do Veredra
 

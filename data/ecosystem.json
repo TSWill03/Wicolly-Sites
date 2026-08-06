@@ -1,0 +1,44 @@
+{
+  "areas": [
+    {
+      "slug": "software",
+      "name": "Software e aplicações",
+      "summary": "Produtos, ferramentas acadêmicas e experiências multiplataforma com estados públicos claros.",
+      "href": "/projetos/",
+      "cta": "Explorar projetos",
+      "accent": "blue"
+    },
+    {
+      "slug": "servicos",
+      "name": "Serviços de tecnologia",
+      "summary": "Sites, sistemas, automações, infraestrutura e diagnósticos contratados com escopo definido.",
+      "href": "/servicos/",
+      "cta": "Ver serviços",
+      "accent": "blue"
+    },
+    {
+      "slug": "inteligencia",
+      "name": "IA e agentes",
+      "summary": "Experimentos com agentes, memória, ferramentas e integração de modelos, sem expor projetos privados.",
+      "href": "/projetos/little-x/",
+      "cta": "Conhecer os experimentos",
+      "accent": "purple"
+    },
+    {
+      "slug": "infraestrutura",
+      "name": "Infraestrutura",
+      "summary": "Laboratório de Linux, Docker, redes, monitoramento, backup e recuperação documentada.",
+      "href": "/infraestrutura/",
+      "cta": "Entender a infraestrutura",
+      "accent": "neutral"
+    },
+    {
+      "slug": "blacklight",
+      "name": "BlackLight 3D",
+      "summary": "Impressão 3D sob encomenda, com orçamento por uso, medidas e acabamento — sem catálogo fictício.",
+      "href": "/blacklight3d/",
+      "cta": "Solicitar impressão 3D",
+      "accent": "orange"
+    }
+  ]
+}

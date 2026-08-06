@@ -5,6 +5,8 @@
 /projetos /projetos/ 301
 /novidades /novidades/ 301
 /servicos /servicos/ 301
+/infraestrutura /infraestrutura/ 301
+/contato /contato/ 301
 /privacidade /privacidade/ 301
 /madrinha /madrinha/ 301
 /veredra /veredra/ 301
@@ -14,5 +16,8 @@
 /blacklight3d /blacklight3d/ 301
 /impressoes-3d /blacklight3d/ 301
 /impressoes-3d/ /blacklight3d/ 301
+/blacklight3d/wp-admin/* /blacklight3d/ 301
+/blacklight3d/wp-login.php /blacklight3d/ 301
+/blacklight3d/wp-json/* /blacklight3d/ 301
 /main / 301
 /main/ / 301

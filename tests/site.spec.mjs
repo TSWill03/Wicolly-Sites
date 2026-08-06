@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test'
 
-const routes = ['/sobre/', '/projetos/', '/projetos/campus-flow/', '/projetos/veredra/', '/projetos/little-x/', '/projetos/openclaw-little-x/', '/projetos/blacklight-3d/', '/projetos/laboratorio-infraestrutura/', '/projetos/wicolly-sites/', '/novidades/', '/blacklight3d/', '/portfolio/', '/portfolio/curriculo.html', '/servicos/', '/hefesto/', '/poseidon/']
-const criticalRoutes = ['/', '/portfolio/', '/hefesto/', '/poseidon/', '/veredra/', '/blacklight3d/']
+const routes = ['/sobre/', '/projetos/', '/projetos/campus-flow/', '/projetos/veredra/', '/projetos/little-x/', '/projetos/openclaw-little-x/', '/projetos/blacklight-3d/', '/projetos/laboratorio-infraestrutura/', '/projetos/wicolly-sites/', '/novidades/', '/servicos/', '/contato/', '/infraestrutura/', '/blacklight3d/', '/portfolio/', '/portfolio/curriculo.html', '/privacidade/', '/hefesto/', '/poseidon/']
+const criticalRoutes = ['/', '/sobre/', '/projetos/', '/servicos/', '/contato/', '/infraestrutura/', '/veredra/', '/blacklight3d/', '/novidades/', '/portfolio/', '/privacidade/', '/hefesto/', '/poseidon/']
 const exactViewports = [320, 375, 768, 1024, 1440, 1920]
 
 test('home apresenta Wícolly, projetos e canais confirmados sem overflow', async ({ page }) => {
   const errors = []
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()) })
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Eu estudo computação')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Um ecossistema de projetos')
   await expect(page.getByRole('heading', { name: 'O que estou construindo agora' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'LinkedIn' }).first()).toHaveAttribute('href', /wicolly-alcantara-3454102a7/)
   await expect(page.getByRole('link', { name: 'GitHub' }).first()).toHaveAttribute('href', 'https://github.com/TSWill03')
@@ -42,8 +42,37 @@ test('navegação móvel abre, mantém foco visível e não cria overflow', asyn
   await menu.press('Enter')
   await expect(menu).toHaveAttribute('aria-expanded', 'true')
   await expect(page.getByRole('navigation', { name: 'Navegação principal' })).toBeVisible()
+  await menu.press('Escape')
+  await expect(menu).toHaveAttribute('aria-expanded', 'false')
+  await expect(menu).toBeFocused()
   const dimensions = await page.evaluate(() => ({ document: document.documentElement.scrollWidth, viewport: window.innerWidth }))
   expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport)
+})
+
+test('tema segue o sistema, alterna, persiste e atualiza o controle', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
+  await page.goto('/')
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+  const toggle = page.getByRole('button', { name: 'Usar tema escuro' })
+  await toggle.click()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await page.reload()
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+  await expect(page.getByRole('button', { name: 'Usar tema claro' })).toBeVisible()
+  await page.evaluate(() => localStorage.removeItem('wicolly-theme'))
+})
+
+test('navegação principal usa páginas reais e identifica a página atual', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  for (const route of ['/', '/sobre/', '/projetos/', '/servicos/', '/infraestrutura/', '/blacklight3d/', '/contato/']) {
+    await page.goto(route)
+    const current = page.locator('.site-nav a[aria-current="page"]')
+    await expect(current).toHaveCount(1)
+    await expect(current).toHaveAttribute('href', route)
+  }
+  const hrefs = await page.locator('.site-nav a').evaluateAll((links) => links.map((link) => link.getAttribute('href')))
+  expect(hrefs.some((href) => href?.startsWith('/#'))).toBe(false)
 })
 
 test('BlackLight gera orçamento estruturado sem upload fictício', async ({ page }, testInfo) => {

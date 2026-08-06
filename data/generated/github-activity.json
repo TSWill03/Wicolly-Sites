@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T23:20:09.036Z",
+  "generatedAt": "2026-08-06T17:23:32.064Z",
   "source": "github-and-reviewed-manual",
   "projects": {
     "campus-flow": {
@@ -27,6 +27,22 @@
       "source": "commits",
       "items": [
         {
+          "type": "update",
+          "kindLabel": "Atualização",
+          "summary": "Chore: add AgentSkills synchronizer.",
+          "date": "2026-08-05T14:26:50Z",
+          "displayDate": "05 de ago de 2026",
+          "url": null
+        },
+        {
+          "type": "update",
+          "kindLabel": "Atualização",
+          "summary": "Chore: integrate governed agent skills.",
+          "date": "2026-08-05T14:26:36Z",
+          "displayDate": "05 de ago de 2026",
+          "url": null
+        },
+        {
           "type": "feat",
           "kindLabel": "Funcionalidade",
           "summary": "Adicionados metadados de produção e um link de retorno ao site.",
@@ -47,22 +63,6 @@
           "kindLabel": "Correção",
           "summary": "Corrigida a importação de EPUB no navegador e ampliada a cobertura de testes no navegador.",
           "date": "2026-07-14T02:34:49Z",
-          "displayDate": "13 de jul de 2026",
-          "url": null
-        },
-        {
-          "type": "fix",
-          "kindLabel": "Correção",
-          "summary": "Isolada a autenticação do Google e configurada a versão web de produção.",
-          "date": "2026-07-14T02:34:41Z",
-          "displayDate": "13 de jul de 2026",
-          "url": null
-        },
-        {
-          "type": "fix",
-          "kindLabel": "Correção",
-          "summary": "Mantida a integração contínua do iOS compatível com a versão estável do Xcode.",
-          "date": "2026-07-13T22:41:51Z",
           "displayDate": "13 de jul de 2026",
           "url": null
         }
@@ -108,43 +108,43 @@
       "source": "commits",
       "items": [
         {
-          "type": "fix",
-          "kindLabel": "Correção",
-          "summary": "Repetido o smoke de produção durante a propagação do Cloudflare Pages.",
-          "date": "2026-07-25T15:51:48Z",
-          "displayDate": "25 de jul de 2026",
-          "url": null
-        },
-        {
-          "type": "ci",
-          "kindLabel": "Entrega contínua",
-          "summary": "Restrito o deploy de produção e adicionada validação por smoke test.",
-          "date": "2026-07-25T15:41:26Z",
-          "displayDate": "25 de jul de 2026",
-          "url": null
-        },
-        {
-          "type": "feat",
-          "kindLabel": "Funcionalidade",
-          "summary": "Integrada a versão web mais recente do Veredra.",
-          "date": "2026-07-25T15:41:15Z",
-          "displayDate": "25 de jul de 2026",
-          "url": null
-        },
-        {
-          "type": "feat",
-          "kindLabel": "Funcionalidade",
-          "summary": "Reconstruído o site comercial em português brasileiro.",
-          "date": "2026-07-25T15:41:11Z",
-          "displayDate": "25 de jul de 2026",
+          "type": "docs",
+          "kindLabel": "Documentação",
+          "summary": "Documentado: selection and usage.",
+          "date": "2026-08-06T13:59:59Z",
+          "displayDate": "06 de ago de 2026",
           "url": null
         },
         {
           "type": "fix",
           "kindLabel": "Correção",
-          "summary": "Mantido o Veredra disponível offline após o redirecionamento canônico.",
-          "date": "2026-07-14T02:54:29Z",
-          "displayDate": "13 de jul de 2026",
+          "summary": "Correção: Apply validated accessibility and performance improvements.",
+          "date": "2026-08-06T13:59:46Z",
+          "displayDate": "06 de ago de 2026",
+          "url": null
+        },
+        {
+          "type": "update",
+          "kindLabel": "Atualização",
+          "summary": "Chore(skills): integrate governed web development skills.",
+          "date": "2026-08-06T13:59:12Z",
+          "displayDate": "06 de ago de 2026",
+          "url": null
+        },
+        {
+          "type": "update",
+          "kindLabel": "Atualização",
+          "summary": "Chore: add AgentSkills synchronizer.",
+          "date": "2026-08-05T14:27:20Z",
+          "displayDate": "05 de ago de 2026",
+          "url": null
+        },
+        {
+          "type": "update",
+          "kindLabel": "Atualização",
+          "summary": "Chore: integrate governed agent skills.",
+          "date": "2026-08-05T14:27:05Z",
+          "displayDate": "05 de ago de 2026",
           "url": null
         }
       ]

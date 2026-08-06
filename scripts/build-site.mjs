@@ -48,7 +48,7 @@ async function replaceBuildCommit(dir, commit) {
 
 async function applyGeneratedCsp() {
   const hashes = new Set()
-  const generatedRoots = ['', 'sobre', 'projetos', 'novidades', 'blacklight3d', 'portfolio']
+  const generatedRoots = ['', 'sobre', 'projetos', 'novidades', 'servicos', 'infraestrutura', 'contato', 'privacidade', 'hefesto', 'poseidon', 'blacklight3d', 'portfolio']
   async function collect(dir) {
     for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
       const target = path.join(dir, entry.name)
@@ -73,6 +73,8 @@ async function applyGeneratedCsp() {
 async function main() {
   await assertExists(resolveInsideRoot('data', 'profile.json'), 'data/profile.json')
   await assertExists(resolveInsideRoot('data', 'projects.json'), 'data/projects.json')
+  await assertExists(resolveInsideRoot('data', 'ecosystem.json'), 'data/ecosystem.json')
+  await assertExists(resolveInsideRoot('data', 'infrastructure.json'), 'data/infrastructure.json')
   await assertExists(resolveInsideRoot('data', 'generated', 'github-activity.json'), 'GitHub activity cache')
   await assertExists(resolveInsideRoot('servicos', 'index.html'), 'servicos/index.html')
   await assertExists(resolveInsideRoot('shared', 'styles.css'), 'shared/styles.css')
@@ -107,8 +109,8 @@ async function main() {
   await copyDirectory(resolveInsideRoot('veredra'), path.join(distDir, 'veredra'))
 
   await fs.mkdir(path.join(distDir, 'assets', 'projects'), { recursive: true })
-  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-campusflow-real.png'), path.join(distDir, 'assets', 'projects', 'campus-flow.png'))
-  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-veredra-real.png'), path.join(distDir, 'assets', 'projects', 'veredra.png'))
+  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-campusflow-real.webp'), path.join(distDir, 'assets', 'projects', 'campus-flow.webp'))
+  await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'media', 'project-veredra-real.webp'), path.join(distDir, 'assets', 'projects', 'veredra.webp'))
   await fs.mkdir(path.join(distDir, 'portfolio'), { recursive: true })
   await fs.copyFile(resolveInsideRoot('portfolio', 'public', 'curriculo.pdf'), path.join(distDir, 'portfolio', 'curriculo.pdf'))
   await fs.copyFile(resolveInsideRoot('public', '_redirects'), path.join(distDir, '_redirects'))
