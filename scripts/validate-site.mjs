@@ -165,6 +165,7 @@ const sitemap = read('dist/sitemap.xml')
 for (const route of ['/sobre/', '/projetos/', '/novidades/', '/servicos/', '/infraestrutura/', '/contato/', '/blacklight3d/']) assert(sitemap.includes(`https://wicolly.com.br${route}`), `Sitemap is missing ${route}`)
 
 const headers = read('dist/_headers')
+assert(headers.includes('Cache-Control: public, max-age=0, must-revalidate, no-transform'), 'HTML transformations must stay disabled at the edge')
 assert(headers.includes('Content-Security-Policy:'), 'Generated routes are missing CSP')
 assert(!/__CSP_[A-Z_]+_HASHES__/.test(headers), 'CSP hashes were not generated')
 assert(!headers.includes("'unsafe-inline'") && !headers.includes("'unsafe-eval'"), 'CSP must not allow unsafe inline/eval scripts')

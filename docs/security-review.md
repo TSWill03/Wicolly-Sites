@@ -23,7 +23,7 @@ Nenhum achado crítico ou de alta severidade permaneceu no site gerado. O fronte
 
 - **Severidade:** informativa.
 - **Evidência:** o Cloudflare tenta injetar `static.cloudflareinsights.com/beacon.min.js` na resposta de produção.
-- **Decisão:** a CSP não libera esse domínio. O site não depende do beacon, e preservar a política estrita evita habilitar rastreamento sem uma decisão explícita de privacidade.
+- **Decisão:** a CSP não libera esse domínio e `Cache-Control: no-transform` impede a injeção automática na borda. O site não depende do beacon, evitando habilitar rastreamento sem uma decisão explícita de privacidade.
 - **Efeito:** o navegador registra apenas a violação de CSP do recurso bloqueado; não há erro funcional da aplicação.
 
 ### LOW-01 — CSP não aplicada ao bundle Flutter e a páginas legadas de infraestrutura

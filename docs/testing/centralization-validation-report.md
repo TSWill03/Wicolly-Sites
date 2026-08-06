@@ -35,3 +35,5 @@ O diretório `dist` produzido no início de `npm test` é validado, enviado como
 ## Validação de produção
 
 O primeiro deploy do commit integrado confirmou o SHA em `version.json`, mas revelou que o Cloudflare Pages descartava a linha CSP global, que acumulava hashes de todas as páginas, e que a proteção de e-mail do domínio altera o HTML servido. O build passou a gerar hashes por família de rota, com orçamento máximo de 1.500 caracteres por linha, e o smoke passou a reconhecer tanto o e-mail original quanto a forma protegida pelo Cloudflare.
+
+O Playwright contra produção também confirmou que o Web Analytics automático tentava injetar um beacon bloqueado pela CSP. Como analytics não foi adotado pelo site e a credencial operacional não possui permissão para alterar RUM, o header global passou a enviar `Cache-Control: no-transform`, impedindo a mutação do HTML na borda sem liberar o terceiro na CSP.
