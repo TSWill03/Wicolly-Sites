@@ -1,0 +1,8 @@
+@media (max-width: 680px) {
+  .infra-topology { overflow: hidden; }
+}
+
+@media (max-width: 420px) {
+  .page-hero h1,
+  .case-hero h1 { font-size: 42px; }
+}
