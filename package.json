@@ -1,8 +1,6 @@
 {
   "private": true,
-  "engines": {
-    "node": ">=20.19.0"
-  },
+  "engines": {"node": ">=20.19.0"},
   "scripts": {
     "build": "node scripts/build-site.mjs",
     "sync:github": "node scripts/sync-github-activity.mjs",
@@ -10,14 +8,12 @@
     "campanha": "node scripts/content-studio.mjs",
     "update:veredra": "node scripts/update-veredra.mjs",
     "validate": "node scripts/validate-site.mjs",
-    "lint": "node --check scripts/build-site.mjs && node --check scripts/site-renderer.mjs && node --check scripts/sync-github-activity.mjs && node --check scripts/content-studio.mjs && node --check shared/redesign.js",
+    "lint": "node --check scripts/build-site.mjs && node --check scripts/v6/render.mjs && node --check scripts/v6/common.mjs && node --check scripts/v6/main-pages.mjs && node --check scripts/v6/content-pages.mjs && node --check scripts/v6/infra-pages.mjs && node --check scripts/v6/blacklight-pages.mjs && node --check scripts/sync-github-activity.mjs && node --check scripts/content-studio.mjs && node --check shared/redesign.js && node --check shared/v6/scene-engine.js && node --check shared/v6/scene-init.js",
     "check:links": "node scripts/check-links.mjs",
     "check:links:external": "node scripts/check-links.mjs --external",
     "test:browser": "playwright test",
     "smoke:production": "node scripts/smoke-production.mjs",
     "test": "npm run build && npm run validate && npm run lint && npm run check:links && npm run test:browser"
   },
-  "devDependencies": {
-    "@playwright/test": "^1.62.1"
-  }
+  "devDependencies": {"@playwright/test": "^1.62.1"}
 }
