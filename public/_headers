@@ -17,6 +17,12 @@
 /novidades/*
   Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_NOVIDADES_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
 
+/diario/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_DIARIO_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+/ia/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_IA_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
 /blacklight3d/*
   Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_BLACKLIGHT_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
 
@@ -29,8 +35,23 @@
 /infraestrutura/*
   Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_INFRAESTRUTURA_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
 
+/borda/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_NODES_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+/hefesto/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_NODES_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+/poseidon/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_NODES_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+/goiatuba/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_NODES_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
 /contato/*
   Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_CONTATO_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+
+/en/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' __CSP_EN_HASHES__; style-src 'self'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
 
 /privacidade/*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
