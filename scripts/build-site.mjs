@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { renderSite } from './site-renderer.mjs'
+import { renderSite } from './v6/render.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(root, 'dist')
@@ -64,6 +64,7 @@ async function applyGeneratedCsp() {
 async function main() {
   for (const [relative,label] of [
     ['data/profile.json','data/profile.json'], ['data/projects.json','data/projects.json'], ['data/ecosystem.json','data/ecosystem.json'], ['data/infrastructure.json','data/infrastructure.json'], ['data/generated/github-activity.json','GitHub activity cache'],
+    ['scripts/v6/render.mjs','V6 renderer'], ['shared/v6/scene-engine.js','V6 scene engine'], ['shared/v6/core.css','V6 core styles'],
     ['servicos/index.html','servicos/index.html'], ['shared/styles.css','shared/styles.css'], ['shared/site-config.js','shared/site-config.js'], ['shared/navigation.js','shared/navigation.js'],
     ['privacidade/index.html','privacidade/index.html'], ['hefesto/index.html','hefesto/index.html'], ['poseidon/index.html','poseidon/index.html'], ['blacklight3d/index.html','blacklight3d/index.html'],
     ['impressoes-3d/index.html','impressoes-3d/index.html'], ['madrinha/index.html','madrinha/index.html'], ['veredra/index.html','veredra/index.html'], ['portfolio/public/curriculo.pdf','portfolio/public/curriculo.pdf'],
