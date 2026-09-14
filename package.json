@@ -7,7 +7,7 @@
     "content:studio": "node scripts/content-studio.mjs",
     "campanha": "node scripts/content-studio.mjs",
     "update:veredra": "node scripts/update-veredra.mjs",
-    "validate": "node scripts/validate-site.mjs",
+    "validate": "node scripts/validate-v6.mjs",
     "lint": "node --check scripts/build-site.mjs && node --check scripts/v6/render.mjs && node --check scripts/v6/common.mjs && node --check scripts/v6/main-pages.mjs && node --check scripts/v6/content-pages.mjs && node --check scripts/v6/infra-pages.mjs && node --check scripts/v6/blacklight-pages.mjs && node --check scripts/sync-github-activity.mjs && node --check scripts/content-studio.mjs && node --check shared/redesign.js && node --check shared/v6/scene-engine.js && node --check shared/v6/scene-init.js",
     "check:links": "node scripts/check-links.mjs",
     "check:links:external": "node scripts/check-links.mjs --external",
