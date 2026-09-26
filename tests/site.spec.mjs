@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 const routes = [
   '/', '/sobre/', '/projetos/', '/ia/', '/diario/', '/servicos/', '/contato/', '/infraestrutura/', '/borda/', '/hefesto/', '/poseidon/', '/goiatuba/',
   '/blacklight3d/', '/blacklight3d/projetos/', '/blacklight3d/orcamento/', '/portfolio/', '/portfolio/curriculo.html', '/privacidade/', '/veredra/',
-  '/en/', '/en/about/', '/en/projects/', '/en/ai/', '/en/infrastructure/', '/en/infrastructure/edge/', '/en/infrastructure/hefesto/', '/en/infrastructure/goiatuba/', '/en/infrastructure/poseidon/', '/en/journal/', '/en/contact/', '/en/privacy/', '/en/blacklight3d/', '/en/blacklight3d/projects/', '/en/blacklight3d/quote/',
+  '/en/', '/en/about/', '/en/projects/', '/en/ai/', '/en/infrastructure/', '/en/infrastructure/edge/', '/en/infrastructure/hefesto/', '/en/infrastructure/goiatuba/', '/en/infrastructure/poseidon/', '/en/journal/', '/en/services/', '/en/contact/', '/en/privacy/', '/en/blacklight3d/', '/en/blacklight3d/projects/', '/en/blacklight3d/quote/',
 ]
 const criticalRoutes = ['/', '/projetos/', '/ia/', '/infraestrutura/', '/blacklight3d/', '/blacklight3d/orcamento/', '/en/', '/en/ai/', '/en/blacklight3d/']
 const widths = [320, 375, 768, 1024, 1440, 1920]
@@ -137,6 +137,10 @@ test('inglês não recua para conteúdo português nas superfícies principais',
 
   await page.goto('/en/privacy/')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('minimal data collection')
+
+  await page.goto('/en/services/')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Engineering with')
+  await expect(page.getByText('AI solutions', { exact: true })).toBeVisible()
 
   await page.goto('/en/blacklight3d/quote/')
   await expect(page.getByLabel('Project type')).toContainText('Holders')
