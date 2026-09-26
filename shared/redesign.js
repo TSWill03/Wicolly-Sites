@@ -69,7 +69,8 @@
     quoteForm.addEventListener('submit', (event) => {
       event.preventDefault()
       const data = new FormData(quoteForm)
-      const value = (name) => String(data.get(name) || 'Não informado').trim() || 'Não informado'
+      const emptyValue = en ? 'Not provided' : 'Não informado'
+      const value = (name) => String(data.get(name) || emptyValue).trim() || emptyValue
       const message = (en ? [
         'Hello! I came from the BlackLight 3D website and would like to request a quote.', '',
         `Name: ${value('nome')}`, `Project type: ${value('tipo')}`, `Description: ${value('descricao')}`,
