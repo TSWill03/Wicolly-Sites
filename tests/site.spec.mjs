@@ -144,7 +144,7 @@ test('inglês não recua para conteúdo português nas superfícies principais',
 
   await page.goto('/en/blacklight3d/quote/')
   await expect(page.getByLabel('Project type')).toContainText('Holders')
-  await expect(page.getByLabel('No')).toHaveValue('No')
+  await expect(page.locator('input[name="arquivo"][value="No"]')).toBeVisible()
 })
 
 test('AI Lab mostra baseline real e não antecipa Render/Hermes', async ({ page }, testInfo) => {
