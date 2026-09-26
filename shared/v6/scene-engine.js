@@ -13,6 +13,8 @@ export function startInfiniteScene() {
   const mod = (n, m) => ((n % m) + m) % m
   let W = 0; let H = 0; let D = 1
   let scroll = scrollY; let target = scrollY; let time = 0; let last = performance.now(); let raf = 0
+  const lightTheme = () => document.documentElement.dataset.theme === 'light'
+  const themed = (darkValue, lightValue) => lightTheme() ? lightValue : darkValue
 
   function resize() {
     D = Math.min(devicePixelRatio || 1, 1.5)
@@ -43,29 +45,319 @@ export function startInfiniteScene() {
     return { x: W / 2 + x * scale, y: H * .43 + y * scale + p * .47 * H, scale, p }
   }
 
-  function rackShell(x, y, w, h, p) { ctx.fillStyle = `rgba(7,12,20,${.58 + p * .34})`; ctx.fillRect(x, y, w, h); ctx.strokeStyle = `rgba(119,164,216,${.09 + p * .2})`; ctx.lineWidth = Math.max(.5, p * 1.5); ctx.strokeRect(x, y, w, h) }
-  function drawServerRack(o, index) { const { p, rw, rh, side } = o; const x = p.x-rw/2, y=p.y-rh*.72; rackShell(x,y,rw,rh,p.p); for(let j=0;j<9;j++){const yy=y+rh*(.075+j*.097);ctx.fillStyle=j%4===0?'rgba(24,40,56,.95)':'rgba(17,28,42,.92)';ctx.fillRect(x+rw*.09,yy,rw*.82,rh*.06);if((j+index)%3!==0){const lx=side<0?x+rw*.75:x+rw*.18;ctx.beginPath();ctx.arc(lx,yy+rh*.03,Math.max(.6,1.4*p.scale),0,TAU);ctx.fillStyle=j%2?'rgba(102,228,173,.9)':'rgba(87,230,255,.9)';ctx.fill()}} }
-  function drawStorageVault(o,index){const {p,rw,rh}=o,x=p.x-rw*.48,y=p.y-rh*.58;roundedRect(x,y,rw*.96,rh*.76,Math.max(2,6*p.scale),'rgba(8,14,22,.9)',`rgba(169,121,255,${.08+p.p*.2})`,1);for(let j=0;j<4;j++){const yy=y+rh*(.11+j*.15);roundedRect(x+rw*.1,yy,rw*.76,rh*.105,Math.max(1,3*p.scale),'rgba(22,24,44,.92)');for(let k=0;k<4;k++){ctx.beginPath();ctx.arc(x+rw*(.2+k*.16),yy+rh*.052,Math.max(.5,1.1*p.scale),0,TAU);ctx.fillStyle=(k+j+index)%3?'rgba(169,121,255,.7)':'rgba(102,228,173,.8)';ctx.fill()}}ctx.fillStyle='rgba(169,121,255,.55)';ctx.font=`${Math.max(5,8*p.scale)}px Cascadia Code,monospace`;ctx.fillText('VAULT',x+rw*.1,y+rh*.7)}
-  function drawMeshRelay(o,index){const {p,rw,rh}=o,cx=p.x,cy=p.y-rh*.25;glow(cx,cy,rw*.55,'87,230,255',.03+p.p*.04);ctx.beginPath();ctx.arc(cx,cy,rw*.18,0,TAU);ctx.fillStyle='rgba(9,20,29,.92)';ctx.fill();ctx.strokeStyle='rgba(87,230,255,.35)';ctx.lineWidth=Math.max(.6,p.scale);ctx.stroke();for(let k=0;k<5;k++){const a=time*.0006+(k/5)*TAU+index*.3,rr=rw*(.28+.05*Math.sin(time*.001+k)),x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr;line(cx,cy,x,y,'rgba(87,230,255,.16)',Math.max(.4,p.scale*.7));ctx.beginPath();ctx.arc(x,y,Math.max(.6,1.4*p.scale),0,TAU);ctx.fillStyle=k%2?'#a979ff':'#57e6ff';ctx.fill()}ctx.fillStyle='rgba(210,245,255,.8)';ctx.font=`700 ${Math.max(5,9*p.scale)}px Cascadia Code,monospace`;ctx.textAlign='center';ctx.fillText('W',cx,cy+3*p.scale);ctx.textAlign='start'}
-  function drawGatewayArch(o,index){const {p,rw,rh}=o,x=p.x-rw*.48,y=p.y-rh*.63;ctx.strokeStyle=`rgba(87,230,255,${.1+p.p*.22})`;ctx.lineWidth=Math.max(1,3*p.scale);ctx.beginPath();ctx.moveTo(x,y+rh*.7);ctx.lineTo(x,y+rh*.16);ctx.quadraticCurveTo(p.x,y-rh*.08,x+rw*.96,y+rh*.16);ctx.lineTo(x+rw*.96,y+rh*.7);ctx.stroke();for(let k=0;k<3;k++){const py=y+rh*(.25+k*.12);line(x+rw*.15,py,x+rw*.81,py,k===1?'rgba(169,121,255,.22)':'rgba(87,230,255,.18)',Math.max(.5,p.scale))}ctx.fillStyle='rgba(87,230,255,.65)';ctx.font=`${Math.max(4,7*p.scale)}px Cascadia Code,monospace`;ctx.fillText(index%2?'EDGE':'ROUTE',x+rw*.25,y+rh*.61)}
-  function drawCoolingStack(o){const {p,rw,rh}=o,x=p.x-rw*.42,y=p.y-rh*.6;roundedRect(x,y,rw*.84,rh*.72,Math.max(2,5*p.scale),'rgba(8,13,19,.88)','rgba(102,228,173,.13)',1);for(let k=0;k<3;k++){const cx=x+rw*.42,cy=y+rh*(.16+k*.18),rr=rw*.18;ctx.beginPath();ctx.arc(cx,cy,rr,0,TAU);ctx.strokeStyle='rgba(102,228,173,.2)';ctx.lineWidth=Math.max(.5,p.scale);ctx.stroke();for(let f=0;f<4;f++){const a=time*.0018+(f/4)*TAU+k;line(cx,cy,cx+Math.cos(a)*rr*.8,cy+Math.sin(a)*rr*.8,'rgba(102,228,173,.14)',Math.max(.4,p.scale*.6))}}}
-  function drawAgentOrb(o,index){const {p,rw,rh}=o,cx=p.x,cy=p.y-rh*.25,pulse=.5+.5*Math.sin(time*.003+index);glow(cx,cy,rw*.75,'169,121,255',.025+.03*pulse);ctx.beginPath();ctx.arc(cx,cy,rw*.23,0,TAU);ctx.fillStyle='rgba(21,14,35,.88)';ctx.fill();ctx.strokeStyle='rgba(169,121,255,.34)';ctx.lineWidth=Math.max(.5,p.scale);ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,rw*(.34+.03*pulse),time*.001,time*.001+Math.PI*1.35);ctx.strokeStyle='rgba(87,230,255,.2)';ctx.stroke();ctx.fillStyle='rgba(232,220,255,.88)';ctx.font=`700 ${Math.max(4,7*p.scale)}px Cascadia Code,monospace`;ctx.textAlign='center';ctx.fillText(index%2?'MX':'AI',cx,cy+2*p.scale);ctx.textAlign='start'}
+  function rackShell(x, y, w, h, p) {
+    ctx.fillStyle = themed(`rgba(7,12,20,${.58 + p * .34})`, `rgba(226,238,250,${.62 + p * .26})`)
+    ctx.fillRect(x, y, w, h)
+    ctx.strokeStyle = themed(`rgba(119,164,216,${.09 + p * .2})`, `rgba(37,99,235,${.08 + p * .14})`)
+    ctx.lineWidth = Math.max(.5, p * 1.5)
+    ctx.strokeRect(x, y, w, h)
+  }
+
+  function drawServerRack(o, index) {
+    const { p, rw, rh, side } = o
+    const x = p.x - rw / 2
+    const y = p.y - rh * .72
+    rackShell(x, y, rw, rh, p.p)
+    for (let j = 0; j < 9; j++) {
+      const yy = y + rh * (.075 + j * .097)
+      ctx.fillStyle = themed(
+        j % 4 === 0 ? 'rgba(24,40,56,.95)' : 'rgba(17,28,42,.92)',
+        j % 4 === 0 ? 'rgba(190,215,238,.92)' : 'rgba(218,233,247,.95)',
+      )
+      ctx.fillRect(x + rw * .09, yy, rw * .82, rh * .06)
+      if ((j + index) % 3 !== 0) {
+        const lx = side < 0 ? x + rw * .75 : x + rw * .18
+        ctx.beginPath()
+        ctx.arc(lx, yy + rh * .03, Math.max(.6, 1.4 * p.scale), 0, TAU)
+        ctx.fillStyle = themed(
+          j % 2 ? 'rgba(102,228,173,.9)' : 'rgba(87,230,255,.9)',
+          j % 2 ? 'rgba(59,130,246,.82)' : 'rgba(14,165,233,.9)',
+        )
+        ctx.fill()
+      }
+    }
+  }
+
+  function drawStorageVault(o, index) {
+    const { p, rw, rh } = o
+    const x = p.x - rw * .48
+    const y = p.y - rh * .58
+    roundedRect(
+      x, y, rw * .96, rh * .76, Math.max(2, 6 * p.scale),
+      themed('rgba(8,14,22,.9)', 'rgba(239,247,255,.93)'),
+      themed(`rgba(169,121,255,${.08 + p.p * .2})`, `rgba(96,165,250,${.11 + p.p * .18})`),
+      1,
+    )
+    for (let j = 0; j < 4; j++) {
+      const yy = y + rh * (.11 + j * .15)
+      roundedRect(x + rw * .1, yy, rw * .76, rh * .105, Math.max(1, 3 * p.scale), themed('rgba(22,24,44,.92)', 'rgba(219,234,254,.94)'))
+      for (let k = 0; k < 4; k++) {
+        ctx.beginPath()
+        ctx.arc(x + rw * (.2 + k * .16), yy + rh * .052, Math.max(.5, 1.1 * p.scale), 0, TAU)
+        ctx.fillStyle = themed(
+          (k + j + index) % 3 ? 'rgba(169,121,255,.7)' : 'rgba(102,228,173,.8)',
+          (k + j + index) % 3 ? 'rgba(96,165,250,.78)' : 'rgba(34,211,238,.82)',
+        )
+        ctx.fill()
+      }
+    }
+    ctx.fillStyle = themed('rgba(169,121,255,.55)', 'rgba(37,99,235,.6)')
+    ctx.font = `${Math.max(5, 8 * p.scale)}px Cascadia Code,monospace`
+    ctx.fillText('VAULT', x + rw * .1, y + rh * .7)
+  }
+
+  function drawMeshRelay(o, index) {
+    const { p, rw, rh } = o
+    const cx = p.x
+    const cy = p.y - rh * .25
+    glow(cx, cy, rw * .55, themed('87,230,255', '56,189,248'), .03 + p.p * .04)
+    ctx.beginPath()
+    ctx.arc(cx, cy, rw * .18, 0, TAU)
+    ctx.fillStyle = themed('rgba(9,20,29,.92)', 'rgba(239,248,255,.95)')
+    ctx.fill()
+    ctx.strokeStyle = themed('rgba(87,230,255,.35)', 'rgba(14,165,233,.42)')
+    ctx.lineWidth = Math.max(.6, p.scale)
+    ctx.stroke()
+    for (let k = 0; k < 5; k++) {
+      const a = time * .0006 + (k / 5) * TAU + index * .3
+      const rr = rw * (.28 + .05 * Math.sin(time * .001 + k))
+      const x = cx + Math.cos(a) * rr
+      const y = cy + Math.sin(a) * rr
+      line(cx, cy, x, y, themed('rgba(87,230,255,.16)', 'rgba(14,165,233,.22)'), Math.max(.4, p.scale * .7))
+      ctx.beginPath()
+      ctx.arc(x, y, Math.max(.6, 1.4 * p.scale), 0, TAU)
+      ctx.fillStyle = themed(k % 2 ? '#a979ff' : '#57e6ff', k % 2 ? '#60a5fa' : '#22d3ee')
+      ctx.fill()
+    }
+    ctx.fillStyle = themed('rgba(210,245,255,.8)', 'rgba(30,64,175,.76)')
+    ctx.font = `700 ${Math.max(5, 9 * p.scale)}px Cascadia Code,monospace`
+    ctx.textAlign = 'center'
+    ctx.fillText('W', cx, cy + 3 * p.scale)
+    ctx.textAlign = 'start'
+  }
+
+  function drawGatewayArch(o, index) {
+    const { p, rw, rh } = o
+    const x = p.x - rw * .48
+    const y = p.y - rh * .63
+    ctx.strokeStyle = themed(`rgba(87,230,255,${.1 + p.p * .22})`, `rgba(14,165,233,${.12 + p.p * .2})`)
+    ctx.lineWidth = Math.max(1, 3 * p.scale)
+    ctx.beginPath()
+    ctx.moveTo(x, y + rh * .7)
+    ctx.lineTo(x, y + rh * .16)
+    ctx.quadraticCurveTo(p.x, y - rh * .08, x + rw * .96, y + rh * .16)
+    ctx.lineTo(x + rw * .96, y + rh * .7)
+    ctx.stroke()
+    for (let k = 0; k < 3; k++) {
+      const py = y + rh * (.25 + k * .12)
+      line(
+        x + rw * .15, py, x + rw * .81, py,
+        themed(
+          k === 1 ? 'rgba(169,121,255,.22)' : 'rgba(87,230,255,.18)',
+          k === 1 ? 'rgba(96,165,250,.28)' : 'rgba(34,211,238,.24)',
+        ),
+        Math.max(.5, p.scale),
+      )
+    }
+    ctx.fillStyle = themed('rgba(87,230,255,.65)', 'rgba(2,132,199,.68)')
+    ctx.font = `${Math.max(4, 7 * p.scale)}px Cascadia Code,monospace`
+    ctx.fillText(index % 2 ? 'EDGE' : 'ROUTE', x + rw * .25, y + rh * .61)
+  }
+
+  function drawCoolingStack(o) {
+    const { p, rw, rh } = o
+    const x = p.x - rw * .42
+    const y = p.y - rh * .6
+    roundedRect(
+      x, y, rw * .84, rh * .72, Math.max(2, 5 * p.scale),
+      themed('rgba(8,13,19,.88)', 'rgba(237,247,252,.94)'),
+      themed('rgba(102,228,173,.13)', 'rgba(34,211,238,.2)'),
+      1,
+    )
+    for (let k = 0; k < 3; k++) {
+      const cx = x + rw * .42
+      const cy = y + rh * (.16 + k * .18)
+      const rr = rw * .18
+      ctx.beginPath()
+      ctx.arc(cx, cy, rr, 0, TAU)
+      ctx.strokeStyle = themed('rgba(102,228,173,.2)', 'rgba(14,165,233,.24)')
+      ctx.lineWidth = Math.max(.5, p.scale)
+      ctx.stroke()
+      for (let f = 0; f < 4; f++) {
+        const a = time * .0018 + (f / 4) * TAU + k
+        line(
+          cx, cy,
+          cx + Math.cos(a) * rr * .8,
+          cy + Math.sin(a) * rr * .8,
+          themed('rgba(102,228,173,.14)', 'rgba(56,189,248,.18)'),
+          Math.max(.4, p.scale * .6),
+        )
+      }
+    }
+  }
+
+  function drawAgentOrb(o, index) {
+    const { p, rw, rh } = o
+    const cx = p.x
+    const cy = p.y - rh * .25
+    const pulse = .5 + .5 * Math.sin(time * .003 + index)
+    glow(cx, cy, rw * .75, themed('169,121,255', '96,165,250'), .025 + .03 * pulse)
+    ctx.beginPath()
+    ctx.arc(cx, cy, rw * .23, 0, TAU)
+    ctx.fillStyle = themed('rgba(21,14,35,.88)', 'rgba(239,244,255,.94)')
+    ctx.fill()
+    ctx.strokeStyle = themed('rgba(169,121,255,.34)', 'rgba(96,165,250,.4)')
+    ctx.lineWidth = Math.max(.5, p.scale)
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(cx, cy, rw * (.34 + .03 * pulse), time * .001, time * .001 + Math.PI * 1.35)
+    ctx.strokeStyle = themed('rgba(87,230,255,.2)', 'rgba(34,211,238,.28)')
+    ctx.stroke()
+    ctx.fillStyle = themed('rgba(232,220,255,.88)', 'rgba(30,64,175,.78)')
+    ctx.font = `700 ${Math.max(4, 7 * p.scale)}px Cascadia Code,monospace`
+    ctx.textAlign = 'center'
+    ctx.fillText(index % 2 ? 'MX' : 'AI', cx, cy + 2 * p.scale)
+    ctx.textAlign = 'start'
+  }
+
   function drawWicolly() {
-    ctx.fillStyle='#06080c';ctx.fillRect(0,0,W,H);glow(W*.5,H*.16,Math.max(W,H)*.58,'87,230,255',.08);glow(W*.16,H*.74,Math.max(W,H)*.46,'169,121,255',.06)
-    const forward=scroll*.72+time*.018,horizon=H*.34
-    for(let i=-4;i<=4;i++){const xx=W/2+i*W*.075;line(W/2+(xx-W/2)*.12,0,xx,horizon,'rgba(120,180,255,.05)',1)}
-    for(let z0=0;z0<2300;z0+=120){const z=mod(z0-forward*1.15,2300)+110,p1=projectCorridor(-640,z,-250),p2=projectCorridor(640,z,-250);line(p1.x,p1.y,p2.x,p2.y,z0%240===0?'rgba(87,230,255,.105)':'rgba(87,230,255,.045)',Math.max(.4,p1.scale*.8))}
-    for(let x=-760;x<=760;x+=95){const a=projectCorridor(x,1900,205),b=projectCorridor(x,125,205);line(a.x,a.y,b.x,b.y,'rgba(83,121,170,.065)',1)}
-    for(let z0=0;z0<2100;z0+=92){const z=mod(z0-forward*.98,2100)+130,a=projectCorridor(-800,z,205),b=projectCorridor(800,z,205);line(a.x,a.y,b.x,b.y,'rgba(83,121,170,.055)',1)}
-    const objects=[],types=['rack','vault','rack','relay','rack','gateway','cooling','rack','agent']
-    for(const side of [-1,1]) for(let i=0;i<16;i++){const spacing=142,z=mod(i*spacing-forward+(side<0?0:71),16*spacing)+115,laneJitter=((i*37)%5-2)*18,baseX=side*(450+laneJitter),p=projectCorridor(baseX,z,36),rw=(135+(i%3)*12)*p.scale,rh=(270+(i%4)*18)*p.scale;if(p.p>.025)objects.push({side,z,p,rw,rh,type:types[(i+(side>0?3:0))%types.length],index:i+(side>0?20:0)})}
-    objects.sort((a,b)=>b.z-a.z);const endpoints=[]
-    for(const o of objects){if(o.type==='rack')drawServerRack(o,o.index);else if(o.type==='vault')drawStorageVault(o,o.index);else if(o.type==='relay')drawMeshRelay(o,o.index);else if(o.type==='gateway')drawGatewayArch(o,o.index);else if(o.type==='cooling')drawCoolingStack(o,o.index);else drawAgentOrb(o,o.index);if(o.p.p>.18&&o.p.p<.76)endpoints.push({x:o.p.x,y:o.p.y-o.rh*.34,side:o.side,p:o.p.p})}
-    const nodes=[{x:W*(.48+.025*Math.sin(time*.0008)),y:H*(.27+.02*Math.cos(time*.0011)),c:'#57e6ff'},{x:W*(.42+.035*Math.cos(time*.0007)),y:H*(.44+.025*Math.sin(time*.0013)),c:'#a979ff'},{x:W*(.59+.03*Math.sin(time*.001)),y:H*(.52+.02*Math.cos(time*.0015)),c:'#66e4ad'},{x:W*(.52+.04*Math.cos(time*.0009)),y:H*(.64+.02*Math.sin(time*.0017)),c:'#57e6ff'}]
-    endpoints.slice(0,13).forEach((e,i)=>{const n=nodes[(i+Math.round(forward/300))%nodes.length],bend=(55+18*Math.sin(time*.002+i))*e.side;bezier(e,{x:lerp(e.x,n.x,.32),y:e.y-bend},{x:lerp(e.x,n.x,.72),y:n.y+bend*.55},n,i%3===0?'rgba(169,121,255,.2)':i%3===1?'rgba(87,230,255,.21)':'rgba(102,228,173,.17)',.8+e.p*.7)})
-    nodes.forEach((n,i)=>{const pulse=.45+.55*Math.sin(time*.003+i*1.7)**2;glow(n.x,n.y,52+i*5,'87,230,255',.03+.03*pulse);ctx.beginPath();ctx.arc(n.x,n.y,2.2+pulse*1.8,0,TAU);ctx.fillStyle=n.c;ctx.fill()})
-    for(let i=0;i<28;i++){const z=mod(i*79-forward*1.85,2100)+125,lane=((i%5)-2)*42+Math.sin(i*1.77+time*.003)*25,p=projectCorridor(lane,z,-34),len=Math.max(2,p.scale*12);line(p.x,p.y,p.x,p.y-len,i%4===0?'rgba(169,121,255,.5)':i%4===1?'rgba(102,228,173,.48)':'rgba(87,230,255,.5)',Math.max(.6,p.scale*1.4));ctx.beginPath();ctx.arc(p.x,p.y,Math.max(.7,p.scale*1.7),0,TAU);ctx.fillStyle=i%3?'rgba(87,230,255,.7)':'rgba(169,121,255,.68)';ctx.fill()}
-    ctx.font='600 9px Cascadia Code,monospace';ctx.fillStyle='rgba(125,213,235,.18)';['ROUTE','HEALTH','SYNC','EDGE','RESTORE','AGENT','MESH'].forEach((label,i)=>{const z=mod(i*310-forward*.72,2200)+140,p=projectCorridor(i%2?-250:250,z,-120);ctx.fillText(label,p.x,p.y)})
+    const light = lightTheme()
+    ctx.fillStyle = light ? '#f8fbff' : '#06080c'
+    ctx.fillRect(0, 0, W, H)
+    glow(W * .5, H * .16, Math.max(W, H) * .58, light ? '56,189,248' : '87,230,255', light ? .15 : .08)
+    glow(W * .16, H * .74, Math.max(W, H) * .46, light ? '96,165,250' : '169,121,255', light ? .11 : .06)
+
+    const forward = scroll * .72 + time * .018
+    const horizon = H * .34
+
+    for (let i = -4; i <= 4; i++) {
+      const xx = W / 2 + i * W * .075
+      line(
+        W / 2 + (xx - W / 2) * .12, 0, xx, horizon,
+        light ? 'rgba(37,99,235,.075)' : 'rgba(120,180,255,.05)',
+        1,
+      )
+    }
+
+    for (let z0 = 0; z0 < 2300; z0 += 120) {
+      const z = mod(z0 - forward * 1.15, 2300) + 110
+      const p1 = projectCorridor(-640, z, -250)
+      const p2 = projectCorridor(640, z, -250)
+      line(
+        p1.x, p1.y, p2.x, p2.y,
+        light
+          ? (z0 % 240 === 0 ? 'rgba(14,165,233,.13)' : 'rgba(59,130,246,.065)')
+          : (z0 % 240 === 0 ? 'rgba(87,230,255,.105)' : 'rgba(87,230,255,.045)'),
+        Math.max(.4, p1.scale * .8),
+      )
+    }
+
+    for (let x = -760; x <= 760; x += 95) {
+      const a = projectCorridor(x, 1900, 205)
+      const b = projectCorridor(x, 125, 205)
+      line(a.x, a.y, b.x, b.y, light ? 'rgba(37,99,235,.07)' : 'rgba(83,121,170,.065)', 1)
+    }
+
+    for (let z0 = 0; z0 < 2100; z0 += 92) {
+      const z = mod(z0 - forward * .98, 2100) + 130
+      const a = projectCorridor(-800, z, 205)
+      const b = projectCorridor(800, z, 205)
+      line(a.x, a.y, b.x, b.y, light ? 'rgba(14,165,233,.065)' : 'rgba(83,121,170,.055)', 1)
+    }
+
+    const objects = []
+    const types = ['rack', 'vault', 'rack', 'relay', 'rack', 'gateway', 'cooling', 'rack', 'agent']
+    for (const side of [-1, 1]) {
+      for (let i = 0; i < 16; i++) {
+        const spacing = 142
+        const z = mod(i * spacing - forward + (side < 0 ? 0 : 71), 16 * spacing) + 115
+        const laneJitter = ((i * 37) % 5 - 2) * 18
+        const baseX = side * (450 + laneJitter)
+        const p = projectCorridor(baseX, z, 36)
+        const rw = (135 + (i % 3) * 12) * p.scale
+        const rh = (270 + (i % 4) * 18) * p.scale
+        if (p.p > .025) objects.push({ side, z, p, rw, rh, type: types[(i + (side > 0 ? 3 : 0)) % types.length], index: i + (side > 0 ? 20 : 0) })
+      }
+    }
+
+    objects.sort((a, b) => b.z - a.z)
+    const endpoints = []
+    for (const o of objects) {
+      if (o.type === 'rack') drawServerRack(o, o.index)
+      else if (o.type === 'vault') drawStorageVault(o, o.index)
+      else if (o.type === 'relay') drawMeshRelay(o, o.index)
+      else if (o.type === 'gateway') drawGatewayArch(o, o.index)
+      else if (o.type === 'cooling') drawCoolingStack(o, o.index)
+      else drawAgentOrb(o, o.index)
+      if (o.p.p > .18 && o.p.p < .76) endpoints.push({ x: o.p.x, y: o.p.y - o.rh * .34, side: o.side, p: o.p.p })
+    }
+
+    const nodes = light
+      ? [
+          { x: W * (.48 + .025 * Math.sin(time * .0008)), y: H * (.27 + .02 * Math.cos(time * .0011)), c: '#38bdf8' },
+          { x: W * (.42 + .035 * Math.cos(time * .0007)), y: H * (.44 + .025 * Math.sin(time * .0013)), c: '#60a5fa' },
+          { x: W * (.59 + .03 * Math.sin(time * .001)), y: H * (.52 + .02 * Math.cos(time * .0015)), c: '#22d3ee' },
+          { x: W * (.52 + .04 * Math.cos(time * .0009)), y: H * (.64 + .02 * Math.sin(time * .0017)), c: '#93c5fd' },
+        ]
+      : [
+          { x: W * (.48 + .025 * Math.sin(time * .0008)), y: H * (.27 + .02 * Math.cos(time * .0011)), c: '#57e6ff' },
+          { x: W * (.42 + .035 * Math.cos(time * .0007)), y: H * (.44 + .025 * Math.sin(time * .0013)), c: '#a979ff' },
+          { x: W * (.59 + .03 * Math.sin(time * .001)), y: H * (.52 + .02 * Math.cos(time * .0015)), c: '#66e4ad' },
+          { x: W * (.52 + .04 * Math.cos(time * .0009)), y: H * (.64 + .02 * Math.sin(time * .0017)), c: '#57e6ff' },
+        ]
+
+    endpoints.slice(0, 13).forEach((e, i) => {
+      const n = nodes[(i + Math.round(forward / 300)) % nodes.length]
+      const bend = (55 + 18 * Math.sin(time * .002 + i)) * e.side
+      const connection = light
+        ? (i % 3 === 0 ? 'rgba(96,165,250,.25)' : i % 3 === 1 ? 'rgba(14,165,233,.24)' : 'rgba(34,211,238,.2)')
+        : (i % 3 === 0 ? 'rgba(169,121,255,.2)' : i % 3 === 1 ? 'rgba(87,230,255,.21)' : 'rgba(102,228,173,.17)')
+      bezier(
+        e,
+        { x: lerp(e.x, n.x, .32), y: e.y - bend },
+        { x: lerp(e.x, n.x, .72), y: n.y + bend * .55 },
+        n,
+        connection,
+        .8 + e.p * .7,
+      )
+    })
+
+    nodes.forEach((n, i) => {
+      const pulse = .45 + .55 * Math.sin(time * .003 + i * 1.7) ** 2
+      glow(n.x, n.y, 52 + i * 5, light ? '56,189,248' : '87,230,255', light ? .045 + .035 * pulse : .03 + .03 * pulse)
+      ctx.beginPath()
+      ctx.arc(n.x, n.y, 2.2 + pulse * 1.8, 0, TAU)
+      ctx.fillStyle = n.c
+      ctx.fill()
+    })
+
+    for (let i = 0; i < 28; i++) {
+      const z = mod(i * 79 - forward * 1.85, 2100) + 125
+      const lane = ((i % 5) - 2) * 42 + Math.sin(i * 1.77 + time * .003) * 25
+      const p = projectCorridor(lane, z, -34)
+      const len = Math.max(2, p.scale * 12)
+      line(
+        p.x, p.y, p.x, p.y - len,
+        light
+          ? (i % 4 === 0 ? 'rgba(96,165,250,.58)' : i % 4 === 1 ? 'rgba(34,211,238,.56)' : 'rgba(14,165,233,.58)')
+          : (i % 4 === 0 ? 'rgba(169,121,255,.5)' : i % 4 === 1 ? 'rgba(102,228,173,.48)' : 'rgba(87,230,255,.5)'),
+        Math.max(.6, p.scale * 1.4),
+      )
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, Math.max(.7, p.scale * 1.7), 0, TAU)
+      ctx.fillStyle = light
+        ? (i % 3 ? 'rgba(14,165,233,.74)' : 'rgba(96,165,250,.72)')
+        : (i % 3 ? 'rgba(87,230,255,.7)' : 'rgba(169,121,255,.68)')
+      ctx.fill()
+    }
+
+    ctx.font = '600 9px Cascadia Code,monospace'
+    ctx.fillStyle = light ? 'rgba(2,132,199,.22)' : 'rgba(125,213,235,.18)'
+    ;['ROUTE', 'HEALTH', 'SYNC', 'EDGE', 'RESTORE', 'AGENT', 'MESH'].forEach((label, i) => {
+      const z = mod(i * 310 - forward * .72, 2200) + 140
+      const p = projectCorridor(i % 2 ? -250 : 250, z, -120)
+      ctx.fillText(label, p.x, p.y)
+    })
   }
 
   function blBase(a=.09,b=.05){ctx.fillStyle='#08080b';ctx.fillRect(0,0,W,H);glow(W*.62,H*.24,Math.max(W,H)*.6,'255,122,24',a);glow(W*.18,H*.72,Math.max(W,H)*.45,'169,121,255',b)}

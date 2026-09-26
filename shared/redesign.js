@@ -5,7 +5,7 @@
     document.documentElement.dataset.theme = theme
     themeButton?.setAttribute('aria-pressed', String(theme === 'light'))
     themeButton?.setAttribute('aria-label', theme === 'light' ? 'Usar tema escuro' : 'Usar tema claro')
-    if (themeColor) themeColor.content = theme === 'light' ? '#f4f6fb' : '#0b0d12'
+    if (themeColor) themeColor.content = theme === 'light' ? '#f8fbff' : '#0b0d12'
   }
   applyTheme(document.documentElement.dataset.theme || 'dark')
   themeButton?.addEventListener('click', () => {
