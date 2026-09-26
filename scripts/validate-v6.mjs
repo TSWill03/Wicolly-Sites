@@ -7,7 +7,7 @@ const at = (p) => path.join(root, p)
 const read = (p) => fs.readFileSync(at(p), 'utf8')
 const need = [
   'dist/index.html','dist/projetos/index.html','dist/ia/index.html','dist/infraestrutura/index.html',
-  'dist/blacklight3d/index.html','dist/blacklight3d/orcamento/index.html','dist/en/index.html','dist/en/privacy/index.html',
+  'dist/blacklight3d/index.html','dist/blacklight3d/orcamento/index.html','dist/en/index.html','dist/en/privacy/index.html','dist/en/services/index.html',
   'dist/en/infrastructure/edge/index.html','dist/en/infrastructure/hefesto/index.html','dist/en/infrastructure/goiatuba/index.html','dist/en/infrastructure/poseidon/index.html',
   'dist/shared/v6/core.css','dist/shared/v6/components.css','dist/shared/v6/blacklight.css',
   'dist/shared/v6/scene-engine.js','dist/shared/v6/scene-init.js','dist/version.json','dist/_headers'
@@ -21,6 +21,7 @@ for (const text of ['Eu construo sistemas','flag-br','flag-us','id="infinite-sce
 const en = read('dist/en/index.html')
 if (!en.includes('I build systems')) throw new Error('English home is incomplete')
 if (!read('dist/en/privacy/index.html').includes('minimal data collection')) throw new Error('English privacy page is incomplete')
+if (!read('dist/en/services/index.html').includes('Engineering with')) throw new Error('English services page is incomplete')
 if (!read('dist/en/infrastructure/hefesto/index.html').includes('Applications, web services, observability and container workloads.')) throw new Error('English infrastructure details are incomplete')
 
 const scene = read('dist/shared/v6/scene-engine.js')
