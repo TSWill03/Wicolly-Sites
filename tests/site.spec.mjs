@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 const routes = [
   '/', '/sobre/', '/projetos/', '/ia/', '/diario/', '/servicos/', '/contato/', '/infraestrutura/', '/borda/', '/hefesto/', '/poseidon/', '/goiatuba/',
   '/blacklight3d/', '/blacklight3d/projetos/', '/blacklight3d/orcamento/', '/portfolio/', '/portfolio/curriculo.html', '/privacidade/', '/veredra/',
-  '/en/', '/en/about/', '/en/projects/', '/en/ai/', '/en/infrastructure/', '/en/journal/', '/en/contact/', '/en/blacklight3d/', '/en/blacklight3d/projects/', '/en/blacklight3d/quote/',
+  '/en/', '/en/about/', '/en/projects/', '/en/ai/', '/en/infrastructure/', '/en/infrastructure/edge/', '/en/infrastructure/hefesto/', '/en/infrastructure/goiatuba/', '/en/infrastructure/poseidon/', '/en/journal/', '/en/services/', '/en/contact/', '/en/privacy/', '/en/blacklight3d/', '/en/blacklight3d/projects/', '/en/blacklight3d/quote/',
 ]
 const criticalRoutes = ['/', '/projetos/', '/ia/', '/infraestrutura/', '/blacklight3d/', '/blacklight3d/orcamento/', '/en/', '/en/ai/', '/en/blacklight3d/']
 const widths = [320, 375, 768, 1024, 1440, 1920]
@@ -89,6 +89,62 @@ test('tema segue o sistema, alterna e persiste', async ({ page }, testInfo) => {
   await page.reload()
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
   await page.evaluate(() => localStorage.removeItem('wicolly-theme'))
+})
+
+test('tema claro mantém contraste e o fundo personalizado visível', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  await page.emulateMedia({ colorScheme: 'light' })
+  for (const route of ['/', '/projetos/', '/infraestrutura/', '/blacklight3d/', '/en/']) {
+    await page.goto(route)
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light')
+    const metrics = await page.evaluate(() => {
+      const style = getComputedStyle(document.documentElement)
+      const hex = (name) => style.getPropertyValue(name).trim()
+      const rgb = (value) => [1,3,5].map((i) => parseInt(value.slice(i, i + 2), 16) / 255)
+      const lum = (value) => rgb(value).map((v) => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4).reduce((sum, v, i) => sum + v * [.2126,.7152,.0722][i], 0)
+      const contrast = (a,b) => { const x=lum(a),y=lum(b); return (Math.max(x,y)+.05)/(Math.min(x,y)+.05) }
+      return {
+        sceneOpacity: Number(getComputedStyle(document.querySelector('.scene-canvas')).opacity),
+        text: contrast(hex('--text'),hex('--bg')),
+        soft: contrast(hex('--soft'),hex('--bg')),
+        muted: contrast(hex('--muted'),hex('--bg')),
+        subtle: contrast(hex('--subtle'),hex('--bg')),
+      }
+    })
+    expect(metrics.sceneOpacity, route).toBeGreaterThanOrEqual(.6)
+    expect(metrics.text, route).toBeGreaterThanOrEqual(7)
+    expect(metrics.soft, route).toBeGreaterThanOrEqual(4.5)
+    expect(metrics.muted, route).toBeGreaterThanOrEqual(4.5)
+    expect(metrics.subtle, route).toBeGreaterThanOrEqual(4.5)
+  }
+})
+
+test('inglês não recua para conteúdo português nas superfícies principais', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  await page.emulateMedia({ colorScheme: 'light' })
+  await page.goto('/en/about/')
+  await expect(page.getByText('Bachelor of Computer Science', { exact: true })).toBeVisible()
+  await expect(page.getByText('Artificial Intelligence applied to tools and automation', { exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Use dark theme' })).toBeVisible()
+
+  await page.goto('/en/projects/campus-flow/')
+  await expect(page.getByText('Campus Flow grew from the need', { exact: false })).toBeVisible()
+  await expect(page.getByText('Academic profiles and module-based organization', { exact: true })).toBeVisible()
+
+  await page.goto('/en/infrastructure/hefesto/')
+  await expect(page.getByText('Applications, web services, observability and container workloads.', { exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: '← Back to infrastructure' })).toBeVisible()
+
+  await page.goto('/en/privacy/')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('minimal data collection')
+
+  await page.goto('/en/services/')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Engineering with')
+  await expect(page.getByText('AI solutions', { exact: true })).toBeVisible()
+
+  await page.goto('/en/blacklight3d/quote/')
+  await expect(page.getByLabel('Project type')).toContainText('Holders')
+  await expect(page.locator('input[name="arquivo"][value="No"]')).toBeVisible()
 })
 
 test('AI Lab mostra baseline real e não antecipa Render/Hermes', async ({ page }, testInfo) => {

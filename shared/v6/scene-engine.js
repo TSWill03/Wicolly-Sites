@@ -6,6 +6,7 @@ export function startInfiniteScene() {
   if (!ctx) return () => {}
 
   const mode = document.body.dataset.sceneMode || 'wicolly'
+  const lightTheme = () => document.documentElement.dataset.theme === 'light'
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
   const TAU = Math.PI * 2
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
@@ -51,7 +52,7 @@ export function startInfiniteScene() {
   function drawCoolingStack(o){const {p,rw,rh}=o,x=p.x-rw*.42,y=p.y-rh*.6;roundedRect(x,y,rw*.84,rh*.72,Math.max(2,5*p.scale),'rgba(8,13,19,.88)','rgba(102,228,173,.13)',1);for(let k=0;k<3;k++){const cx=x+rw*.42,cy=y+rh*(.16+k*.18),rr=rw*.18;ctx.beginPath();ctx.arc(cx,cy,rr,0,TAU);ctx.strokeStyle='rgba(102,228,173,.2)';ctx.lineWidth=Math.max(.5,p.scale);ctx.stroke();for(let f=0;f<4;f++){const a=time*.0018+(f/4)*TAU+k;line(cx,cy,cx+Math.cos(a)*rr*.8,cy+Math.sin(a)*rr*.8,'rgba(102,228,173,.14)',Math.max(.4,p.scale*.6))}}}
   function drawAgentOrb(o,index){const {p,rw,rh}=o,cx=p.x,cy=p.y-rh*.25,pulse=.5+.5*Math.sin(time*.003+index);glow(cx,cy,rw*.75,'169,121,255',.025+.03*pulse);ctx.beginPath();ctx.arc(cx,cy,rw*.23,0,TAU);ctx.fillStyle='rgba(21,14,35,.88)';ctx.fill();ctx.strokeStyle='rgba(169,121,255,.34)';ctx.lineWidth=Math.max(.5,p.scale);ctx.stroke();ctx.beginPath();ctx.arc(cx,cy,rw*(.34+.03*pulse),time*.001,time*.001+Math.PI*1.35);ctx.strokeStyle='rgba(87,230,255,.2)';ctx.stroke();ctx.fillStyle='rgba(232,220,255,.88)';ctx.font=`700 ${Math.max(4,7*p.scale)}px Cascadia Code,monospace`;ctx.textAlign='center';ctx.fillText(index%2?'MX':'AI',cx,cy+2*p.scale);ctx.textAlign='start'}
   function drawWicolly() {
-    ctx.fillStyle='#06080c';ctx.fillRect(0,0,W,H);glow(W*.5,H*.16,Math.max(W,H)*.58,'87,230,255',.08);glow(W*.16,H*.74,Math.max(W,H)*.46,'169,121,255',.06)
+    const light=lightTheme();ctx.fillStyle=light?'#f2f5f9':'#06080c';ctx.fillRect(0,0,W,H);glow(W*.5,H*.16,Math.max(W,H)*.58,'87,230,255',light ? .12 : .08);glow(W*.16,H*.74,Math.max(W,H)*.46,'169,121,255',light ? .09 : .06)
     const forward=scroll*.72+time*.018,horizon=H*.34
     for(let i=-4;i<=4;i++){const xx=W/2+i*W*.075;line(W/2+(xx-W/2)*.12,0,xx,horizon,'rgba(120,180,255,.05)',1)}
     for(let z0=0;z0<2300;z0+=120){const z=mod(z0-forward*1.15,2300)+110,p1=projectCorridor(-640,z,-250),p2=projectCorridor(640,z,-250);line(p1.x,p1.y,p2.x,p2.y,z0%240===0?'rgba(87,230,255,.105)':'rgba(87,230,255,.045)',Math.max(.4,p1.scale*.8))}
@@ -68,7 +69,7 @@ export function startInfiniteScene() {
     ctx.font='600 9px Cascadia Code,monospace';ctx.fillStyle='rgba(125,213,235,.18)';['ROUTE','HEALTH','SYNC','EDGE','RESTORE','AGENT','MESH'].forEach((label,i)=>{const z=mod(i*310-forward*.72,2200)+140,p=projectCorridor(i%2?-250:250,z,-120);ctx.fillText(label,p.x,p.y)})
   }
 
-  function blBase(a=.09,b=.05){ctx.fillStyle='#08080b';ctx.fillRect(0,0,W,H);glow(W*.62,H*.24,Math.max(W,H)*.6,'255,122,24',a);glow(W*.18,H*.72,Math.max(W,H)*.45,'169,121,255',b)}
+  function blBase(a=.09,b=.05){const light=lightTheme();ctx.fillStyle=light?'#f7f1ed':'#08080b';ctx.fillRect(0,0,W,H);glow(W*.62,H*.24,Math.max(W,H)*.6,'255,122,24',light ? a*1.35 : a);glow(W*.18,H*.72,Math.max(W,H)*.45,'169,121,255',light ? b*1.35 : b)}
   function drawBed(bedY=H*.74,alpha=.14){ctx.beginPath();ctx.moveTo(W*.26,bedY-H*.045);ctx.lineTo(W*.74,bedY-H*.045);ctx.lineTo(W*.84,bedY+H*.13);ctx.lineTo(W*.16,bedY+H*.13);ctx.closePath();ctx.fillStyle='rgba(16,20,25,.9)';ctx.fill();ctx.strokeStyle=`rgba(87,230,255,${alpha})`;ctx.stroke();for(let i=1;i<9;i++){const t=i/9;line(lerp(W*.26,W*.16,t),lerp(bedY-H*.045,bedY+H*.13,t),lerp(W*.74,W*.84,t),lerp(bedY-H*.045,bedY+H*.13,t),'rgba(87,230,255,.04)',1)}return bedY}
   function nozzle(nx,gy,scale=1){roundedRect(nx-24*scale,gy,48*scale,38*scale,4*scale,'rgba(50,35,46,.98)','rgba(255,255,255,.11)',1);ctx.beginPath();ctx.moveTo(nx-8*scale,gy+38*scale);ctx.lineTo(nx+8*scale,gy+38*scale);ctx.lineTo(nx,gy+60*scale);ctx.closePath();ctx.fillStyle='#ff9438';ctx.fill();glow(nx,gy+57*scale,58*scale,'255,122,24',.14)}
   function printedLayers(cx,base,count,max=38,width=125,spacing=5.1){for(let i=0;i<count;i++){const yy=base-i*spacing,taper=1-i/max*.5,ww=(width+22*Math.sin(i*.41))*taper;ctx.beginPath();ctx.moveTo(cx-ww,yy);ctx.bezierCurveTo(cx-ww*.66,yy-2.5,cx+ww*.72,yy+2.5,cx+ww,yy);ctx.strokeStyle=`rgba(${255-i*2},${122+i*1.5},${36+i*1.6},${.22+i/max*.45})`;ctx.lineWidth=1.5;ctx.stroke()}}

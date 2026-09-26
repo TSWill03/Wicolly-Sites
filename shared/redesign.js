@@ -1,11 +1,12 @@
 (() => {
+  const en = document.body?.dataset.lang === 'en'
   const themeButton = document.querySelector('[data-theme-toggle]')
   const themeColor = document.querySelector('[data-theme-color]')
   const applyTheme = (theme) => {
     document.documentElement.dataset.theme = theme
     themeButton?.setAttribute('aria-pressed', String(theme === 'light'))
-    themeButton?.setAttribute('aria-label', theme === 'light' ? 'Usar tema escuro' : 'Usar tema claro')
-    if (themeColor) themeColor.content = theme === 'light' ? '#f4f6fb' : '#0b0d12'
+    themeButton?.setAttribute('aria-label', en ? (theme === 'light' ? 'Use dark theme' : 'Use light theme') : (theme === 'light' ? 'Usar tema escuro' : 'Usar tema claro'))
+    if (themeColor) themeColor.content = theme === 'light' ? '#f2f5f9' : '#0b0d12'
   }
   applyTheme(document.documentElement.dataset.theme || 'dark')
   themeButton?.addEventListener('click', () => {
@@ -42,7 +43,7 @@
   document.querySelectorAll('[data-contact]').forEach((link) => {
     const phone = link.dataset.phone
     if (!phone) return
-    link.href = `https://wa.me/${phone}?text=${encodeURIComponent(link.dataset.message || 'Olá! Vim pelo site wicolly.com.br.')}`
+    link.href = `https://wa.me/${phone}?text=${encodeURIComponent(link.dataset.message || (en ? 'Hello! I came from wicolly.com.br.' : 'Olá! Vim pelo site wicolly.com.br.'))}`
   })
 
   document.querySelectorAll('[data-news-filter]').forEach((button) => {
@@ -68,15 +69,22 @@
     quoteForm.addEventListener('submit', (event) => {
       event.preventDefault()
       const data = new FormData(quoteForm)
-      const value = (name) => String(data.get(name) || 'Não informado').trim() || 'Não informado'
-      const message = [
+      const emptyValue = en ? 'Not provided' : 'Não informado'
+      const value = (name) => String(data.get(name) || emptyValue).trim() || emptyValue
+      const message = (en ? [
+        'Hello! I came from the BlackLight 3D website and would like to request a quote.', '',
+        `Name: ${value('nome')}`, `Project type: ${value('tipo')}`, `Description: ${value('descricao')}`,
+        `Quantity: ${value('quantidade')}`, `Approx. dimensions: ${value('medidas')}`, `Color / finish: ${value('cor')}`,
+        `Use: ${value('finalidade')}`, `Desired deadline: ${value('prazo')}`, `3D file available: ${value('arquivo')}`,
+        `Notes: ${value('observacoes')}`, '', 'I can send photos, references or STL files directly in this conversation if needed.',
+      ] : [
         'Olá! Vim pelo site da BlackLight 3D e gostaria de solicitar um orçamento.', '',
         `Nome: ${value('nome')}`, `Tipo de peça: ${value('tipo')}`, `Descrição: ${value('descricao')}`,
         `Quantidade: ${value('quantidade')}`, `Medidas aproximadas: ${value('medidas')}`, `Cor: ${value('cor')}`,
         `Finalidade: ${value('finalidade')}`, `Prazo desejado: ${value('prazo')}`, `Possui arquivo 3D: ${value('arquivo')}`,
         `Observações: ${value('observacoes')}`, '', 'Vou enviar fotos, referências ou STL diretamente nesta conversa, se necessário.',
-      ].join('\n')
-      quoteForm.querySelector('[role="status"]').textContent = 'Mensagem pronta. O WhatsApp será aberto em uma nova aba.'
+      ]).join('\n')
+      quoteForm.querySelector('[role="status"]').textContent = en ? 'Message ready. WhatsApp will open in a new tab.' : 'Mensagem pronta. O WhatsApp será aberto em uma nova aba.'
       window.open(`https://wa.me/${quoteForm.dataset.phone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
     })
   }
@@ -84,7 +92,7 @@
   document.querySelectorAll('[data-copy-url]').forEach((button) => {
     button.addEventListener('click', async () => {
       await navigator.clipboard.writeText(button.dataset.copyUrl)
-      button.textContent = 'Link copiado'
+      button.textContent = en ? 'Link copied' : 'Link copiado'
     })
   })
   document.querySelectorAll('[data-share-url]').forEach((button) => {
@@ -92,7 +100,7 @@
       if (navigator.share) await navigator.share({ title: button.dataset.shareTitle, url: button.dataset.shareUrl })
       else {
         await navigator.clipboard.writeText(button.dataset.shareUrl)
-        button.textContent = 'Link copiado'
+        button.textContent = en ? 'Link copied' : 'Link copiado'
       }
     })
   })
