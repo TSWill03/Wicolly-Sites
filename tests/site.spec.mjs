@@ -185,3 +185,35 @@ test('rotas críticas não têm overflow nem erro de console nas larguras de ace
     }
   }
 })
+
+test('BlackLight: trabalho real, fotos locais e pedido pré-preenchido', async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  await page.goto('/blacklight3d/')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Sua ideia')
+  await expect(page.locator('.bl-proof-card')).toHaveCount(1)
+  await expect(page.locator('.bl-proof-photos img')).toHaveCount(2)
+  await expect(page.getByText('As duas fotos mostram o mesmo projeto')).toBeVisible()
+  const asset = await request.get('/blacklight3d/assets/porta-lata-frente.jpg')
+  expect(asset.status()).toBe(200)
+  expect(asset.headers()['content-type']).toContain('image/jpeg')
+  await page.getByRole('link', { name: 'Quero algo assim' }).click()
+  await expect(page).toHaveURL(/\/blacklight3d\/orcamento\/\?tipo=/)
+  await expect(page.getByLabel('Tipo de peça')).toHaveValue('Porta-lata personalizado')
+  await expect(page.getByLabel('Descrição')).toHaveValue(/porta-lata personalizado/)
+  await page.goto('/en/blacklight3d/')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Your idea')
+  await page.getByRole('link', { name: 'I want something like this' }).click()
+  await expect(page.getByLabel('Project type')).toHaveValue('Custom can holder')
+})
+
+test('BlackLight: páginas comerciais não causam overflow em dispositivos pequenos', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  for (const width of [320, 375, 768, 1280]) {
+    await page.setViewportSize({ width, height: 850 })
+    for (const route of ['/blacklight3d/', '/blacklight3d/projetos/', '/blacklight3d/orcamento/']) {
+      await page.goto(route)
+      const size = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }))
+      expect(size.document, `${route}: ${width}px`).toBeLessThanOrEqual(size.viewport)
+    }
+  }
+})

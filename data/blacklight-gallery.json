@@ -1,4 +1,32 @@
 {
-  "items": [],
-  "emptyMessage": "As primeiras fotos reais de peças produzidas serão adicionadas aqui. Nenhuma imagem de produto foi gerada ou simulada."
+  "items": [
+    {
+      "slug": "porta-lata-personalizado",
+      "name": "Porta-lata personalizado",
+      "nameEn": "Custom can holder",
+      "category": "Acessórios personalizados",
+      "categoryEn": "Custom accessories",
+      "description": "Peça impressa em 3D, registrada em fotografias reais. Outros temas e medidas são avaliados por orçamento.",
+      "descriptionEn": "Actual 3D-printed piece photographed after production. Other themes and sizes are assessed by quote.",
+      "status": "Peça produzida · portfólio",
+      "statusEn": "Produced piece · portfolio",
+      "images": [
+        {
+          "src": "/blacklight3d/assets/porta-lata-frente.jpg",
+          "alt": "Porta-lata personalizado roxo impresso em 3D, fotografado ao ar livre",
+          "altEn": "Purple custom 3D printed can holder photographed outdoors"
+        },
+        {
+          "src": "/blacklight3d/assets/porta-lata-lateral.jpg",
+          "alt": "Outro ângulo da mesma peça impressa em 3D",
+          "altEn": "Another angle of the same printed piece"
+        }
+      ],
+      "quoteType": "Porta-lata personalizado",
+      "quoteDescription": "Gostaria de um porta-lata personalizado, com tema e medidas a combinar.",
+      "quantityAvailable": false
+    }
+  ],
+  "notice": "Fotos reais de uma peça produzida. As duas imagens mostram o mesmo projeto; não indicam estoque nem disponibilidade imediata.",
+  "noticeEn": "Real photos of one produced item. Both images show the same project; they do not indicate stock or immediate availability."
 }

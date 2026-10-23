@@ -58,6 +58,14 @@
   const quoteForm = document.querySelector('[data-blacklight-form]')
   if (quoteForm) {
     const typeField = quoteForm.elements.tipo
+    const query = new URLSearchParams(window.location.search)
+    const suggestedType = (query.get('tipo') || '').slice(0, 160)
+    const suggestedDescription = (query.get('descricao') || '').slice(0, 2000)
+    if (suggestedType) {
+      const known = Array.from(typeField.options).some((option) => option.value === suggestedType)
+      typeField.value = known ? suggestedType : (document.body.dataset.lang === 'en' ? 'Custom project' : 'Projeto personalizado')
+    }
+    if (suggestedDescription) quoteForm.elements.descricao.value = suggestedDescription
     document.querySelectorAll('[data-product-quote]').forEach((button) => {
       button.addEventListener('click', () => {
         typeField.value = button.dataset.productQuote
@@ -77,7 +85,18 @@
         `Observações: ${value('observacoes')}`, '', 'Vou enviar fotos, referências ou STL diretamente nesta conversa, se necessário.',
       ].join('\n')
       quoteForm.querySelector('[role="status"]').textContent = 'Mensagem pronta. O WhatsApp será aberto em uma nova aba.'
-      window.open(`https://wa.me/${quoteForm.dataset.phone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
+      const destination = `https://wa.me/${quoteForm.dataset.phone}?text=${encodeURIComponent(message)}`
+      const popup = window.open(destination, '_blank', 'noopener,noreferrer')
+      if (!popup) {
+        const status = quoteForm.querySelector('[role="status"]')
+        status.textContent = ''
+        const fallback = document.createElement('a')
+        fallback.href = destination
+        fallback.target = '_blank'
+        fallback.rel = 'noopener noreferrer'
+        fallback.textContent = 'WhatsApp: abrir mensagem preparada'
+        status.append(fallback)
+      }
     })
   }
 

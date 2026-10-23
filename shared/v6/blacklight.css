@@ -80,3 +80,112 @@
   background:rgba(248,250,253,.9);
   border-color:rgba(30,58,92,.18);
 }
+
+/* BlackLight: commercial showroom (genuine photographed work, no false inventory). */
+.blacklight-site .bl-localbar{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;
+  padding-top:12px;padding-bottom:12px;border-bottom:1px solid var(--line);position:relative;z-index:2;
+}
+.blacklight-site .bl-localbrand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);flex-shrink:0}
+.blacklight-site .bl-brand-emblem{display:grid;place-items:center;width:42px;height:42px;position:relative;letter-spacing:-.12em;
+  font:800 19px/1 var(--font-display);color:#ffe4ff;border:1px solid rgba(184,94,255,.6);border-radius:12px;
+  background:linear-gradient(145deg,#42114e,#131528);box-shadow:0 0 22px rgba(194,107,255,.2)}
+.blacklight-site .bl-brand-emblem span{color:#ff9e44}
+.blacklight-site .bl-localbrand strong{display:block;font:750 15px/1.1 var(--font-display);letter-spacing:.06em}
+.blacklight-site .bl-localbrand small{display:block;margin-top:5px;font:500 10px/1.2 var(--font-mono);color:var(--muted)}
+.blacklight-site .bl-localnav{display:flex;align-items:center;gap:24px}
+.blacklight-site .bl-localnav a{font:600 12px/1.4 var(--font-mono);color:var(--text);text-decoration:none}
+.blacklight-site .bl-localnav a:hover{text-decoration:underline;text-underline-offset:4px}
+.blacklight-site .bl-localnav .bl-localcta{padding:12px 16px;background:linear-gradient(120deg,#ff9238,#ffbe7b);
+  border-radius:999px;color:#1a0b02;font-weight:800;box-shadow:0 6px 24px rgba(255,122,24,.17)}
+.blacklight-site .bl-hero{min-height:0;padding:48px 0 58px}
+.blacklight-site .bl-hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(25px,5vw,74px)}
+.blacklight-site .bl-hero-copy h1{font-size:clamp(52px,7vw,105px);line-height:.94;letter-spacing:-.05em}
+.blacklight-site .bl-hero-copy>.lead{max-width:590px;line-height:1.65}
+.blacklight-site .bl-hero-trust{display:flex;flex-wrap:wrap;gap:9px;margin-top:31px}
+.blacklight-site .bl-hero-trust span{border:1px solid var(--line);border-radius:999px;padding:7px 12px;
+  background:rgba(13,12,18,.65);color:var(--text);font-size:11px}
+.blacklight-site .bl-hero-visual{display:block;position:relative;height:min(620px,62vw);min-height:450px;overflow:hidden;
+  border-radius:26px;border:1px solid rgba(194,107,255,.38);box-shadow:0 24px 80px rgba(28,7,32,.28);
+  background:#201626}
+.blacklight-site .bl-hero-visual::after{content:"";position:absolute;inset:45% 0 0;pointer-events:none;
+  background:linear-gradient(transparent,rgba(13,7,20,.78))}
+.blacklight-site .bl-hero-visual img{width:100%;height:100%;object-fit:cover;object-position:center 49%;display:block;
+  transition:transform .45s ease}
+.blacklight-site .bl-hero-visual:hover img{transform:scale(1.035)}
+.blacklight-site .bl-hero-photo-label{position:absolute;left:28px;bottom:25px;z-index:1;display:grid;gap:6px;
+  color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.9)}
+.blacklight-site .bl-hero-photo-label b{font:800 11px/1.2 var(--font-mono);letter-spacing:.11em;color:#ffc5e8}
+.blacklight-site .bl-hero-photo-label small{font:700 clamp(20px,2vw,27px)/1.1 var(--font-display)}
+.blacklight-site .bl-showcase{padding-top:38px}
+.blacklight-site .bl-showcase .section-heading h2 span{color:var(--orange)}
+.blacklight-site .bl-proof-grid{display:grid;grid-template-columns:1fr;gap:22px}
+.blacklight-site .bl-proof-card{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);align-items:center;
+  gap:34px;padding:24px;border:1px solid rgba(194,107,255,.27);border-radius:26px;
+  background:linear-gradient(155deg,rgba(35,20,42,.85),rgba(13,10,21,.86))}
+.blacklight-site .bl-proof-photos{display:grid;grid-template-columns:1.28fr .72fr;gap:12px;min-width:0}
+.blacklight-site .bl-proof-photos figure{margin:0;position:relative;height:390px;overflow:hidden;border-radius:17px;
+  border:1px solid rgba(255,255,255,.09);background:#261c30}
+.blacklight-site .bl-proof-photos img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 48%}
+.blacklight-site .bl-proof-photos figcaption{position:absolute;left:10px;bottom:10px;padding:6px 9px;color:#fff;
+  border-radius:7px;background:rgba(11,8,16,.83);font:700 9px/1.2 var(--font-mono)}
+.blacklight-site .bl-proof-text{padding:8px 8px 8px 0}
+.blacklight-site .bl-proof-text h3{font:750 clamp(30px,3.5vw,49px)/1.04 var(--font-display);margin:17px 0}
+.blacklight-site .bl-proof-text p{max-width:500px;font-size:15px;line-height:1.7;color:var(--muted)}
+.blacklight-site .bl-proof-text .button{margin-top:20px}
+.blacklight-site .bl-status-dot{display:inline-flex;align-items:center;gap:9px;color:#ffc693;font:700 11px/1.2 var(--font-mono)}
+.blacklight-site .bl-status-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:#f9a86d}
+.blacklight-site .bl-gallery-disclaimer{margin:16px 2px 0;max-width:920px;font-size:12px;line-height:1.6;color:var(--muted)}
+.blacklight-site .bl-categories a{justify-content:flex-end;gap:5px}
+.blacklight-site .bl-categories a span{color:var(--orange);font:700 11px/1.2 var(--font-mono);margin-top:7px}
+.blacklight-site .bl-bottom-cta{display:flex;align-items:center;justify-content:space-between;gap:22px;
+  padding:32px;border-radius:24px;border:1px solid var(--line);background:rgba(14,10,20,.85)}
+.blacklight-site .bl-bottom-cta h2{font:750 clamp(26px,4vw,42px)/1.08 var(--font-display);margin:0 0 9px}
+.blacklight-site .bl-bottom-cta p{margin:0;color:var(--muted)}
+.blacklight-site .bl-quote-aside-note{font-size:12px;margin-top:28px;border-top:1px solid var(--line);padding-top:19px}
+.blacklight-site .bl-form-fineprint{margin:0;color:var(--muted);font-size:11px;line-height:1.65}
+:root[data-theme="light"] .blacklight-site .bl-hero-trust span{background:rgba(255,255,255,.88)}
+:root[data-theme="light"] .blacklight-site .bl-proof-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(246,241,252,.91));border-color:rgba(112,76,154,.22);
+  box-shadow:0 24px 62px rgba(55,62,89,.1)}
+:root[data-theme="light"] .blacklight-site .bl-status-dot{color:#8b460e}
+:root[data-theme="light"] .blacklight-site .bl-bottom-cta{background:rgba(255,255,255,.9)}
+@media(max-width:1100px){.blacklight-site .bl-proof-card{grid-template-columns:1fr}.blacklight-site .bl-proof-text{padding:3px 4px 8px}
+  .blacklight-site .bl-proof-photos figure{height:310px}}
+@media(max-width:760px){.blacklight-site .bl-localbar{flex-wrap:wrap;min-height:0;gap:14px}
+  .blacklight-site .bl-localnav{width:100%;justify-content:space-between;gap:6px;flex-wrap:wrap}
+  .blacklight-site .bl-localnav a{font-size:10px}
+  .blacklight-site .bl-localnav .bl-localcta{padding:10px 12px}
+  .blacklight-site .bl-hero{padding:34px 0 42px}
+  .blacklight-site .bl-hero-grid{grid-template-columns:1fr;gap:26px}
+  .blacklight-site .bl-hero-visual{min-height:0;height:390px}
+  .blacklight-site .bl-proof-card{padding:12px;gap:14px}
+  .blacklight-site .bl-proof-photos{grid-template-columns:1fr 1fr;gap:7px}
+  .blacklight-site .bl-proof-photos figure{height:260px}
+  .blacklight-site .bl-proof-photos figcaption{font-size:8px}
+  .blacklight-site .bl-proof-text{padding:8px 10px 16px}
+  .blacklight-site .bl-bottom-cta{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:420px){.blacklight-site .bl-localbrand strong{font-size:13px}
+  .blacklight-site .bl-localnav{gap:4px}
+  .blacklight-site .bl-localnav a{font-size:9px}
+  .blacklight-site .bl-proof-photos figure{height:220px}
+  .blacklight-site .bl-proof-photos figcaption{left:5px;bottom:5px;padding:4px 5px;font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){.blacklight-site .bl-hero-visual img{transition:none}
+  .blacklight-site .bl-hero-visual:hover img{transform:none}}
+
+/* Commerce pages: background animation must never reduce text contrast. */
+body.blacklight-site::before{
+  background:
+    radial-gradient(ellipse 50% 45% at 80% 15%,rgba(105,46,138,.18),transparent 80%),
+    radial-gradient(ellipse 45% 45% at 15% 60%,rgba(121,59,19,.1),transparent 85%),
+    var(--bg);
+}
+body.blacklight-site .scene-canvas,body.blacklight-site .scene-vignette{display:none!important}
+:root[data-theme="light"] body.blacklight-site::before{
+  background:
+    radial-gradient(ellipse 48% 44% at 86% 18%,rgba(163,113,201,.10),transparent 80%),
+    radial-gradient(ellipse 48% 44% at 12% 62%,rgba(255,181,115,.10),transparent 85%),
+    var(--bg);
+}
