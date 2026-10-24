@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+<title id="t">Veredra — capa conceitual</title><desc id="d">Livro aberto iluminado em âmbar, páginas em forma de V e interface de biblioteca sobre fundo noturno.</desc>
+<defs>
+<radialGradient id="bg"><stop stop-color="#473621"/><stop offset=".56" stop-color="#161a1c"/><stop offset="1" stop-color="#080d13"/></radialGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0b8"/><stop offset=".45" stop-color="#e9b96f"/><stop offset="1" stop-color="#aa7137"/></linearGradient>
+<linearGradient id="page" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#f5e8be"/><stop offset=".65" stop-color="#d4b989"/><stop offset="1" stop-color="#a88151"/></linearGradient>
+<linearGradient id="deep" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2f403e"/><stop offset="1" stop-color="#0c1721"/></linearGradient>
+<filter id="gl"><feGaussianBlur stdDeviation="19"/></filter>
+<pattern id="grid" width="76" height="76" patternUnits="userSpaceOnUse"><path d="M76 0H0V76" fill="none" stroke="#f6c988" stroke-opacity=".045"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/>
+<ellipse cx="1170" cy="487" rx="380" ry="230" fill="#e6a35c" opacity=".19" filter="url(#gl)"/>
+<text x="92" y="159" fill="#d9b57d" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="9">A BIBLIOTECA É SUA.</text>
+<text x="88" y="390" fill="#f7f1e4" font-family="Arial,sans-serif" font-size="142" font-weight="900" letter-spacing="-6">VEREDRA</text>
+<path d="M98 427h430" stroke="url(#gold)" stroke-width="8" stroke-linecap="round"/>
+<text x="96" y="501" fill="#c3bcac" font-family="Arial,sans-serif" font-size="30">Leitura sem fronteiras.</text>
+<text x="96" y="548" fill="#c3bcac" font-family="Arial,sans-serif" font-size="26">Seus livros. Seus dispositivos.</text>
+<g transform="translate(730 135)">
+<!-- luminous decorative rings -->
+<circle cx="412" cy="328" r="300" fill="none" stroke="#ac814b" stroke-opacity=".15" stroke-width="3"/>
+<circle cx="412" cy="328" r="252" fill="none" stroke="#c6a776" stroke-opacity=".13" stroke-width="2" stroke-dasharray="6 17"/>
+<!-- book pages -->
+<path d="M82 273Q190 215 404 293Q538 195 753 267L727 562Q540 513 404 598Q248 510 88 554Z" fill="#ecb66e" opacity=".55" filter="url(#gl)"/>
+<path d="M85 282Q245 218 404 303V592Q257 514 89 560Z" fill="url(#page)" stroke="#fbdda2" stroke-width="7"/>
+<path d="M404 303Q566 217 751 285L727 560Q544 508 404 592Z" fill="#e9d6ae" stroke="#fbdda2" stroke-width="7"/>
+<path d="M113 310Q258 262 380 326M117 341Q259 292 380 356M117 372Q259 323 380 386M117 404Q259 355 380 417M117 436Q259 386 380 447M117 470Q259 415 380 478M117 500Q259 447 380 510" stroke="#755a46" stroke-opacity=".48" stroke-width="8" stroke-linecap="round" fill="none"/>
+<path d="M427 330Q571 270 713 313M427 361Q571 301 713 344M427 393Q571 332 713 375M427 424Q571 364 713 407M427 455Q571 396 713 438M427 486Q571 427 713 469M427 517Q571 459 713 501" stroke="#755a46" stroke-opacity=".48" stroke-width="8" stroke-linecap="round" fill="none"/>
+<path d="M89 560Q255 504 403 605Q567 506 730 560" stroke="#b3804a" stroke-width="16" fill="none" stroke-linecap="round"/>
+<path d="M403 303V602" stroke="#b68755" stroke-width="9"/>
+<!-- Bookmark -->
+<path d="M619 270V417L649 390L681 418V275" fill="#285f61" stroke="#91b9aa" stroke-width="5"/>
+</g>
+<g font-family="Arial,sans-serif" letter-spacing="4" font-size="24" fill="#d0b58f">
+<text x="96" y="742">EPUB  /  PDF  /  TXT</text><text x="96" y="782">OFFLINE  •  MULTIPLATAFORMA</text></g>
+<path d="M58 74h230M1310 74h230M58 836h230M1310 836h230" stroke="#d8b26f" opacity=".6" stroke-width="3"/>
+</svg>

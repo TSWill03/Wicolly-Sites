@@ -217,3 +217,25 @@ test('BlackLight: páginas comerciais não causam overflow em dispositivos peque
     }
   }
 })
+
+test('capas autorais dos projetos carregam e Goiatuba aparece na infraestrutura', async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  const covers = ['campus-flow-cover.svg', 'veredra-cover.svg', 'little-x-cover.svg', 'openclaw-little-x-cover.svg', 'blacklight-3d-cover.svg', 'infrastructure-cover.svg', 'wicolly-sites-cover.svg']
+  await page.goto('/projetos/')
+  const cards = page.locator('.project-card')
+  await expect(cards).toHaveCount(7)
+  for (const cover of covers) {
+    const url = '/assets/projects/' + cover
+    await expect(cards.locator('img[src="' + url + '"]')).toHaveCount(1)
+    const response = await request.get(url)
+    expect(response.status(), cover).toBe(200)
+    expect(response.headers()['content-type'], cover).toContain('image/svg+xml')
+  }
+  await expect(cards.getByRole('heading', { name: 'Hefesto, Poseidon e Goiatuba' })).toBeVisible()
+  await page.goto('/en/projects/')
+  await expect(page.locator('.project-card img[src="/assets/projects/infrastructure-cover.svg"]')).toHaveCount(1)
+  await page.goto('/projetos/campus-flow/')
+  await expect(page.locator('.case-hero img')).toHaveAttribute('src', '/assets/projects/campus-flow.webp')
+  await page.goto('/projetos/veredra/')
+  await expect(page.locator('.case-hero img')).toHaveAttribute('src', '/assets/projects/veredra.webp')
+})

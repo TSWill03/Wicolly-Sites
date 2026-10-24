@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+<title id="t">Campus Flow — capa conceitual</title><desc id="d">Ilustração vetorial de calendário acadêmico flutuante, tarefas e chapéu de formatura em azul e verde.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#03141d"/><stop offset=".6" stop-color="#082a37"/><stop offset="1" stop-color="#053331"/></linearGradient>
+<linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5bf6d6"/><stop offset=".55" stop-color="#1cb5c1"/><stop offset="1" stop-color="#3377ff"/></linearGradient>
+<linearGradient id="card" x1="0" x2="1" y2="1"><stop stop-color="#153d4f"/><stop offset="1" stop-color="#081c2b"/></linearGradient>
+<radialGradient id="halo"><stop stop-color="#27e9a9" stop-opacity=".45"/><stop offset="1" stop-color="#22d8e5" stop-opacity="0"/></radialGradient>
+<filter id="g"><feGaussianBlur stdDeviation="18"/></filter>
+<pattern id="grid" width="55" height="55" patternUnits="userSpaceOnUse"><path d="M55 0H0V55" stroke="#89fff2" stroke-opacity=".07" fill="none"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/>
+<ellipse cx="1150" cy="445" rx="590" ry="450" fill="url(#halo)"/>
+<path d="M65 100h220M65 806h220M1320 100h220M1320 806h220" stroke="#3fe0d0" stroke-width="3" opacity=".58"/>
+<text x="110" y="165" fill="#87f8df" font-size="29" font-weight="700" letter-spacing="7" font-family="Arial,sans-serif">YOUR ACADEMIC HUB</text>
+<text x="105" y="380" fill="#f1fffa" font-family="Arial,sans-serif" font-size="132" font-weight="900" letter-spacing="-7">CAMPUS</text>
+<text x="105" y="508" fill="url(#a)" font-family="Arial,sans-serif" font-size="155" font-weight="900" letter-spacing="-5">FLOW</text>
+<rect x="110" y="550" width="420" height="7" rx="4" fill="url(#a)"/>
+<text x="110" y="618" fill="#a4ced2" font-family="Arial,sans-serif" font-size="30" letter-spacing="1">Uma jornada, tudo organizado.</text>
+<g opacity=".5" stroke="#5bf0c7" stroke-width="3" fill="none"><path d="M65 715h485M65 733h415" stroke-opacity=".2"/></g>
+<!-- editorial dashboard -->
+<g transform="translate(820 175)">
+<rect x="60" y="60" width="575" height="592" rx="37" fill="#12c7b4" opacity=".22" filter="url(#g)"/>
+<rect x="45" y="40" width="575" height="592" rx="36" fill="url(#card)" stroke="#5af9d5" stroke-width="6"/>
+<rect x="46" y="42" width="573" height="100" rx="35" fill="#175c64"/>
+<path d="M47 141H617" stroke="#64ffe2" stroke-width="4" opacity=".66"/>
+<circle cx="110" cy="91" r="12" fill="#73ffcd"/><circle cx="148" cy="91" r="12" fill="#4399ff"/><circle cx="186" cy="91" r="12" fill="#98d5e0" opacity=".55"/>
+<text x="235" y="103" font-size="30" fill="#e6fff9" font-family="Arial,sans-serif" font-weight="700">Meu semestre</text>
+<rect x="95" y="187" width="474" height="95" rx="22" fill="#1c4f5b" stroke="#57cfc9" stroke-width="2"/>
+<rect x="113" y="203" width="60" height="60" rx="17" fill="#29b9a9"/>
+<path d="M131 232l12 12 21 -24" stroke="#e4fff7" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<text x="198" y="224" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="25">Disciplinas</text>
+<rect x="200" y="243" width="270" height="9" rx="5" fill="#7bc4c2" opacity=".6"/>
+<rect x="95" y="306" width="474" height="95" rx="22" fill="#1c4f5b" stroke="#57cfc9" stroke-width="2"/>
+<rect x="113" y="323" width="60" height="60" rx="17" fill="#507cde"/>
+<path d="M126 335h36v36h-36zM134 345h20M134 355h20" stroke="#e4fff7" stroke-width="4" fill="none"/>
+<text x="198" y="344" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="25">Estudos</text>
+<rect x="200" y="363" width="224" height="9" rx="5" fill="#7bc4c2" opacity=".6"/>
+<rect x="95" y="425" width="474" height="95" rx="22" fill="#1c4f5b" stroke="#57cfc9" stroke-width="2"/>
+<rect x="113" y="442" width="60" height="60" rx="17" fill="#21ae88"/>
+<path d="M130 474l13 10 19-28" stroke="#e4fff7" stroke-width="7" fill="none" stroke-linecap="round"/>
+<text x="198" y="464" fill="#fff" font-family="Arial,sans-serif" font-weight="700" font-size="25">Metas e prazos</text>
+<rect x="200" y="482" width="310" height="9" rx="5" fill="#7bc4c2" opacity=".6"/>
+<text x="100" y="590" fill="#83dbd5" font-family="Arial,sans-serif" font-size="21" letter-spacing="4">OFFLINE FIRST  •  SYNC READY</text>
+</g>
+<!-- graduation emblem -->
+<g transform="translate(1150 121)">
+<ellipse cx="0" cy="0" rx="157" ry="90" fill="#48ffe3" opacity=".28" filter="url(#g)"/>
+<path d="M-154 -10L0 -88 155 -10 0 69Z" fill="#45e1bd" stroke="#d6fff2" stroke-width="6"/>
+<path d="M-95 34V82Q0 151 95 82V34" fill="#1b708d" stroke="#a6fff0" stroke-width="6"/>
+<path d="M155 -10V93" stroke="#9bfff0" stroke-width="7"/><circle cx="155" cy="106" r="14" fill="#3cf5cb"/>
+</g>
+</svg>
