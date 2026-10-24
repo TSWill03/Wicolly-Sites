@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">BlackLight 3D — identidade visual conceitual</title><desc id="desc">Impressora 3D futurista em um estúdio violeta com peça geométrica iluminada e marca BlackLight 3D. Ilustração, não fotografia de produto.</desc>
+<defs>
+<radialGradient id="bg" cx="75%" cy="44%" r="85%"><stop stop-color="#38205e"/><stop offset=".54" stop-color="#140b2b"/><stop offset="1" stop-color="#05050f"/></radialGradient>
+<linearGradient id="neon" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#4960ff"/><stop offset=".55" stop-color="#a544ff"/><stop offset="1" stop-color="#ff4cdf"/></linearGradient>
+<linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#343e65"/><stop offset=".46" stop-color="#0b1128"/><stop offset="1" stop-color="#596181"/></linearGradient>
+<linearGradient id="glass"><stop stop-color="#2e236a" stop-opacity=".35"/><stop offset=".55" stop-color="#5047a7" stop-opacity=".04"/><stop offset="1" stop-color="#a845ff" stop-opacity=".28"/></linearGradient>
+<linearGradient id="print" x1="0" y1="0" x2="1" y2=".6"><stop stop-color="#ff90fa"/><stop offset=".3" stop-color="#7848ed"/><stop offset="1" stop-color="#111347"/></linearGradient>
+<radialGradient id="spot"><stop stop-color="#c82cff" stop-opacity=".44"/><stop offset="1" stop-color="#5e3cff" stop-opacity="0"/></radialGradient>
+<pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse"><path d="M72 0H0V72" fill="none" stroke="#9b72f9" stroke-opacity=".06"/></pattern>
+<filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="16"/></filter>
+<filter id="soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/>
+<ellipse cx="1080" cy="500" rx="680" ry="510" fill="url(#spot)"/>
+<path d="M0 735L900 665L1600 725V900H0Z" fill="#080914" stroke="#3d255d" stroke-width="3"/>
+<path d="M0 770L800 716 1600 800" fill="none" stroke="#a64df9" stroke-opacity=".25" stroke-width="4"/>
+<!-- Big printer body and perspective cabinet -->
+<g>
+<path d="M850 126L1368 126 1468 178 1468 748 1368 799 850 799 813 757 813 175Z" fill="#090d22" stroke="#5a4b9d" stroke-width="13"/>
+<path d="M1368 126L1468 178V748L1368 799Z" fill="#14132f" stroke="#b762ff" stroke-opacity=".55" stroke-width="5"/>
+<rect x="840" y="145" width="536" height="617" rx="11" fill="url(#metal)" stroke="#7b6cff" stroke-width="15"/>
+<rect x="885" y="215" width="446" height="481" fill="url(#glass)" stroke="#a25dff" stroke-width="8"/>
+<path d="M875 226H1341M875 690H1341" stroke="#f35eff" stroke-width="11" opacity=".7" filter="url(#soft)"/>
+<path d="M875 226H1341M875 690H1341" stroke="#d87cff" stroke-width="4"/>
+<path d="M910 259L910 664M1295 259L1295 664" stroke="#747fe8" stroke-width="5" opacity=".7"/>
+<path d="M916 296H1292M916 310H1292" stroke="#a993ff" stroke-width="9"/>
+<path d="M980 296V335L1015 363H1167L1195 331V295" stroke="#5063b7" stroke-width="12" fill="none"/>
+<path d="M1043 310H1138V376H1043Z" fill="#151529" stroke="#b6a2ff" stroke-width="7"/>
+<circle cx="1091" cy="340" r="20" fill="#292e50" stroke="#816fea" stroke-width="6"/>
+<path d="M1080 381L1091 406L1102 381Z" fill="#f08aff"/>
+<ellipse cx="1090" cy="425" rx="80" ry="45" fill="#be4fff" opacity=".45" filter="url(#glow)"/>
+<!-- printer bed -->
+<path d="M932 667L1242 667 1301 698 984 698Z" fill="#1d2146" stroke="#ac68ff" stroke-width="6"/>
+<path d="M984 698H1301L1285 718H971Z" fill="#12152e" stroke="#665fd1" stroke-width="3"/>
+<!-- Printed faceted spiral sculpt -->
+<path d="M1114 672Q1002 626 1071 572Q1120 538 1088 504Q1052 461 1130 418Q1190 393 1153 429Q1091 473 1148 497Q1210 534 1145 578Q1094 617 1180 645Z" fill="url(#print)" stroke="#bc82ff" stroke-width="5"/>
+<path d="M1114 672L1150 630 1105 589 1145 578 1088 504 1131 418M1150 630L1180 645" fill="none" stroke="#f2baff" stroke-width="4" opacity=".8"/>
+<path d="M1080 510L1155 430M1067 577L1155 528" stroke="#402bc3" stroke-width="7" opacity=".75"/>
+<path d="M1115 389V420" stroke="#ffb3fc" stroke-width="3" stroke-dasharray="4 6"/>
+<!-- neon inner rails -->
+<path d="M883 222V690M1326 222V690" stroke="#d94dff" stroke-width="13" opacity=".42" filter="url(#soft)"/>
+<path d="M883 222V690M1326 222V690" stroke="#ad67f9" stroke-width="3"/>
+<path d="M840 760H1377" stroke="#ff63f2" stroke-width="8"/>
+<text x="891" y="190" fill="#d5a4ff" font-family="Arial,sans-serif" font-size="27" font-weight="800" letter-spacing="10">BL / FAB LAB</text>
+</g>
+<!-- Graphic brand lockup -->
+<g fill="#f8f6ff" font-family="Arial,Helvetica,sans-serif" font-weight="900">
+<text x="105" y="344" font-size="142" letter-spacing="-9">BLACK</text>
+<text x="105" y="474" font-size="142" letter-spacing="-9">LIGHT<tspan fill="#c063ff"> 3D</tspan></text>
+</g>
+<rect x="110" y="515" width="495" height="7" rx="4" fill="url(#neon)"/>
+<g fill="#c8acee" font-family="Arial, sans-serif" font-size="22" letter-spacing="4"><text x="113" y="577">DESIGN · PROTOTIPAGEM</text><text x="113" y="618">IMPRESSÃO 3D SOB MEDIDA</text></g>
+<!-- Small floating design objects -->
+<g transform="translate(253 750)" stroke="#ad83ff" stroke-width="5"><path d="M0 0L61 -38 120 0 61 43Z" fill="#202050"/><path d="M0 0V69L61 105V43ZM120 0V69L61 105V43Z" fill="#111534"/><path d="M61 -38V43M0 0L120 69M120 0L0 69" fill="none" opacity=".35"/></g>
+<g transform="translate(525 775)" stroke="#db68ff" stroke-width="5"><circle cx="0" cy="0" r="46" fill="#1f174c"/><circle cx="0" cy="0" r="20" fill="#0a0b23"/><path d="M0 -58V-46M0 46V58M-58 0H-46M46 0H58M-42 -42L-32 -32M42 42L32 32" /></g>
+<path d="M75 95h180M1370 95h162M75 830h180M1370 830h162" stroke="#a34aff" stroke-opacity=".55" stroke-width="3"/>
+</svg>

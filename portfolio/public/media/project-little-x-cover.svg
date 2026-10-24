@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Little X — identidade visual conceitual</title><desc id="desc">Símbolo X luminoso em azul e violeta sobre uma plataforma tecnológica com anéis e circuitos.</desc>
+<defs>
+<radialGradient id="bg" cx="52%" cy="50%" r="78%"><stop stop-color="#14245b"/><stop offset=".50" stop-color="#080f26"/><stop offset="1" stop-color="#030610"/></radialGradient>
+<linearGradient id="x" x1="0" x2="1" y2="1"><stop stop-color="#39d7ff"/><stop offset=".46" stop-color="#6e85ff"/><stop offset="1" stop-color="#d462ff"/></linearGradient>
+<linearGradient id="edge" x1="0" x2="1" y2=".3"><stop stop-color="#00e1ff"/><stop offset=".5" stop-color="#646dff"/><stop offset="1" stop-color="#e756ff"/></linearGradient>
+<radialGradient id="halo"><stop stop-color="#815cff" stop-opacity=".44"/><stop offset="1" stop-color="#815cff" stop-opacity="0"/></radialGradient>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="24"/></filter>
+<filter id="soft" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="7"/></filter>
+<pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse"><path d="M80 0H0V80" fill="none" stroke="#8fa6ff" stroke-opacity=".075"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/>
+<ellipse cx="800" cy="470" rx="730" ry="490" fill="url(#halo)"/>
+<g fill="none" stroke="#7b90ff"><circle cx="800" cy="445" r="310" stroke-opacity=".13" stroke-width="2"/><circle cx="800" cy="445" r="360" stroke-opacity=".15" stroke-dasharray="3 21"/><circle cx="800" cy="445" r="420" stroke-opacity=".10"/></g>
+<g stroke="url(#edge)" fill="none" stroke-width="3" opacity=".40"><path d="M0 210C220 210 160 300 370 300S510 210 595 210"/><path d="M1600 250C1370 250 1460 335 1220 335S1120 260 1060 260"/><path d="M0 605C250 605 310 555 530 555"/><path d="M1600 600C1400 600 1375 540 1160 540"/></g>
+<g fill="#82a9ff"><circle cx="210" cy="235" r="8"/><circle cx="365" cy="300" r="5"/><circle cx="1382" cy="319" r="7"/><circle cx="1440" cy="596" r="5"/></g>
+<g transform="translate(800 750)">
+<ellipse rx="425" ry="83" fill="#050914" stroke="#5860d7" stroke-width="8"/>
+<ellipse rx="355" ry="59" fill="none" stroke="#547aff" stroke-width="13" opacity=".6"/>
+<ellipse rx="275" ry="34" fill="none" stroke="#bd72ff" stroke-width="10" opacity=".7"/>
+<ellipse rx="165" ry="18" fill="#8c6dff" opacity=".35" filter="url(#glow)"/>
+</g>
+<g transform="translate(800 438)">
+<path id="glyph" d="M-265 -245H-112L0 -83L114 -245H267L94 0L267 245H114L0 84L-112 245H-266L-94 0Z" fill="url(#x)" opacity=".56" filter="url(#glow)"/>
+<path d="M-265 -245H-112L0 -83L114 -245H267L94 0L267 245H114L0 84L-112 245H-266L-94 0Z" fill="#0b1334" stroke="url(#edge)" stroke-width="22" stroke-linejoin="round"/>
+<path d="M-243 -227H-124L0 -47L125 -227H244L66 0L243 226H126L0 46L-126 226H-242L-65 0Z" fill="#151d4b" stroke="#8b9fff" stroke-width="3" opacity=".85"/>
+<path d="M-243 -227H-124L0 -47L125 -227H244L66 0L243 226H126L0 46L-126 226H-242L-65 0Z" fill="none" stroke="url(#edge)" stroke-width="5" filter="url(#soft)"/>
+<circle r="16" fill="#d5a3ff" filter="url(#soft)"/><circle r="7" fill="#fff"/>
+</g>
+<g fill="#98aafa" font-family="Arial, sans-serif" font-weight="700" letter-spacing="9" font-size="24" opacity=".78"><text x="82" y="108">LITTLE X / AI LAB</text><text x="1070" y="809" font-size="18" letter-spacing="5">MEMORY · TOOLS · CONTROL</text></g>
+<path d="M60 65h220M1320 65h220M60 835h220M1320 835h220" stroke="#627bff" stroke-width="3" opacity=".5"/>
+</svg>

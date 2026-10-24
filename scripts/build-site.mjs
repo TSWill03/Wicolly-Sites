@@ -76,7 +76,7 @@ async function main() {
   for (const dir of ['servicos','shared','privacidade','hefesto','poseidon','blacklight3d','impressoes-3d','madrinha','veredra']) await copyDirectory(resolveInsideRoot(dir), path.join(distDir, dir))
 
   await fs.mkdir(path.join(distDir, 'assets', 'projects'), { recursive: true })
-  const projectAssets = { 'project-campusflow-real.webp':'campus-flow.webp','project-veredra-real.webp':'veredra.webp','project-little-x.svg':'little-x.svg','project-openclaw-little-x.svg':'openclaw-little-x.svg','project-blacklight-real.png':'blacklight-3d.png','project-infrastructure.svg':'infrastructure.svg','project-wicolly-sites-real.png':'wicolly-sites.png' }
+  const projectAssets = { 'project-campusflow-real.webp':'campus-flow.webp','project-veredra-real.webp':'veredra.webp','project-little-x.svg':'little-x.svg','project-little-x-cover.svg':'little-x-cover.svg','project-openclaw-little-x.svg':'openclaw-little-x.svg','project-blacklight-real.png':'blacklight-3d.png','project-blacklight-cover.svg':'blacklight-3d-cover.svg','project-infrastructure.svg':'infrastructure.svg','project-wicolly-sites-real.png':'wicolly-sites.png' }
   for (const [source,destination] of Object.entries(projectAssets)) await fs.copyFile(resolveInsideRoot('portfolio','public','media',source), path.join(distDir,'assets','projects',destination))
   await fs.mkdir(path.join(distDir,'portfolio'), { recursive:true })
   await fs.copyFile(resolveInsideRoot('portfolio','public','curriculo.pdf'), path.join(distDir,'portfolio','curriculo.pdf'))
