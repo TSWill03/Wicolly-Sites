@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+<title id="t">OpenClaw Little X — capa conceitual</title><desc id="d">Emblema hexagonal e roteamento abstrato de agentes em coral, violeta e azul.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#140c1d"/><stop offset=".5" stop-color="#13162d"/><stop offset="1" stop-color="#060c18"/></linearGradient>
+<linearGradient id="a" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#ff737b"/><stop offset=".52" stop-color="#ff4ca7"/><stop offset="1" stop-color="#7770ff"/></linearGradient>
+<linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2b2245"/><stop offset="1" stop-color="#091528"/></linearGradient>
+<filter id="g"><feGaussianBlur stdDeviation="18"/></filter>
+<pattern id="grid" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M70 0H0V70" stroke="#f697c0" stroke-opacity=".05" fill="none"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/><rect width="1600" height="900" fill="url(#grid)"/>
+<text x="100" y="156" fill="#df92c4" font-family="Arial,sans-serif" font-size="27" font-weight="700" letter-spacing="6">AGENT RUNTIME / EXPERIMENTAL</text>
+<text x="95" y="342" fill="#f9f4ff" font-family="Arial,sans-serif" font-weight="900" font-size="115" letter-spacing="-6">OPENCLAW</text>
+<text x="95" y="477" fill="url(#a)" font-family="Arial,sans-serif" font-weight="900" font-size="140" letter-spacing="-5">LITTLE X</text>
+<rect x="102" y="516" width="425" height="7" rx="3" fill="url(#a)"/>
+<text x="100" y="579" fill="#b5aec9" font-family="Arial,sans-serif" font-size="28">Ferramentas, roteamento e controle.</text>
+<text x="100" y="628" fill="#b5aec9" font-family="Arial,sans-serif" font-size="24">Integração experimental privada.</text>
+<circle cx="1150" cy="448" r="345" fill="#fb5099" opacity=".18" filter="url(#g)"/>
+<g transform="translate(1152 447)">
+<circle r="332" fill="none" stroke="#9d71ed" stroke-opacity=".24" stroke-width="3" stroke-dasharray="7 16"/>
+<circle r="255" fill="none" stroke="#f36a9d" stroke-opacity=".34" stroke-width="5"/>
+<path d="M0 -263L228 -131V132L0 263 -228 132V-131Z" fill="url(#panel)" stroke="url(#a)" stroke-width="15"/>
+<path d="M0 -190L168 -95V95L0 190 -168 95V-95Z" stroke="#fa8ac1" opacity=".46" stroke-width="5" fill="none"/>
+<path d="M-110 -108L-38 -30 -87 64M110 -108L38 -30 87 64M-87 64L-9 113 87 64" stroke="url(#a)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<circle cy="-28" r="30" fill="#ffe1f2"/><circle cy="-28" r="63" fill="#f35aaf" opacity=".3" filter="url(#g)"/>
+<path d="M-180 148Q0 250 180 148" stroke="#ff8dbc" stroke-width="7" fill="none"/>
+</g>
+<g fill="#ec9dc9" font-family="Arial,sans-serif" font-size="19" letter-spacing="4"><text x="105" y="790">TOOLS  /  PROVIDERS  /  APPROVALS</text></g>
+<path d="M55 80h230M1315 80h230M55 828h230M1315 828h230" stroke="#ea75a8" opacity=".5" stroke-width="3"/>
+</svg>

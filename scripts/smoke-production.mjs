@@ -123,9 +123,9 @@ async function checkProductionContent() {
     ['/infraestrutura/', 'Infraestrutura como'], ['/contato/', 'Quer construir algo'],
     ['/projetos/campus-flow/', 'Campus Flow'], ['/projetos/veredra/', 'Veredra'], ['/projetos/little-x/', 'Little X'],
     ['/projetos/openclaw-little-x/', 'OpenClaw Little X'], ['/projetos/blacklight-3d/', 'BlackLight 3D'],
-    ['/projetos/laboratorio-infraestrutura/', 'Hefesto e Poseidon'], ['/projetos/wicolly-sites/', 'Wicolly Sites'],
-    ['/blacklight3d/', 'Da ideia'], ['/blacklight3d/orcamento/', 'Não há upload no site'],
-    ['/en/', 'I build systems'], ['/en/blacklight3d/', 'From idea'],
+    ['/projetos/laboratorio-infraestrutura/', 'Hefesto, Poseidon e Goiatuba'], ['/projetos/wicolly-sites/', 'Wicolly Sites'],
+    ['/blacklight3d/', 'Sua ideia'], ['/blacklight3d/orcamento/', 'Não há upload no site'],
+    ['/en/', 'I build systems'], ['/en/blacklight3d/', 'Your idea'],
     ['/portfolio/', 'Projetos'], ['/portfolio/curriculo.html', 'Wícolly Pedro Alcântara'],
     ['/hefesto/', 'Hefesto'], ['/poseidon/', 'Poseidon'], ['/madrinha/', 'Madrinha'],
   ]
