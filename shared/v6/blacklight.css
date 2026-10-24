@@ -189,3 +189,18 @@ body.blacklight-site .scene-canvas,body.blacklight-site .scene-vignette{display:
     radial-gradient(ellipse 48% 44% at 12% 62%,rgba(255,181,115,.10),transparent 85%),
     var(--bg);
 }
+
+/* Keep BlackLight category cards and local navigation inside tablet viewports.
+   A three-column min-content grid could exceed 768px with Linux font metrics. */
+.blacklight-site .project-type-grid > article,
+.blacklight-site .bl-categories > a { min-width: 0; }
+.blacklight-site .project-type-grid h2,
+.blacklight-site .bl-categories strong { overflow-wrap: anywhere; }
+@media (min-width: 681px) and (max-width: 1020px) {
+  .blacklight-site .project-type-grid,
+  .blacklight-site .bl-categories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 761px) and (max-width: 860px) {
+  .blacklight-site .bl-localbar { flex-wrap: wrap; gap: 14px; }
+  .blacklight-site .bl-localnav { width: 100%; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+}
