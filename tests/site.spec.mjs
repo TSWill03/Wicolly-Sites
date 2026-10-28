@@ -86,15 +86,16 @@ test('contato rápido móvel mostra ambos os WhatsApps sem ocultar conteúdo', a
     const en = route === '/en/'
     const dock = page.getByRole('navigation', { name: en ? 'Quick WhatsApp contact' : 'Contato rápido pelo WhatsApp' })
     await expect(dock).toBeVisible()
-    const personal = dock.getByRole('link', { name: en ? 'Personal WhatsApp contact' : 'WhatsApp pessoal' })
+    const technology = dock.getByRole('link', { name: en ? 'WhatsApp for websites, systems and AI' : 'WhatsApp para sites, sistemas e IA' })
     const blacklight = dock.getByRole('link', { name: en ? 'BlackLight 3D WhatsApp quotes' : 'WhatsApp BlackLight 3D para orçamentos' })
-    await expect(personal).toHaveAttribute('href', /^https:\/\/wa\.me\/5534997675400\?text=/)
+    await expect(technology).toHaveAttribute('href', /^https:\/\/wa\.me\/5534997675400\?text=/)
     await expect(blacklight).toHaveAttribute('href', /^https:\/\/wa\.me\/5564993252339\?text=/)
-    await expect(personal).toHaveAttribute('target', '_blank')
+    await expect(technology).toHaveAttribute('target', '_blank')
     await expect(blacklight).toHaveAttribute('rel', /noopener/)
+    await expect(technology.locator('small')).toHaveText(en ? 'Websites, Systems & AI' : 'Sites, Sistemas e IA')
     const buttons = await dock.getByRole('link').all()
     expect(buttons).toHaveLength(2)
-    expect(await buttons[0].getAttribute('aria-label')).toContain(route === '/blacklight3d/' ? 'BlackLight' : (en ? 'Personal' : 'pessoal'))
+    expect(await buttons[0].getAttribute('aria-label')).toContain(route === '/blacklight3d/' ? 'BlackLight' : (en ? 'websites' : 'sites'))
     for (const button of buttons) {
       const box = await button.boundingBox()
       expect(box).toBeTruthy()
@@ -107,10 +108,11 @@ test('contato rápido móvel mostra ambos os WhatsApps sem ocultar conteúdo', a
   }
 })
 
-test('página de contato exibe números pessoal e BlackLight com links diretos', async ({ page }, testInfo) => {
+test('página de contato exibe serviços de sites, sistemas e IA e números de WhatsApp', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-chromium')
   for (const route of ['/contato/', '/en/contact/']) {
     await page.goto(route)
+    await expect(page.locator('.contact-grid')).toContainText(route.startsWith('/en/') ? 'Websites, Systems & AI' : 'Sites, Sistemas e IA')
     await expect(page.locator('.contact-grid')).toContainText('+55 (34) 99767-5400')
     await expect(page.locator('.contact-grid')).toContainText('+55 (64) 99325-2339')
     await expect(page.locator('.contact-grid a[href^="https://wa.me/5534997675400"]')).toHaveCount(1)
