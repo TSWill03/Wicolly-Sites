@@ -78,6 +78,47 @@ test('menu móvel abre, links são clicáveis e Escape restaura foco', async ({ 
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
 })
 
+
+test('contato rápido móvel mostra ambos os WhatsApps sem ocultar conteúdo', async ({ page }, testInfo) => {
+  test.skip(!['iphone-chromium','android-chromium','tablet-chromium'].includes(testInfo.project.name))
+  for (const route of ['/', '/blacklight3d/', '/en/']) {
+    await page.goto(route)
+    const en = route === '/en/'
+    const dock = page.getByRole('navigation', { name: en ? 'Quick WhatsApp contact' : 'Contato rápido pelo WhatsApp' })
+    await expect(dock).toBeVisible()
+    const personal = dock.getByRole('link', { name: en ? 'Personal WhatsApp contact' : 'WhatsApp pessoal' })
+    const blacklight = dock.getByRole('link', { name: en ? 'BlackLight 3D WhatsApp quotes' : 'WhatsApp BlackLight 3D para orçamentos' })
+    await expect(personal).toHaveAttribute('href', /^https:\/\/wa\.me\/5534997675400\?text=/)
+    await expect(blacklight).toHaveAttribute('href', /^https:\/\/wa\.me\/5564993252339\?text=/)
+    await expect(personal).toHaveAttribute('target', '_blank')
+    await expect(blacklight).toHaveAttribute('rel', /noopener/)
+    const buttons = await dock.getByRole('link').all()
+    expect(buttons).toHaveLength(2)
+    expect(await buttons[0].getAttribute('aria-label')).toContain(route === '/blacklight3d/' ? 'BlackLight' : (en ? 'Personal' : 'pessoal'))
+    for (const button of buttons) {
+      const box = await button.boundingBox()
+      expect(box).toBeTruthy()
+      expect(box.height).toBeGreaterThanOrEqual(44)
+      expect(box.x).toBeGreaterThanOrEqual(0)
+      expect(box.x + box.width).toBeLessThanOrEqual(page.viewportSize().width)
+    }
+    const width = await page.evaluate(() => document.documentElement.scrollWidth)
+    expect(width).toBeLessThanOrEqual(page.viewportSize().width)
+  }
+})
+
+test('página de contato exibe números pessoal e BlackLight com links diretos', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium')
+  for (const route of ['/contato/', '/en/contact/']) {
+    await page.goto(route)
+    await expect(page.locator('.contact-grid')).toContainText('+55 (34) 99767-5400')
+    await expect(page.locator('.contact-grid')).toContainText('+55 (64) 99325-2339')
+    await expect(page.locator('.contact-grid a[href^="https://wa.me/5534997675400"]')).toHaveCount(1)
+    await expect(page.locator('.contact-grid a[href^="https://wa.me/5564993252339"]')).toHaveCount(1)
+    await expect(page.locator('.mobile-contact-bar')).toBeHidden()
+  }
+})
+
 test('tema segue o sistema, alterna e persiste', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-chromium')
   await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
