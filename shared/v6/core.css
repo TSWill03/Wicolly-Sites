@@ -59,7 +59,7 @@ main{position:relative;z-index:2;padding-top:92px}.hero,.page-hero,.case-hero,.b
 
 /* Contato de um toque em celulares e tablets, sem esconder o final da página. */
 .mobile-contact-bar{display:none}
-@media(max-width:800px){
+@media(max-width:1020px){
   body:not(.resume){padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
   .mobile-contact-bar{
     position:fixed;z-index:120;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));
