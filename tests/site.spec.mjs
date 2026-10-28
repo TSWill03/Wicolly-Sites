@@ -108,6 +108,50 @@ test('contato rápido móvel mostra ambos os WhatsApps sem ocultar conteúdo', a
   }
 })
 
+test('barra de contato móvel some ao rolar para baixo e reaparece ao subir', async ({ page }, testInfo) => {
+  test.skip(!['iphone-chromium','android-chromium','tablet-chromium'].includes(testInfo.project.name))
+  await page.goto('/')
+  const dock = page.locator('.mobile-contact-bar')
+  await expect(dock).toBeVisible()
+
+  // Tiny movement and the very top of the page should keep the controls available.
+  await page.evaluate(() => window.scrollTo({ top: 35, behavior: 'instant' }))
+  await expect(dock).toBeVisible()
+  await expect(dock).not.toHaveClass(/is-hidden/)
+
+  await page.evaluate(() => window.scrollTo({ top: 650, behavior: 'instant' }))
+  await expect(dock).toHaveClass(/is-hidden/)
+  await expect(dock).toBeHidden()
+  await expect(dock).toHaveAttribute('aria-hidden', 'true')
+  await expect(dock).toHaveAttribute('inert', '')
+
+  await page.evaluate(() => window.scrollBy({ top: -6, behavior: 'instant' }))
+  await expect(dock).toHaveClass(/is-hidden/)
+  await page.evaluate(() => window.scrollBy({ top: -130, behavior: 'instant' }))
+  await expect(dock).toBeVisible()
+  await expect(dock).not.toHaveClass(/is-hidden/)
+  await expect(dock).toHaveAttribute('aria-hidden', 'false')
+  await expect(dock).not.toHaveAttribute('inert', '')
+  await expect(dock.getByRole('link')).toHaveCount(2)
+
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+  await expect(dock).toBeVisible()
+})
+
+test('efeito de scroll funciona também na BlackLight e no site em inglês', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'iphone-chromium')
+  for (const route of ['/blacklight3d/', '/en/']) {
+    await page.goto(route)
+    const dock = page.locator('.mobile-contact-bar')
+    await expect(dock).toBeVisible()
+    await page.evaluate(() => window.scrollTo({ top: 750, behavior: 'instant' }))
+    await expect(dock).toBeHidden()
+    await page.evaluate(() => window.scrollBy({ top: -160, behavior: 'instant' }))
+    await expect(dock).toBeVisible()
+    await expect(dock.getByRole('link')).toHaveCount(2)
+  }
+})
+
 test('label de serviços não extrapola o dock em telas de 320px', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'iphone-chromium')
   await page.setViewportSize({ width: 320, height: 720 })
