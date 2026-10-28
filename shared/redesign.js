@@ -39,6 +39,48 @@
     })
   }
 
+  // Keep quick contacts discoverable while scrolling up and out of the way while scrolling down.
+  const contactBar = document.querySelector('.mobile-contact-bar')
+  if (contactBar) {
+    let previousY = Math.max(0, window.scrollY)
+    let lastDirection = 0
+    let distance = 0
+    let scheduled = false
+    const setHidden = (hidden) => {
+      if (contactBar.classList.contains('is-hidden') === hidden) return
+      contactBar.classList.toggle('is-hidden', hidden)
+      contactBar.toggleAttribute('inert', hidden)
+      contactBar.setAttribute('aria-hidden', String(hidden))
+    }
+    const updateContactBar = () => {
+      scheduled = false
+      const currentY = Math.max(0, window.scrollY)
+      const change = currentY - previousY
+      previousY = currentY
+      if (currentY <= 60) {
+        distance = 0
+        lastDirection = 0
+        setHidden(false)
+        return
+      }
+      const direction = Math.sign(change)
+      if (direction === 0) return
+      if (direction !== lastDirection) {
+        distance = 0
+        lastDirection = direction
+      }
+      distance += Math.abs(change)
+      if (distance < 18) return
+      distance = 0
+      setHidden(direction > 0)
+    }
+    window.addEventListener('scroll', () => {
+      if (scheduled) return
+      scheduled = true
+      window.requestAnimationFrame(updateContactBar)
+    }, { passive: true })
+  }
+
   document.querySelectorAll('[data-contact]').forEach((link) => {
     const phone = link.dataset.phone
     if (!phone) return
