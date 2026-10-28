@@ -82,7 +82,7 @@ main{position:relative;z-index:2;padding-top:92px}.hero,.page-hero,.case-hero,.b
   .mobile-contact-label strong{font-size:12px;font-weight:760;letter-spacing:.01em}
   .mobile-contact-label small{font-size:11px;color:rgba(255,255,255,.94);font-weight:650;white-space:nowrap}
   .mobile-contact-link-technology .mobile-contact-label small{white-space:normal;text-wrap:balance;line-height:1.2}
-  @media(max-width:400px){.mobile-contact-link{gap:5px;padding-inline:4px}.mobile-contact-link-technology .mobile-contact-label small{font-size:10px}}
   .mobile-contact-link:hover{filter:brightness(1.08)}
   .mobile-contact-link:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
 }
+@media(max-width:400px){.mobile-contact-link{gap:5px;padding-inline:4px}.mobile-contact-link-technology .mobile-contact-label small{font-size:10px}}
