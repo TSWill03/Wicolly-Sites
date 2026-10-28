@@ -108,6 +108,25 @@ test('contato rápido móvel mostra ambos os WhatsApps sem ocultar conteúdo', a
   }
 })
 
+test('label de serviços não extrapola o dock em telas de 320px', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'iphone-chromium')
+  await page.setViewportSize({ width: 320, height: 720 })
+  await page.goto('/')
+  const dock = page.getByRole('navigation', { name: 'Contato rápido pelo WhatsApp' })
+  await expect(dock).toBeVisible()
+  const technology = dock.getByRole('link', { name: 'WhatsApp para sites, sistemas e IA' })
+  await expect(technology.locator('small')).toHaveText('Sites, Sistemas e IA')
+  const result = await technology.evaluate((link) => {
+    const label = link.querySelector('small')
+    const box = link.getBoundingClientRect()
+    const textBox = label.getBoundingClientRect()
+    return { labelWidth: label.scrollWidth, labelClientWidth: label.clientWidth, inside: textBox.left >= box.left && textBox.right <= box.right }
+  })
+  expect(result.labelWidth).toBeLessThanOrEqual(result.labelClientWidth + 1)
+  expect(result.inside).toBe(true)
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320)
+})
+
 test('página de contato exibe serviços de sites, sistemas e IA e números de WhatsApp', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop-chromium')
   for (const route of ['/contato/', '/en/contact/']) {
