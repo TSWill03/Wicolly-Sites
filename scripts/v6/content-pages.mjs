@@ -6,7 +6,7 @@ export function services(profile,links){const body=`<section class="page-hero"><
 export function contact(profile,links,lang='pt'){
   const en=lang==='en',path=en?'/en/contact/':'/contato/',whatsapp=whatsappChannels(links,lang)
   const cards=[
-    [en?'Personal WhatsApp':'WhatsApp pessoal',whatsappDisplay(links.technologyWhatsApp),whatsapp.personal],
+    [en?'WhatsApp · Websites, Systems & AI':'WhatsApp · Sites, Sistemas e IA',whatsappDisplay(links.technologyWhatsApp),whatsapp.technology],
     ['WhatsApp BlackLight 3D',whatsappDisplay(links.blacklightWhatsApp),whatsapp.blacklight],
     ['Email',links.email,`mailto:${links.email}`],
     ['LinkedIn',en?'Professional profile':'Perfil profissional',links.linkedin],
@@ -15,14 +15,14 @@ export function contact(profile,links,lang='pt'){
   const body=`<section class="page-hero"><div class="shell">
     <p class="eyebrow">${en?'CONTACT':'CONTATO'}</p>
     <h1>${en?'Want to build something <span>or talk technical?</span>':'Quer construir algo <span>ou trocar uma ideia técnica?</span>'}</h1>
-    <p class="lead">${en?'Contact me directly, or request your 3D printing quote through BlackLight.':'Fale comigo diretamente ou peça seu orçamento de impressão 3D pela BlackLight.'}</p>
+    <p class="lead">${en?'Request a website, custom software or AI solution, or get a 3D printing quote through BlackLight.':'Solicite sites, aplicativos, sistemas personalizados e soluções com IA, ou peça seu orçamento de impressão 3D pela BlackLight.'}</p>
   </div></section><section class="section"><div class="shell contact-grid">
     ${cards.map(([name,label,href])=>`<a class="contact-card" href="${esc(href)}"${href.startsWith('http')?' target="_blank" rel="noopener noreferrer"':''}>
       <div><p class="eyebrow">${esc(name)}</p><h2>${esc(label)}</h2></div>
       <small>${en?'Open →':'Abrir →'}</small>
     </a>`).join('')}
   </div></section>`
-  return layout({profile,links,title:en?'Contact | Wícolly':'Contato | Wícolly',description:en?'Direct WhatsApp contacts for personal projects and BlackLight 3D.':'Contatos diretos no WhatsApp pessoal e da BlackLight 3D.',path,body,lang})
+  return layout({profile,links,title:en?'Contact | Wícolly':'Contato | Wícolly',description:en?'WhatsApp contacts for websites, software and AI projects, and BlackLight 3D.':'Contatos para desenvolvimento de sites, sistemas, inteligência artificial e impressão 3D.',path,body,lang})
 }
 export function privacy(profile,links){const body=`<section class="page-hero"><div class="shell"><p class="eyebrow">PRIVACIDADE</p><h1>Uma presença pública com o mínimo de coleta necessária.</h1><p class="lead">O site é majoritariamente estático. Formulários de orçamento preparam mensagens no navegador e abrem canais externos.</p></div></section><section class="section"><div class="shell prose"><h2>Contato</h2><p>Ao abrir WhatsApp, e-mail, GitHub ou LinkedIn, a política da plataforma externa passa a valer.</p><h2>Dados técnicos</h2><p>Não publicamos credenciais, endereços internos, chaves ou topologia operacional sensível.</p></div></section>`;return layout({profile,links,title:`Privacidade | ${profile.name}`,description:'Privacidade e serviços externos no wicolly.com.br.',path:'/privacidade/',body})}
 export function resume(profile,links,projects){const selected=projects.filter(p=>['campus-flow','veredra','little-x','blacklight-3d'].includes(p.slug));return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Currículo | ${esc(profile.name)}</title><link rel="stylesheet" href="/shared/redesign.css?v=__BUILD_VERSION__"><link rel="stylesheet" href="/shared/v6/core.css?v=__BUILD_VERSION__"></head><body class="resume"><main><header><p class="eyebrow">CURRÍCULO</p><h1>${esc(profile.name)}</h1><p>${esc(profile.headline)}</p><p>${esc(profile.location)} · <a href="mailto:${esc(links.email)}">${esc(links.email)}</a> · <a href="${esc(links.linkedin)}">LinkedIn</a> · <a href="${esc(links.github)}">GitHub</a></p></header><section><h2>Perfil</h2><p>${esc(profile.shortBio)}</p></section><section><h2>Formação</h2><h3>${esc(profile.education.course)}</h3><p>${esc(profile.education.institution)} · ${esc(profile.education.period)} · ${esc(profile.education.status)}</p></section><section><h2>Projetos selecionados</h2>${selected.map(p=>`<article><h3>${esc(p.name)} <small>— ${esc(p.status)}</small></h3><p>${esc(p.shortDescription)}</p></article>`).join('')}</section></main></body></html>`}
