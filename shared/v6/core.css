@@ -56,3 +56,31 @@ main{position:relative;z-index:2;padding-top:92px}.hero,.page-hero,.case-hero,.b
   border-color:#172033;
   color:#fff;
 }
+
+/* Contato de um toque em celulares e tablets, sem esconder o final da página. */
+.mobile-contact-bar{display:none}
+@media(max-width:800px){
+  body:not(.resume){padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+  .mobile-contact-bar{
+    position:fixed;z-index:120;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));
+    transform:translateX(-50%);width:min(calc(100% - 20px),470px);
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding:7px;
+    border:1px solid var(--line-strong);border-radius:18px;
+    background:color-mix(in srgb,var(--surface-strong) 95%,transparent);
+    box-shadow:0 12px 35px rgba(0,0,0,.28);
+    backdrop-filter:blur(18px) saturate(130%);
+  }
+  .mobile-contact-link{
+    display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;min-height:51px;
+    padding:8px 6px;border-radius:12px;color:#fff!important;
+    text-align:left;box-shadow:inset 0 1px 0 rgba(255,255,255,.15);
+  }
+  .mobile-contact-link-personal{background:#16754f}
+  .mobile-contact-link-blacklight{background:#a9470f}
+  .mobile-contact-link svg{width:20px;height:20px;flex:none}
+  .mobile-contact-label{display:flex;min-width:0;flex-direction:column;line-height:1.2}
+  .mobile-contact-label strong{font-size:12px;font-weight:760;letter-spacing:.01em}
+  .mobile-contact-label small{font-size:11px;color:rgba(255,255,255,.94);font-weight:650;white-space:nowrap}
+  .mobile-contact-link:hover{filter:brightness(1.08)}
+  .mobile-contact-link:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+}
