@@ -160,3 +160,10 @@ backup/pre-servicos-veredra-20260725-1152
 Em uma falha crítica não corrigível, use um commit de reversão rastreável e deixe a `main` disparar o redeploy. Não use push forçado.
 
 Consulte também [DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md).
+
+
+## MeuX — laboratório público em /meux/
+
+A página https://wicolly.com.br/meux/ oferece um chat único de demonstração no navegador, com horário, lista de compras, compromissos locais e busca Crossref. Sua rota foi integrada à publicação estática do Cloudflare Pages. A interface NÃO utiliza o CORE privado ou um modelo LLM; NÃO envia mensagens no WhatsApp, não coleta telefones e não mantém lembretes no servidor. O sistema informa essas limitações sem simular uma inferência ou um envio. O estado de cada visitante fica apenas no navegador e é descartado após 45 minutos sem interação.
+
+O desenvolvimento interno das quatro versões históricas está no repositório privado TSWill03/Little-X-2-Core, branch feat/meux-demo-versioned-20261109. O frontend público de demonstração é independente desse CORE, com política CSP própria, sem ferramentas administrativas e sem endpoints de escrita.
