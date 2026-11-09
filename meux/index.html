@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MeuX | Little X 2.0 — teste aberto</title><meta name="description" content="Experimente a interface pública de laboratório da Little X 2.0, projeto acadêmico de assistente pessoal de IA.">
+<link rel="stylesheet" href="/meux/styles.css">
+
+</head>
+<body>
+<div class="layout">
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">✦</div><div><strong>MeuX</strong><small>Little X 2.0 · demonstração de portas abertas</small></div></div><div class="pill" id="statusPill" role="status">Laboratório público · demonstração local</div></header>
+<main class="chatbox" aria-label="Chat da MeuX"><div class="chathead"><div class="circle" aria-hidden="true">✦</div><div><strong>Converse com a Little X</strong><small>Chat experimental · ações locais · nenhuma permissão de servidor</small></div></div>
+<div class="messages" id="messages" aria-live="polite"><div class="welcome"><h1>Olá! Sou a MeuX.</h1><p>Esta página apresenta uma amostra interativa da interface MeuX. Comandos básicos são executados no próprio navegador, sem conexão ao modelo de IA.</p><p>Para alterar uma lista ou compromisso, peço confirmação. WhatsApp, inferência de IA e uploads de documentos complexos ainda estão em homologação; nenhum telefone é coletado nesta etapa.</p><div class="chips" id="suggestions"><button class="chip" type="button" data-prompt="Que horas são agora?">Que horas são?</button><button class="chip" type="button" data-prompt="Adicione arroz à minha lista de compras">Criar lista de compras</button><button class="chip" type="button" data-prompt="Mostre minha lista de compras">Ver minha lista</button><button class="chip" type="button" data-prompt="Pesquise artigos sobre agentes de inteligência artificial">Pesquisar artigos</button></div></div></div>
+<form class="composer" id="chatForm"><div class="comrow"><button type="button" class="attach" id="attach" title="Enviar arquivo para leitura" aria-label="Anexar arquivo">＋</button><input type="file" id="file" accept=".txt,.csv,.xlsx,.pdf,.png,.jpg,.jpeg,.webp,.mp3,.wav,.ogg,.opus"><input class="msginput" id="message" aria-label="Mensagem" placeholder="Escreva uma mensagem ou peça uma tarefa…" maxlength="600" autocomplete="off" required><button class="button" id="send" type="submit">Enviar</button></div><div class="hint" id="hint">Os arquivos são tratados apenas como dados. Esta demonstração não executa arquivos e não acessa servidores. Arquivos permanecem no navegador.</div></form></main>
+<footer class="foot"><span>Protótipo temporário · dados só neste navegador · expira em 45 minutos</span><button class="chip" type="button" id="leave">Encerrar participação</button><a class="chip project-link" href="https://github.com/TSWill03/Little-X-2" target="_blank" rel="noopener noreferrer">Ver projeto no GitHub</a></footer>
+</div>
+
+<script defer src="/meux/app.js"></script>
+</body></html>
