@@ -8,3 +8,14 @@
 @media(max-width:900px){.hero{grid-template-columns:1fr;gap:35px;padding-block:70px}.assistant-visual{min-height:340px}.feature-grid{grid-template-columns:1fr}.section-intro{align-items:start;flex-direction:column;gap:16px}.section-intro>p{max-width:700px}.top-actions .tag{display:none}}
 @media(max-width:650px){.wrap{width:calc(100% - 32px)}.topbar{height:76px}.top-actions{gap:0}.top-link{font-size:11px}.hero{padding-block:53px}.hero h1{font-size:clamp(40px,10vw,56px)}.hero-sub{font-size:15px}.hero-actions{margin-bottom:34px}.hero-actions .btn{width:100%}.hero-metrics{gap:18px}.hero-metrics div{flex:1 1 115px}.section{padding-block:56px}.lab-grid,.preview-grid,.road-grid{grid-template-columns:1fr}.lab-panel{padding:20px}.feature{padding:23px}.road-grid p{min-height:0}.closing{padding:24px;flex-direction:column;align-items:start;margin-top:44px}.footer{flex-direction:column}.assistant-visual{min-height:340px}.panel-top h3{font-size:21px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+/* Contenção dos elementos de navegação em 320px no Chromium/Firefox Linux e Windows. */
+@media(max-width:390px){
+  .topbar{gap:6px}
+  .brand{gap:7px;font-size:12px;letter-spacing:0;min-width:0}
+  .brand-mark{width:34px;height:34px;flex:0 0 34px;font-size:23px}
+  .brand small{font-size:7px;letter-spacing:.07em}
+  .top-actions{min-width:0}
+  .top-link{font-size:10px;line-height:1.25;max-width:88px;text-align:right;overflow-wrap:break-word}
+  .panel-top{flex-wrap:wrap}
+  .screen-bottom{flex-wrap:wrap}
+}
