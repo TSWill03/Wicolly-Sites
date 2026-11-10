@@ -106,3 +106,13 @@ test('MundoFit: 320–1366px sem scroll lateral ou erro JavaScript', async ({ pa
   }
   expect(errors).toEqual([])
 })
+
+test('MundoFit: fallback tipográfico não condensado não quebra mobile 320px', async ({ page }) => {
+  for (const width of [320, 375, 390]) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/mundofit/')
+    await page.addStyleTag({ content: 'h1,h2,h3,h4,.hero h1,.section-heading h2,.studio-heading h2,.brand-narrative h3,.social-voice h3,.closing h2{font-family:Arial,sans-serif!important}' })
+    const widthDoc = await page.evaluate(() => document.documentElement.scrollWidth)
+    expect(widthDoc, 'fonte fallback no viewport '+width).toBeLessThanOrEqual(width)
+  }
+})
