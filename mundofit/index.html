@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="description" content="MundoFit X: demonstração privada por link da assistente local-first para a Mundo Fit Goiás.">
+  <meta name="theme-color" content="#08131a">
+  <link rel="canonical" href="https://wicolly.com.br/mundofit/">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+  <title>MundoFit X — Demonstração da assistente</title>
+</head>
+<body>
+  <a class="skip" href="#principal">Pular para o conteúdo</a>
+  <header class="topbar wrap">
+    <a class="brand" href="#inicio" aria-label="MundoFit X — início"><span class="brand-mark" aria-hidden="true">X</span><span>MUNDOFIT <b>X</b><small>ASSISTENTE DE IA LOCAL</small></span></a>
+    <div class="top-actions"><span class="tag live">Demonstração • 10/11/2026</span><a class="top-link" href="#laboratorio">Explorar laboratório <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <main id="principal">
+    <section class="hero wrap" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="green-dot" aria-hidden="true"></span> PILOTO MUNDO FIT GOIÁS · GOIATUBA</p>
+        <h1 id="hero-title">Uma assistente para colocar <em>ideias em movimento.</em></h1>
+        <p class="hero-sub">O MundoFit X une conversação por voz e modelos locais para apoiar o dia a dia da loja. Esta página apresenta o que já existe no Windows e uma prévia interativa do fluxo criativo que queremos construir.</p>
+        <div class="hero-actions"><a href="#laboratorio" class="btn primary">Testar o laboratório <span aria-hidden="true">→</span></a><a href="#estado" class="btn secondary">O que já funciona?</a></div>
+        <div class="hero-metrics" aria-label="Informações do piloto">
+          <div><strong>0.7.1</strong><span>Versão portátil Windows</span></div>
+          <div><strong>Local-first</strong><span>IA e voz sem depender da nuvem</span></div>
+          <div><strong>45s</strong><span>Meta dos vídeos futuros</span></div>
+        </div>
+      </div>
+      <div class="assistant-visual" aria-label="Representação visual da assistente X">
+        <div class="screen-head"><span class="lights"><i></i><i></i><i></i></span><span>mundo-fit / laboratório</span><span class="screen-status">● LOCAL</span></div>
+        <div class="orb-scene"><div class="orb outer"><div class="orb inner">X</div></div></div>
+        <div class="signal" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="screen-bottom"><span><i class="ready"></i> Demonstração visual</span><span>Sem conexão com seu PC</span></div>
+      </div>
+    </section>
+    <section class="section wrap" id="estado" aria-labelledby="estado-titulo">
+      <div class="section-intro"><div><p class="eyebrow">ESTADO REAL DO PROJETO</p><h2 id="estado-titulo">O que está pronto — e o que vem depois.</h2></div><p>Uma apresentação honesta: a versão instalada no computador não é a mesma coisa que esta experiência no navegador.</p></div>
+      <div class="feature-grid">
+        <article class="feature"><span class="feature-icon" aria-hidden="true">◎</span><span class="state done">IMPLEMENTADO NO WINDOWS</span><h3>Conversação local</h3><p>Modelo Qwen por Ollama incorporado, com fallback leve. Pode operar offline após instalar os modelos.</p></article>
+        <article class="feature"><span class="feature-icon" aria-hidden="true">⌁</span><span class="state done">IMPLEMENTADO · EM VALIDAÇÃO</span><h3>Comandos por voz</h3><p>Reconhecimento local, resposta falada e comandos permitidos, como abrir calculadora e navegador. Falta testar em ambiente da loja.</p></article>
+        <article class="feature"><span class="feature-icon" aria-hidden="true">▤</span><span class="state planned">PRÓXIMA ETAPA</span><h3>Edição inteligente</h3><p>O objetivo é transformar vídeos em Reels de até 45 segundos, com cortes, legendas, prévia e aprovação. Ainda não exporta vídeos automaticamente.</p></article>
+      </div>
+    </section>
+    <section class="section lab" id="laboratorio" aria-labelledby="lab-title">
+      <div class="wrap">
+        <div class="section-intro"><div><p class="eyebrow">DEMONSTRAÇÃO INTERATIVA · NO NAVEGADOR</p><h2 id="lab-title">Do produto à ideia de vídeo.</h2></div><p>Preencha um exemplo e gere um roteiro determinístico de 45 segundos. O conteúdo fica apenas nesta aba; não é gerado por LLM nem enviado a servidor.</p></div>
+        <div class="lab-grid">
+          <form class="lab-panel creator" id="brief-form" autocomplete="off">
+            <div class="panel-top"><div><span class="step">01 / BRIEFING</span><h3>Planejar um Reel</h3></div><span class="pill">Interativo</span></div>
+            <label for="product">Produto ou categoria <span class="required">*</span></label>
+            <input id="product" name="product" maxlength="65" placeholder="Ex.: conjunto fitness" value="Conjunto fitness" required>
+            <label for="audience">Público ou intenção <span class="required">*</span></label>
+            <input id="audience" name="audience" maxlength="75" placeholder="Ex.: clientes que buscam conforto" value="Pessoas que buscam conforto no treino" required>
+            <label for="tone">Estilo do vídeo</label>
+            <select id="tone" name="tone"><option value="energetico">Dinâmico e energético</option><option value="elegante">Elegante e objetivo</option><option value="educativo">Informativo e direto</option></select>
+            <div class="form-actions"><button class="btn primary full" type="submit">Montar roteiro de 45 segundos <span aria-hidden="true">→</span></button><p class="fine">Sem login, sem coleta de dados e sem promessas comerciais automáticas.</p></div>
+          </form>
+          <div class="lab-panel result" aria-live="polite" aria-atomic="false">
+            <div class="panel-top"><div><span class="step">02 / PRÉVIA</span><h3>Roteiro sugerido</h3></div><span class="pill accent">45 SEG</span></div>
+            <div class="result-empty" id="result-empty"><span class="empty-icon" aria-hidden="true">↗</span><h4>Ainda sem roteiro</h4><p>Preencha o briefing ao lado para montar a sequência de cenas.</p></div>
+            <div id="result-content" hidden><p class="plan-summary" id="plan-summary"></p><ol class="timeline" id="timeline"></ol><div class="caption-suggestion"><small>LEGENDA SUGERIDA</small><p id="caption"></p></div><div class="result-actions"><button type="button" id="copy-script" class="btn secondary small">Copiar roteiro</button><button type="button" id="save-script" class="btn secondary small">Salvar .txt</button></div><p id="feedback" class="fine" role="status"></p></div>
+          </div>
+        </div>
+        <div class="preview-grid">
+          <div class="lab-panel file-preview"><div class="panel-top"><div><span class="step">03 / PRÉVIA LOCAL</span><h3>Visualizar um vídeo seu</h3></div><span class="pill">Somente navegador</span></div><p>Escolha um vídeo no seu computador para pré-visualizar. O arquivo não é enviado, processado ou publicado.</p><label for="video-file" class="upload">Selecionar vídeo (MP4, WebM ou MOV)<input id="video-file" type="file" accept="video/mp4,video/webm,video/quicktime,video/*"></label><p id="video-status" class="fine" role="status">Nenhum arquivo selecionado.</p><video id="video-preview" controls playsinline hidden></video></div>
+          <aside class="lab-panel transparency"><div class="panel-top"><div><span class="step">O QUE ESTE LAB FAZ</span><h3>Teste sem maquiagem</h3></div></div><div class="truth"><span>✓</span><p>Gera uma estrutura de gravação de 45s que você pode copiar e editar.</p></div><div class="truth"><span>✓</span><p>Mostra o vídeo enviado somente no navegador, sem upload.</p></div><div class="truth future"><span>↗</span><p>Cortes automáticos, legendagem por IA, renderização e publicação são objetivos futuros, <strong>não funcionalidades desta página.</strong></p></div></aside>
+        </div>
+      </div>
+    </section>
+    <section class="section wrap roadmap" aria-labelledby="road-title"><div class="section-intro"><div><p class="eyebrow">CAMINHO DO PRODUTO</p><h2 id="road-title">Da voz à produção de conteúdo.</h2></div></div><div class="road-grid"><div><span>01</span><h3>Assistente local</h3><p>Conversar, executar comandos autorizados e preservar privacidade.</p><b>Protótipo disponível</b></div><div><span>02</span><h3>Editor supervisionado</h3><p>Selecionar mídia, cortar silêncios, legendar, renderizar e pedir aprovação.</p><b>Em planejamento</b></div><div><span>03</span><h3>Fluxo comercial</h3><p>Integrar arquivos e redes sociais somente com autorização e contas apropriadas.</p><b>Futuro</b></div></div><div class="closing"><div><p class="eyebrow">PILOTO DE APRESENTAÇÃO</p><h2>Uma demonstração de hoje. Um produto construído por etapas.</h2><p>Desenvolvimento experimental para a Mundo Fit Goiás. Versões e capacidades são explicitamente separadas para uma avaliação técnica transparente.</p></div><a href="#inicio" class="btn secondary">Voltar ao início ↑</a></div></section>
+  </main>
+  <footer class="footer wrap"><span>MUNDOFIT X · protótipo local-first · 2026</span><span>Esta URL é pública para quem a conhece, mas não aparece na navegação principal.</span></footer>
+</body>
+</html>

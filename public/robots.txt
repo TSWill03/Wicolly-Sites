@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /mundofit/
+Disallow: /MundoFit/
 
 Sitemap: https://wicolly.com.br/sitemap.xml
