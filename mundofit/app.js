@@ -132,9 +132,7 @@
         candidate.classList.toggle('active-idea', active)
         candidate.setAttribute('aria-pressed', String(active))
       })
-      // Evita a corrida entre rolagem animada, foco e clique no submit (Firefox).
-      $('laboratorio').scrollIntoView({ behavior: 'instant', block: 'start' })
-      $('product').focus({ preventScroll: true })
+      // A escolha atualiza o briefing sem rolagem/foco forçados; evita cliques perdidos em Gecko.
     })
   })
 

@@ -214,3 +214,9 @@ video{display:block;margin-top:15px;max-width:100%;width:100%;max-height:300px;b
   .lab-panel h3,.aux-block h3{font-size:clamp(27px,8.9vw,34px)}
   .brand-lockup b,.brand-lockup small{white-space:normal}
 }
+/* Larguras intermediárias (421–650px) também usam fontes não condensadas em Gecko/Linux. */
+@media(min-width:421px) and (max-width:650px){
+  .section-heading h2,.studio-heading h2{font-size:clamp(34px,8.6vw,49px)}
+  .social-voice h3{font-size:clamp(34px,8vw,45px)}
+  .brand-narrative h3{font-size:clamp(34px,8vw,46px)}
+}

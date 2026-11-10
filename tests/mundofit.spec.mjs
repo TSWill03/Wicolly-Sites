@@ -97,7 +97,7 @@ test('MundoFit: prévia local de vídeo e rejeição de tipo inválido', async (
 test('MundoFit: 320–1366px sem scroll lateral ou erro JavaScript', async ({ page }) => {
   const errors = []
   page.on('pageerror',error => errors.push(error.message))
-  for (const width of [320, 360, 375, 390, 430, 768, 1024, 1366]) {
+  for (const width of [320, 360, 375, 390, 430, 480, 600, 768, 1024, 1366]) {
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/mundofit/')
     const dimension = await page.evaluate(() => ({
@@ -115,7 +115,7 @@ test('MundoFit: 320–1366px sem scroll lateral ou erro JavaScript', async ({ pa
 })
 
 test('MundoFit: fallback tipográfico não condensado não quebra mobile 320px', async ({ page }) => {
-  for (const width of [320, 375, 390]) {
+  for (const width of [320, 375, 390, 430, 480, 600]) {
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/mundofit/')
     await page.addStyleTag({ content: 'h1,h2,h3,h4,.hero h1,.section-heading h2,.studio-heading h2,.brand-narrative h3,.social-voice h3,.closing h2{font-family:Arial,sans-serif!important}' })
