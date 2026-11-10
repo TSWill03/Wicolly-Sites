@@ -167,3 +167,7 @@ Consulte também [DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md).
 A página https://wicolly.com.br/meux/ oferece um chat único de demonstração no navegador, com horário, lista de compras, compromissos locais e busca Crossref. Sua rota foi integrada à publicação estática do Cloudflare Pages. A interface NÃO utiliza o CORE privado ou um modelo LLM; NÃO envia mensagens no WhatsApp, não coleta telefones e não mantém lembretes no servidor. O sistema informa essas limitações sem simular uma inferência ou um envio. O estado de cada visitante fica apenas no navegador e é descartado após 45 minutos sem interação.
 
 O desenvolvimento interno das quatro versões históricas está no repositório privado TSWill03/Little-X-2-Core, branch feat/meux-demo-versioned-20261109. O frontend público de demonstração é independente desse CORE, com política CSP própria, sem ferramentas administrativas e sem endpoints de escrita.
+
+## Mundo Fit Goiás — apresentação comercial em /mundofit/
+
+A rota não listada `https://wicolly.com.br/mundofit/` apresenta um piloto **conceitual, não oficial** feito especificamente para a loja de suplementos Mundo Fit Goiás, em Goiatuba. Contém informações cadastrais verificadas, ideias editoriais para o varejo fitness e um criador de roteiros de Reels de 45 segundos inteiramente local ao navegador. Não consulta o estoque nem edita/publica vídeos. Não vincular a rota à homepage ou ao sitemap. Pesquisa, limitações, testes, segurança e rollback: [`docs/mundofit-demo-20261110.md`](docs/mundofit-demo-20261110.md).
