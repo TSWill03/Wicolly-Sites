@@ -31,7 +31,7 @@ test('formulário rejeita telefone inválido e exige consentimento', async ({ pa
   await expect(page.locator('#consent')).not.toBeChecked()
 })
 
-test('início do teste abre solicitação explícita no WhatsApp, sem afirmar OTP enviada', async ({ page }) => {
+test('início do teste abre uma conversa direta no WhatsApp, sem mais etapas', async ({ page }) => {
   await page.goto('/meux/')
   let destination = ''
   await page.route('https://wa.me/**', async route => {
@@ -45,9 +45,9 @@ test('início do teste abre solicitação explícita no WhatsApp, sem afirmar OT
   const url = new URL(destination)
   expect(url.host).toBe('wa.me')
   const message = url.searchParams.get('text')
-  expect(message).toContain('INICIAR TESTE MEUX')
-  expect(message).toContain('+5564999998888')
-  expect(message).toContain('Confirmo que solicitei acesso')
+  expect(message).toContain('Olá, Little X! Quero iniciar o teste.')
+  expect(message).not.toContain('+5564999998888')
+  expect(message).not.toMatch(/\bPIN\b|c[oó]digo|confirmar/i)
   // O navegador sai para wa.me; não acessar DOM após a navegação abortada pelo teste.
 })
 
