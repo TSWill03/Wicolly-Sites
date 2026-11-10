@@ -50,16 +50,12 @@
       consent.focus();
       return;
     }
-    // A static webpage cannot send WhatsApp messages or verify an OTP.
-    // The visitor explicitly sends the request from their WhatsApp; the gateway
-    // must independently verify sender identity and permission before any response.
-    const message = [
-      "INICIAR TESTE MEUX",
-      "Numero informado: +" + normalized,
-      "Confirmo que solicitei acesso pelo site e aceito receber mensagens deste teste."
-    ].join("\n");
+    // A static website cannot send WhatsApp messages by itself.
+    // The visitor initiates a real conversation with their WhatsApp account.
+    // The gateway uses the authenticated sender and never trusts input as owner identity.
+    const message = "Olá, Little X! Quero iniciar o teste.";
     const link = "https://wa.me/" + BOT_WHATSAPP + "?text=" + encodeURIComponent(message);
-    status.textContent = "Abrindo WhatsApp. Toque em Enviar para solicitar acesso; a liberação não é automática.";
+    status.textContent = "Abrindo WhatsApp. Toque em Enviar para começar a conversar.";
     window.location.assign(link);
   });
   // The formatting helper is exposed only for deterministic local tests.
