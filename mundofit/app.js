@@ -26,6 +26,11 @@
       product: 'Rotina e atendimento da Mundo Fit Goiás',
       audience: 'Pessoas de Goiatuba que querem conhecer a loja',
       tone: 'elegante'
+    },
+    novidade: {
+      product: 'Marca própria ou lançamento (a confirmar)',
+      audience: 'Clientes que querem conhecer novidades da MundoFit',
+      tone: 'energetico'
     }
   })
 
@@ -122,9 +127,12 @@
       $('product').value = preset.product
       $('audience').value = preset.audience
       $('tone').value = preset.tone
-      // Evita a corrida entre rolagem animada, foco e clique no submit (Firefox).
-      $('laboratorio').scrollIntoView({ behavior: 'instant', block: 'start' })
-      $('product').focus({ preventScroll: true })
+      document.querySelectorAll('[data-preset]').forEach((candidate) => {
+        const active = candidate === button
+        candidate.classList.toggle('active-idea', active)
+        candidate.setAttribute('aria-pressed', String(active))
+      })
+      // A escolha atualiza o briefing sem rolagem/foco forçados; evita cliques perdidos em Gecko.
     })
   })
 
