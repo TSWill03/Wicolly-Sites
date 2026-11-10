@@ -96,3 +96,9 @@
 /meux/*
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://api.crossref.org; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'
   Cache-Control: public, max-age=0, must-revalidate
+
+/mundofit/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+  Cache-Control: public, max-age=0, must-revalidate

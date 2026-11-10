@@ -73,7 +73,7 @@ async function main() {
 
   if (path.basename(distDir) !== 'dist' || path.dirname(distDir) !== root) throw new Error(`Refusing to remove unexpected dist path: ${distDir}`)
   await fs.rm(distDir, { recursive: true, force: true }); await fs.mkdir(distDir, { recursive: true })
-  for (const dir of ['servicos','shared','privacidade','hefesto','poseidon','blacklight3d','impressoes-3d','madrinha','veredra','meux']) await copyDirectory(resolveInsideRoot(dir), path.join(distDir, dir))
+  for (const dir of ['servicos','shared','privacidade','hefesto','poseidon','blacklight3d','impressoes-3d','madrinha','veredra','meux','mundofit']) await copyDirectory(resolveInsideRoot(dir), path.join(distDir, dir))
 
   await fs.mkdir(path.join(distDir, 'assets', 'projects'), { recursive: true })
   const projectAssets = { 'project-campusflow-real.webp':'campus-flow.webp','project-campusflow-cover.svg':'campus-flow-cover.svg','project-veredra-real.webp':'veredra.webp','project-veredra-cover.svg':'veredra-cover.svg','project-little-x.svg':'little-x.svg','project-little-x-cover.svg':'little-x-cover.svg','project-openclaw-little-x.svg':'openclaw-little-x.svg','project-openclaw-cover.svg':'openclaw-little-x-cover.svg','project-blacklight-real.png':'blacklight-3d.png','project-blacklight-cover.svg':'blacklight-3d-cover.svg','project-infrastructure.svg':'infrastructure.svg','project-infrastructure-cover.svg':'infrastructure-cover.svg','project-wicolly-sites-real.png':'wicolly-sites.png','project-wicolly-sites-cover.svg':'wicolly-sites-cover.svg' }
