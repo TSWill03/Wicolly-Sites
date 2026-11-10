@@ -100,8 +100,15 @@ test('MundoFit: 320–1366px sem scroll lateral ou erro JavaScript', async ({ pa
   for (const width of [320, 360, 375, 390, 430, 768, 1024, 1366]) {
     await page.setViewportSize({ width, height: 900 })
     await page.goto('/mundofit/')
-    const dimension = await page.evaluate(() => ({ width: window.innerWidth, scroll: document.documentElement.scrollWidth }))
-    expect(dimension.scroll, 'largura '+width).toBeLessThanOrEqual(dimension.width)
+    const dimension = await page.evaluate(() => ({
+      width: window.innerWidth,
+      scroll: document.documentElement.scrollWidth,
+      overflowing: [...document.querySelectorAll('body *')].map(el => {
+        const rect = el.getBoundingClientRect()
+        return { tag:el.tagName, text:el.textContent?.trim().slice(0, 40), parent:el.parentElement?.id, right:Math.ceil(rect.right) }
+      }).filter(el => el.right > window.innerWidth + 1).slice(0, 12)
+    }))
+    expect(dimension.scroll, 'largura '+width+' / '+JSON.stringify(dimension.overflowing)).toBeLessThanOrEqual(dimension.width)
     await expect(page.getByRole('button', { name:/gerar roteiro de 45 segundos/i })).toBeVisible()
   }
   expect(errors).toEqual([])

@@ -205,3 +205,12 @@ video{display:block;margin-top:15px;max-width:100%;width:100%;max-height:300px;b
 @media(max-width:420px){
   .section-heading h2,.studio-heading h2{font-size:clamp(29px,9vw,39px)}
 }
+/* Resguardo de min-content para Gecko/Linux: nenhuma headline nem marca deve exigir mais que 320px. */
+@media(max-width:420px){
+  .hero h1{font-size:clamp(39px,10.5vw,47px)}
+  .section-heading h2,.studio-heading h2{font-size:clamp(27px,8.4vw,36px)}
+  .brand-narrative h3,.social-voice h3{font-size:clamp(26px,8.2vw,35px)}
+  .closing h2{font-size:clamp(30px,8.8vw,37px)}
+  .lab-panel h3,.aux-block h3{font-size:clamp(27px,8.9vw,34px)}
+  .brand-lockup b,.brand-lockup small{white-space:normal}
+}
