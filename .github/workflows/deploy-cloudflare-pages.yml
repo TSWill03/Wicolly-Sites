@@ -49,7 +49,16 @@ jobs:
         run: npm run sync:github
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium firefox
+        shell: bash
+        run: |
+          set -euo pipefail
+          # On GitHub Ubuntu runners the system apt mirror can transiently return HTTP 503.
+          # Prefer the recommended dependency installation, then fall back to the
+          # browser binaries already supported by the pre-provisioned runner image.
+          if ! npx playwright install --with-deps chromium firefox; then
+            echo "::warning::Playwright system dependency installation failed; trying browser-only installation."
+            npx playwright install chromium firefox
+          fi
 
       - name: Run complete local-equivalent test suite
         env:
