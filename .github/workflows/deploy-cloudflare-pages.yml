@@ -22,7 +22,8 @@ concurrency:
 jobs:
   quality:
     name: Test and build unified site
-    runs-on: ubuntu-latest
+    # Pin stable LTS while ubuntu-latest resolves 26.04 apt mirror failures.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout event commit
