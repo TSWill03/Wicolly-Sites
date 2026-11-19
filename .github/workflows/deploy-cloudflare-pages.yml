@@ -55,7 +55,7 @@ jobs:
           # On GitHub Ubuntu runners the system apt mirror can transiently return HTTP 503.
           # Prefer the recommended dependency installation, then fall back to the
           # browser binaries already supported by the pre-provisioned runner image.
-          if ! npx playwright install --with-deps chromium firefox; then
+          if ! timeout --signal=TERM --kill-after=10s 120s npx playwright install --with-deps chromium firefox; then
             echo "::warning::Playwright system dependency installation failed; trying browser-only installation."
             npx playwright install chromium firefox
           fi
