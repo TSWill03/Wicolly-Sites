@@ -84,6 +84,10 @@
   Cache-Control: no-cache, no-store, must-revalidate
   X-Content-Type-Options: nosniff
 
+/veredra/updates.json
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Content-Type-Options: nosniff
+
 /veredra/manifest.json
   Cache-Control: no-cache, must-revalidate
   X-Content-Type-Options: nosniff

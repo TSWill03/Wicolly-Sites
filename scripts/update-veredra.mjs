@@ -34,6 +34,17 @@ async function main() {
   const manifest = JSON.parse(await readRequired(source, 'manifest.json'))
   const worker = await readRequired(source, 'flutter_service_worker.js')
   const appBundle = await readRequired(source, 'main.dart.js')
+  const version = JSON.parse(await readRequired(source, 'version.json'))
+  const updates = JSON.parse(await readRequired(source, 'updates.json'))
+  if (updates.schema !== 1 ||
+      updates.version !== version.version ||
+      Number(updates.buildNumber) !== Number(version.build_number) ||
+      typeof updates.notes !== 'string' || !updates.notes.trim()) {
+    throw new Error('Web update manifest must match the compiled Flutter version.')
+  }
+  if (!index.includes('veredraReloadForUpdate')) {
+    throw new Error('Web build must contain the safe reload hook.')
+  }
 
   if (!index.includes('<base href="/veredra/">')) {
     throw new Error('Flutter build must use --base-href /veredra/.')
